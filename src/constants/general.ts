@@ -1,6 +1,7 @@
 import { Option } from "@/components/Fields";
 
 export const FIXED_BUTTON_HEIGHT = 41;
+export const RESEND_AUTH_TIMER = 120;
 
 /*-------------------------------*/
 

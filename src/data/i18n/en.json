@@ -19,13 +19,7 @@
       "signIn": "Sign In",
       "logout": "Logout",
       "setting": "Settings",
-      "saveChanges": "Save Changes",
-      "continue": "Continue",
-      "or": "Or",
-      "googleBtn": "Continue with Google",
-      "changePassword": "Change Password",
-      "deleteAllChats": "Delete All Chats",
-      "helpCenter": "Help Center",
+      "sendAgain": "Re-send Code",
       "back": "Back"
     },
     "links": {
@@ -89,6 +83,12 @@
     "signIn": {
       "welcomeMsg": "Hello Admin",
       "rememberMe": "Remember Me"
+    },
+    "signInConfirm": {
+      "checkEmail": "Check your Email",
+      "enterCode": "Enter the code below to confirm your authentication:",
+      "enterCodeMessage": "five-digit sent to: {email} ",
+      "requestAgainAfter": "Didn’t received code? Request again after {seconds}"
     },
     "signUp": {
       "createAccount": "Create Your Account",
