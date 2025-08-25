@@ -1,0 +1,100 @@
+{
+  "siteInfo": {
+    "title": ""
+  },
+  "common": {
+    "buttons": {
+      "return": "Return",
+      "yes": "Yes",
+      "no": "No",
+      "select": "Select",
+      "returnHome": "Return Home",
+      "refresh": "Refresh",
+      "reset": "Reset",
+      "submit": "Submit",
+      "detail": "Detail",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "login": "login",
+      "logout": "Logout",
+      "setting": "Settings",
+      "saveChanges": "Save Changes",
+      "continue": "Continue",
+      "or": "Or",
+      "googleBtn": "Continue with Google",
+      "changePassword": "Change Password",
+      "deleteAllChats": "Delete All Chats",
+      "helpCenter": "Help Center",
+      "back": "Back"
+    },
+    "fields": {
+      "name": "Name",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "language": "Language",
+      "confirmPassword": "Confirm Password",
+      "namePlaceholder": "ex. John",
+      "emailPlaceholder": "sample@gmail.com",
+      "darkTheme": "Dark Theme",
+      "editImage": "Edit Image",
+      "female": "Female",
+      "male": "Male",
+      "age": "Age",
+      "occupation": "Occupation",
+      "tone": "Tone",
+      "gender": "Gender",
+      "personality": "Personality",
+      "tons": {
+        "happy": "Happy",
+        "sad": "Sad",
+        "natural": "Natural"
+      },
+      "cardholderName": "Cardholder Name",
+      "cardholderNameLable": "First & last name",
+      "cardNumber": "Card Number",
+      "cvv": "CVV",
+      "expirationDate": "Expiration Date",
+      "address": "Street Adress",
+      "country": "Country",
+      "province": "State/Province",
+      "city": "City",
+      "postalCode": "Postal Code"
+    },
+    "sidebar": {
+      "menu": {
+        "notification": "Notifications",
+        "settings": "Settings",
+        "subscription": "Subscription",
+        "helpCenter": "Help Center",
+        "privacyPolicy": "Privacy Policy"
+      }
+    }
+  },
+  "messages": {
+    "noRowFound": "There is no row to display!",
+    "personalityCreatedSuccessfully": "Your personality was created successfully!",
+    "somethingWentWrong": "Sorry! Something went wrong!",
+    "toast": {
+      "defaultError": "Encountered an error!",
+      "copied": "Copied!"
+    }
+  },
+  "pages": {
+    "account": {
+      "logoutMsg": "Are you sure you want to log out?",
+      "logoutConfirm": "Yes, Log Me Out"
+    },
+    "signIn": {
+      "welcomeMsg": "Welcome to Eternity Chat",
+      "welcomeSubMsg": "A Space to Reconnect and Remember.",
+      "dontHaveAnAccount": "Don't have an account?"
+    },
+    "signUp": {
+      "createAccount": "Create Your Account",
+      "signUpPrivacyPolicyText": "By signing up, you agree to our <terms>Terms of Service </terms> and <policy>Privacy Policy</policy>.",
+      "alreadyHaveAnAccount": "Already have an account?"
+    }
+  }
+}
