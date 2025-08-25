@@ -16,7 +16,7 @@
       "edit": "Edit",
       "delete": "Delete",
       "cancel": "Cancel",
-      "login": "login",
+      "signIn": "Sign In",
       "logout": "Logout",
       "setting": "Settings",
       "saveChanges": "Save Changes",
@@ -28,15 +28,19 @@
       "helpCenter": "Help Center",
       "back": "Back"
     },
+    "links": {
+      "resetPassword": "Lost password?"
+    },
     "fields": {
       "name": "Name",
       "fullName": "Full Name",
-      "email": "Email Address",
+      "email": "Email",
       "password": "Password",
       "language": "Language",
       "confirmPassword": "Confirm Password",
       "namePlaceholder": "ex. John",
-      "emailPlaceholder": "sample@gmail.com",
+      "emailPlaceholder": "admin@owdt.com",
+      "passwordPlaceholder": "..........",
       "darkTheme": "Dark Theme",
       "editImage": "Edit Image",
       "female": "Female",
@@ -82,14 +86,9 @@
     }
   },
   "pages": {
-    "account": {
-      "logoutMsg": "Are you sure you want to log out?",
-      "logoutConfirm": "Yes, Log Me Out"
-    },
     "signIn": {
-      "welcomeMsg": "Welcome to Eternity Chat",
-      "welcomeSubMsg": "A Space to Reconnect and Remember.",
-      "dontHaveAnAccount": "Don't have an account?"
+      "welcomeMsg": "Hello Admin",
+      "rememberMe": "Remember Me"
     },
     "signUp": {
       "createAccount": "Create Your Account",

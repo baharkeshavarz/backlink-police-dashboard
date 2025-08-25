@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { GlobalStylesProps, ThemeOptions, createTheme } from '@mui/material';
-import Link from 'next/link';
-import { grey } from '@mui/material/colors';
+import { GlobalStylesProps, ThemeOptions, createTheme } from "@mui/material";
+import Link from "next/link";
+import { grey } from "@mui/material/colors";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface BreakpointOverrides {
     xs: true;
     sm: true;
@@ -15,29 +15,29 @@ declare module '@mui/material/styles' {
   }
 }
 
-export const globalStyles: GlobalStylesProps['styles'] = (theme) => ({
-  '*::-webkit-scrollbar-track': {
+export const globalStyles: GlobalStylesProps["styles"] = (theme) => ({
+  "*::-webkit-scrollbar-track": {
     backgroundColor: grey[200],
   },
-  '*::-webkit-scrollbar': {
+  "*::-webkit-scrollbar": {
     width: 8,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
   },
-  '*::-webkit-scrollbar-thumb': {
+  "*::-webkit-scrollbar-thumb": {
     backgroundColor: grey[500],
     borderRadius: 12,
   },
-  'audio::-webkit-media-controls-enclosure': {
+  "audio::-webkit-media-controls-enclosure": {
     borderRadius: 12,
   },
   a: {
-    textDecoration: 'none !important',
+    textDecoration: "none !important",
   },
-  '.MuiSvgIcon-root': {
-    width: '1em',
-    height: '1em',
+  ".MuiSvgIcon-root": {
+    width: "1em",
+    height: "1em",
   },
-  '.radial': {
+  ".radial": {
     background: `radial-gradient(
       96.3% 616.69% at 3.7% 82.29%,
       ${theme.palette.primary.main} 0%,
@@ -45,7 +45,7 @@ export const globalStyles: GlobalStylesProps['styles'] = (theme) => ({
       ${theme.palette.primary.light} 72.42%,
       ${theme.palette.primary.main} 100%
     )`,
-    '&:hover': {
+    "&:hover": {
       background: `radial-gradient(
         96.3% 616.69% at 3.7% 82.29%,
         ${theme.palette.primary.main} 0%,
@@ -60,83 +60,83 @@ export const globalStyles: GlobalStylesProps['styles'] = (theme) => ({
 const themeOptions: ThemeOptions = {
   palette: {
     primary: {
-      main: '#039375',
-      light: '#36b89f',
-      dark: '#02664f',
-      contrastText: '#FFF',
+      main: "#2747f0",
+      light: "#36b89f",
+      dark: "#02664f",
+      contrastText: "#FFF",
     },
     secondary: {
-      main: '#017FED',
-      dark: '#3D68B5',
-      light: '#A2CBF3',
-      contrastText: '#FFF',
+      main: "#017FED",
+      dark: "#3D68B5",
+      light: "#A2CBF3",
+      contrastText: "#FFF",
     },
     background: {
-      default: '#FFFAF3',
-      paper: '#FFF',
+      default: "#111928",
+      paper: "#FFF",
     },
   },
   typography: {
-    fontFamily: 'sfproDisplay, sans-serif',
+    fontFamily: "sfproDisplay, sans-serif",
     htmlFontSize: 16,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
     h1: {
-      fontSize: '2.5rem', //40px
+      fontSize: "2.5rem", //40px
     },
     h2: {
-      fontSize: '1.875rem', //30px
+      fontSize: "1.875rem", //30px
       lineHeight: 1.27,
     },
     h3: {
-      fontSize: '1.5rem', //24px
+      fontSize: "1.5rem", //24px
       lineHeight: 1.33,
       fontWeight: 700,
     },
     h4: {
-      fontSize: '1.25rem', //20px
+      fontSize: "1.25rem", //20px
       lineHeight: 1.4,
       fontWeight: 500,
     },
     h5: {
-      fontSize: '1rem', //16px
+      fontSize: "1rem", //16px
       lineHeight: 1.5,
     },
     h6: {
-      fontSize: '0.875rem', //14px
+      fontSize: "0.875rem", //14px
       lineHeight: 1.57,
     },
     body1: {
-      fontSize: '0.875rem', //14px
+      fontSize: "0.875rem", //14px
       lineHeight: 1.57,
     },
     body2: {
-      fontSize: '1.25rem', //20px
+      fontSize: "1.25rem", //20px
       lineHeight: 1.66,
     },
     subtitle1: {
-      fontSize: '1rem', //16px
+      fontSize: "1rem", //16px
       lineHeight: 1.57,
     },
     subtitle2: {
-      fontSize: '0.875rem', //14px
+      fontSize: "0.875rem", //14px
       lineHeight: 1.66,
     },
     caption: {
-      fontSize: '0.75rem', //12px
+      fontSize: "0.75rem", //12px
       lineHeight: 1.66,
     },
     overline: {
       lineHeight: 1.66,
     },
     button: {
-      textTransform: 'none',
+      textTransform: "none",
     },
   },
   shape: {
-    borderRadius: 24,
+    borderRadius: 8,
   },
   components: {
     MuiListItem: {
@@ -227,7 +227,7 @@ const themeOptions: ThemeOptions = {
       md: 1024,
       lg: 1266,
       xl: 1536,
-      customSize: 480,
+      customSize: 538,
     },
   },
 };
@@ -238,9 +238,9 @@ export const defaultTheme = createTheme({
 
 export const persianTheme = createTheme({
   ...themeOptions,
-  direction: 'rtl',
+  direction: "rtl",
   typography: {
     ...themeOptions.typography,
-    fontFamily: 'iransans, noto-Arabic',
+    fontFamily: "iransans, noto-Arabic",
   },
 });
