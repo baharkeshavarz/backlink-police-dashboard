@@ -1,41 +1,44 @@
 "use client";
 
 import { ButtonWithLoading } from "@/components/ButtonWithLoading";
-import { customCheckboxSx } from "@/components/common/SharedStyles";
 import Title from "@/components/common/Title";
-import { CustomCheckbox, FormBuilder } from "@/components/Fields";
+import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import {
-  DEFAULT_FORGOT_PASSWORD_PATH,
-  DEFAULT_SIGNUP_PATH,
-} from "@/constants/routes";
+import { DEFAULT_SIGNUP_PATH } from "@/constants/routes";
 import { signIn } from "@/services/iam";
-import { AuthPayload } from "@/services/iam/types";
+import { ResetPasswordPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
+import CheckClubRulesForm from "./components/CheckRulesForm";
 
-const LoginForm = () => {
+const ResetPassword = () => {
   const t = useTranslations();
   const router = useRouter();
 
-  const labels: Record<keyof AuthPayload, string> = {
+  const labels: Record<keyof ResetPasswordPayload, string> = {
     email: t("common.fields.email"),
     password: t("common.fields.password"),
+    confirmPassword: t("common.fields.confirmPassword"),
   };
 
-  const resolveSchema: yup.ObjectSchema<AuthPayload> = yup.object({
+  const resolveSchema: yup.ObjectSchema<ResetPasswordPayload> = yup.object({
     email: yup.string().nullable().required().label(labels.email),
     password: yup.string().nullable().required().label(labels.password),
+    confirmPassword: yup
+      .string()
+      .nullable()
+      .required()
+      .oneOf([yup.ref("password")], "passwordMustMatch")
+      .label(labels.confirmPassword),
   });
 
-  const methods = useForm<AuthPayload>({
+  const methods = useForm<ResetPasswordPayload>({
     resolver: yupResolver(resolveSchema),
   });
 
@@ -45,7 +48,7 @@ const LoginForm = () => {
     mutationFn: signIn,
   });
 
-  const onSubmit: SubmitHandler<AuthPayload> = async (payload) => {
+  const onSubmit: SubmitHandler<ResetPasswordPayload> = async (payload) => {
     // await mutateAsync({ payload });
     // router.push(DEFAULT_DASHBOARD_CHAT_PATH + `/${SAMPLE_CHAT_ID}`);
     router.push(DEFAULT_SIGNUP_PATH);
@@ -79,6 +82,23 @@ const LoginForm = () => {
         },
       },
     },
+    confirmPassword: {
+      type: "String",
+      name: "confirmPassword",
+      label: labels.confirmPassword,
+      props: {
+        type: "password",
+        placeholder: t("common.fields.passwordPlaceholder"),
+        inputProps: {
+          autoComplete: "new-password",
+        },
+      },
+      ui: {
+        grid: {
+          size: { xs: 12 },
+        },
+      },
+    },
   };
 
   return (
@@ -95,7 +115,7 @@ const LoginForm = () => {
         <FormProvider {...methods}>
           <Box bgcolor="common.white" width="100%" p={4} borderRadius={2}>
             <Title
-              title={t("pages.signIn.welcomeMsg")}
+              title={t("pages.resetPassword.titleMsg")}
               sx={{ my: 2, textAlign: "left" }}
             />
             <Grid
@@ -106,42 +126,7 @@ const LoginForm = () => {
             >
               <FormBuilder fields={fields} />
               <Grid size={{ xs: 12 }}>
-                <Box
-                  display={"flex"}
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Stack direction="row">
-                    <CustomCheckbox
-                      name="rememberMe"
-                      label={t("pages.signIn.rememberMe")}
-                      disableRipple
-                      sx={{
-                        ...customCheckboxSx,
-                        color: "grey.500",
-                      }}
-                    />
-                  </Stack>
-                  <Link href={DEFAULT_FORGOT_PASSWORD_PATH}>
-                    <Typography variant="caption" color="blue.600">
-                      {t("common.links.resetPassword")}
-                    </Typography>
-                  </Link>
-                </Box>
-              </Grid>
-              <Grid size={{ xs: 12 }}>
-                <ButtonWithLoading
-                  isLoading={isPending}
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                >
-                  <Typography variant="subtitle2">
-                    {t("common.buttons.signIn")}
-                  </Typography>
-                </ButtonWithLoading>
+                <CheckClubRulesForm />
               </Grid>
             </Grid>
           </Box>
@@ -151,4 +136,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetPassword;

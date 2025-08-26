@@ -1,12 +1,16 @@
 import { Response } from "../types/common";
 
-export interface SignInPayload {
+export interface AuthPayload {
   email: string;
   password: string;
 }
 
+export interface ResetPasswordPayload extends AuthPayload {
+  confirmPassword: string;
+}
+
 export interface SignInService {
-  (args: { payload: SignInPayload }): Response;
+  (args: { payload: AuthPayload }): Response;
 }
 
 export interface SignUpPayload {
