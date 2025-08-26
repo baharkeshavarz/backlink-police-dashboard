@@ -2,6 +2,7 @@ import { Option } from "@/components/Fields";
 
 export const FIXED_BUTTON_HEIGHT = 41;
 export const RESEND_AUTH_TIMER = 120;
+export const FIXED_INPUT_HEIGHT = 42;
 
 /*-------------------------------*/
 
@@ -10,7 +11,6 @@ export const DRAWER_MIN_WIDTH = 0;
 export const MINI_DRAWER_WIDTH = 80;
 export const DIALOG_SIDEBAR_WIDTH = 240;
 export const NAVBAR_HEIGHT = 80;
-export const FIXED_INPUT_HEIGHT = 51;
 export const FIXED_INPUT_MEDIUM_HEIGHT = 42;
 
 export const FIXED_SELECT_HEIGHT = 50;

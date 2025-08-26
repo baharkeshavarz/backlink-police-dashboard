@@ -3,6 +3,7 @@
 import { GlobalStylesProps, ThemeOptions, createTheme } from "@mui/material";
 import Link from "next/link";
 import { grey } from "@mui/material/colors";
+import { bluePalette, grayPalette } from "./theme-color";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -13,9 +14,16 @@ declare module "@mui/material/styles" {
     xl: true;
     customSize: true;
   }
+
+  interface Palette {
+    blue: typeof bluePalette;
+  }
+  interface PaletteOptions {
+    blue?: typeof bluePalette;
+  }
 }
 
-export const globalStyles: GlobalStylesProps["styles"] = (theme) => ({
+export const globalStyles: GlobalStylesProps["styles"] = () => ({
   "*::-webkit-scrollbar-track": {
     backgroundColor: grey[200],
   },
@@ -37,24 +45,6 @@ export const globalStyles: GlobalStylesProps["styles"] = (theme) => ({
     width: "1em",
     height: "1em",
   },
-  ".radial": {
-    background: `radial-gradient(
-      96.3% 616.69% at 3.7% 82.29%,
-      ${theme.palette.primary.main} 0%,
-      ${theme.palette.primary.light} 33.75%,
-      ${theme.palette.primary.light} 72.42%,
-      ${theme.palette.primary.main} 100%
-    )`,
-    "&:hover": {
-      background: `radial-gradient(
-        96.3% 616.69% at 3.7% 82.29%,
-        ${theme.palette.primary.main} 0%,
-        ${theme.palette.primary.light} 33.75%,
-        ${theme.palette.primary.light} 72.42%,
-        ${theme.palette.primary.main} 100%
-      )`,
-    },
-  },
 });
 
 const themeOptions: ThemeOptions = {
@@ -75,33 +65,35 @@ const themeOptions: ThemeOptions = {
       default: "#111928",
       paper: "#FFF",
     },
+    grey: grayPalette,
+    blue: bluePalette,
   },
   typography: {
-    fontFamily: "sfproDisplay, sans-serif",
-    htmlFontSize: 16,
+    // fontFamily: "Inter, sans-serif",
+    htmlFontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightBold: 700,
     h1: {
-      fontSize: "2.5rem", //40px
+      fontSize: "1.875rem", //30px
+      lineHeight: 1.5,
     },
     h2: {
-      fontSize: "1.875rem", //30px
+      fontSize: "1.5rem", //24px
       lineHeight: 1.27,
     },
     h3: {
-      fontSize: "1.5rem", //24px
+      fontSize: "1.25rem", //20px
       lineHeight: 1.33,
-      fontWeight: 700,
     },
     h4: {
-      fontSize: "1.25rem", //20px
+      fontSize: "1rem", //16px
       lineHeight: 1.4,
       fontWeight: 500,
     },
     h5: {
-      fontSize: "1rem", //16px
+      fontSize: "0.875rem", //14px
       lineHeight: 1.5,
     },
     h6: {
@@ -145,11 +137,7 @@ const themeOptions: ThemeOptions = {
         disablePadding: true,
       },
     },
-    // MuiLink: {
-    //   defaultProps: {
-    //     component: Link,
-    //   },
-    // },
+
     MuiBottomNavigationAction: {
       defaultProps: {
         component: Link,
@@ -201,24 +189,6 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
-    // MuiInputBase: {
-    //   styleOverrides: {
-    //     root: {
-    //       height: 54,
-    //     },
-    //   },
-    // },
-    // MuiButtonBase: {
-    //   styleOverrides: {
-    //     root: {
-    //       MuiButton: {
-    //         contained: {
-    //           height: 55,
-    //         },
-    //       },
-    //     },
-    //   },
-    // },
   },
   breakpoints: {
     values: {

@@ -6,7 +6,7 @@ import VerifyEmail from "./components/VerifyEmail";
 const SignIn = () => {
   return (
     <>
-      <VerifyEmail />
+      {/* <VerifyEmail /> */}
       <Login />
     </>
   );

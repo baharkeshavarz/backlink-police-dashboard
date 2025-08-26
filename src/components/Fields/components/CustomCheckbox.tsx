@@ -1,7 +1,7 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
-import { FC } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { CustomSwitchProps } from '../types';
+import { Checkbox, FormControlLabel } from "@mui/material";
+import { FC } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { CustomSwitchProps } from "../types";
 
 const CustomCheckbox: FC<CustomSwitchProps> = ({ label, name, ...props }) => {
   const { control } = useFormContext();
@@ -19,6 +19,7 @@ const CustomCheckbox: FC<CustomSwitchProps> = ({ label, name, ...props }) => {
             onChange={field.onChange}
             control={<Checkbox {...props} />}
             label={label}
+            sx={{ ...(props?.sx || {}) }}
           />
         );
       }}

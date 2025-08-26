@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonWithLoading } from "@/components/ButtonWithLoading";
+import { customCheckboxSx } from "@/components/common/SharedStyles";
 import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
@@ -107,6 +108,29 @@ const Login = () => {
             >
               <FormBuilder fields={fields} />
               <Grid size={{ xs: 12 }}>
+                <Box
+                  display={"flex"}
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Stack direction="row">
+                    <CustomCheckbox
+                      name="rememberMe"
+                      label={t("pages.signIn.rememberMe")}
+                      disableRipple
+                      sx={{
+                        ...customCheckboxSx,
+                      }}
+                    />
+                  </Stack>
+                  <Link href={DEFAULT_FORGOT_PASSWORD_PATH}>
+                    <Typography variant="caption" color="blue.600">
+                      {t("common.links.resetPassword")}
+                    </Typography>
+                  </Link>
+                </Box>
+              </Grid>
+              <Grid size={{ xs: 12 }}>
                 <ButtonWithLoading
                   isLoading={isPending}
                   type="submit"
@@ -115,27 +139,11 @@ const Login = () => {
                   color="primary"
                   size="large"
                 >
-                  <Typography variant="subtitle1" fontWeight={700}>
+                  <Typography variant="body1">
                     {t("common.buttons.signIn")}
                   </Typography>
                 </ButtonWithLoading>
               </Grid>
-            </Grid>
-
-            <Grid size={{ xs: 12 }}>
-              <Box display={"flex"} justifyContent="space-between" mt={2}>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <CustomCheckbox
-                    name="rememberMe"
-                    label={t("pages.signIn.rememberMe")}
-                  />
-                </Stack>
-                <Typography>
-                  <Link href={DEFAULT_FORGOT_PASSWORD_PATH}>
-                    {t("common.links.resetPassword")}
-                  </Link>
-                </Typography>
-              </Box>
             </Grid>
           </Box>
         </FormProvider>

@@ -21,6 +21,8 @@ import { headers } from "next/headers";
 import { userAgent } from "next/server";
 import { PropsWithChildren, ReactNode } from "react";
 import "../../../global.css";
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
   children: ReactNode;
@@ -47,7 +49,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={languages?.[locale]?.direction}>
-      <body>
+      <body className={inter.className}>
         <TanstackProvider>
           <AppRouterCacheProvider>
             <ThemeProvider theme={themes[locale] ?? defaultTheme}>
