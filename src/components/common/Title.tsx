@@ -10,11 +10,11 @@ export interface TitleProps {
 const Title: FC<TitleProps> = ({ title, subTitle, sx, variant = "h1" }) => {
   return (
     <Stack spacing={2} sx={{ ...sx }}>
-      <Typography variant={variant} fontWeight="700" color="black">
+      <Typography variant={variant} fontWeight="700" color="grey.900">
         {title}
       </Typography>
       {subTitle && (
-        <Typography variant="h4" fontWeight={400} color="black">
+        <Typography variant="h4" fontWeight={400} color="grey.900">
           {subTitle}
         </Typography>
       )}

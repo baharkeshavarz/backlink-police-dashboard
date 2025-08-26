@@ -58,7 +58,6 @@ const Login = () => {
       type: "String",
       props: {
         placeholder: t("common.fields.emailPlaceholder"),
-        boldLabel: true,
       },
       ui: {
         grid: {
@@ -73,7 +72,6 @@ const Login = () => {
       props: {
         placeholder: t("common.fields.passwordPlaceholder"),
         type: "password",
-        boldLabel: true,
       },
       ui: {
         grid: {

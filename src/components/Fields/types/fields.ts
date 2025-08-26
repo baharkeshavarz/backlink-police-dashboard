@@ -7,15 +7,15 @@ import {
   SwitchOwnerState,
   SxProps,
   TextFieldProps,
-} from '@mui/material';
+} from "@mui/material";
 import {
   DatePickerProps,
   DateTimePickerProps,
   PickerValidDate,
-} from '@mui/x-date-pickers';
-import { ReactNode } from 'react';
-import { ControllerProps, UseFormRegister } from 'react-hook-form';
-import { FileUploadProps } from 'react-material-file-upload';
+} from "@mui/x-date-pickers";
+import { ReactNode } from "react";
+import { ControllerProps, UseFormRegister } from "react-hook-form";
+import { FileUploadProps } from "react-material-file-upload";
 
 export interface Option {
   id: number | string;
@@ -26,7 +26,7 @@ export interface Option {
 
 export interface ButtonWithLoadingProps extends ButtonProps {
   isLoading?: boolean;
-  buttonType?: 'Reset';
+  buttonType?: "Reset";
 }
 
 export interface CustomDateTimePickerProps<TDate extends PickerValidDate = Date>
@@ -35,7 +35,7 @@ export interface CustomDateTimePickerProps<TDate extends PickerValidDate = Date>
   name: string;
   label: string;
   fullWidth?: boolean;
-  variant?: TextFieldProps['variant'];
+  variant?: TextFieldProps["variant"];
   valueFormatter?: (value: any) => never;
 }
 
@@ -45,7 +45,7 @@ export interface CustomDatePickerProps<TDate extends PickerValidDate = Date>
   name: string;
   label: string;
   fullWidth?: boolean;
-  variant?: TextFieldProps['variant'];
+  variant?: TextFieldProps["variant"];
   valueFormatter?: (value: any) => never;
 }
 export interface CustomSelectProps extends OutlinedInputProps {
@@ -61,10 +61,10 @@ export interface CustomAutoCompleteProps<
   TData extends Option,
   TMultiple extends boolean = false,
   TDisableClearable extends boolean = false,
-  TFreeSolo extends boolean = false,
+  TFreeSolo extends boolean = false
 > extends Omit<
     AutocompleteProps<TData, TMultiple, TDisableClearable, TFreeSolo>,
-    'renderInput'
+    "renderInput"
   > {
   resetFieldsOnChange?: string[];
   options: TData[];
@@ -91,10 +91,10 @@ export interface ServerSideAutoComplete<
   TData extends Option,
   TMultiple extends boolean = false,
   TDisableClearable extends boolean = false,
-  TFreeSolo extends boolean = false,
+  TFreeSolo extends boolean = false
 > extends Omit<
     CustomAutoCompleteProps<TData, TMultiple, TDisableClearable, TFreeSolo>,
-    'options'
+    "options"
   > {
   queryFn: (value?: string | null) => Promise<Option[]>;
   disabledOnChange: boolean;
@@ -117,10 +117,10 @@ export type TextLimitations = Partial<{
   maxLength: number;
 }>;
 export interface CustomTextFieldProps
-  extends Partial<TextFieldProps<'standard'>> {
+  extends Partial<TextFieldProps<"standard">> {
   label: string;
   boldLabel?: boolean;
-  labelVariant?: 'subtitle1' | 'body1';
+  labelVariant?: "subtitle1" | "subtitle2";
   name: string;
   limitations?: TextLimitations & NumberLimitations;
   ControllerProps?: Partial<ControllerProps>;
@@ -138,7 +138,7 @@ export interface CustomTextFieldProps
 }
 
 export interface CurrencyTextFieldProps
-  extends Partial<TextFieldProps<'outlined'>> {
+  extends Partial<TextFieldProps<"outlined">> {
   limitations?: NumberLimitations;
   currencyLabel?: ReactNode;
 }
@@ -166,40 +166,40 @@ export interface CustomRadioButtonsProps {
 }
 
 export interface ICustomTextField {
-  type: 'TextField';
+  type: "TextField";
   props: OutlinedTextFieldProps;
   defaultValue: unknown;
 }
 
 export interface ICustomDatePicker {
-  type: 'DatePicker';
+  type: "DatePicker";
   props: Omit<
     CustomDatePickerProps<PickerValidDate>,
-    'onSelectedSectionsChange'
+    "onSelectedSectionsChange"
   > & {
     boldLabel?: boolean;
-    labelVariant?: 'subtitle1' | 'body1';
+    labelVariant?: "subtitle1" | "body1";
     sx?: SxProps;
   };
   defaultValue: unknown;
 }
 
 export interface ICustomSelect {
-  type: 'Select';
+  type: "Select";
   props: CustomSelectProps;
   defaultValue: unknown;
 }
 
 export interface ICustomSwitch {
-  type: 'Switch';
+  type: "Switch";
   props: CustomSwitchProps;
   defaultValue: unknown;
 }
 
 export interface UploadFieldProps
-  extends Omit<FileUploadProps, 'onChange' | 'value'> {
+  extends Omit<FileUploadProps, "onChange" | "value"> {
   name: string;
-  value?: FileUploadProps['value'];
+  value?: FileUploadProps["value"];
   showUploadBox?: boolean;
 }
 
@@ -208,7 +208,7 @@ export interface UIProperties {
 }
 
 export interface ICustomComponent {
-  type?: 'Custom';
+  type?: "Custom";
   component: ReactNode;
 }
 
@@ -219,59 +219,59 @@ export interface ICommonProperties {
 
 export type IFieldTypes =
   | {
-      type?: 'Date';
+      type?: "Date";
       limitations?: DateLimitations;
       props?: Partial<ICustomDatePicker> & {
         boldLabel?: boolean;
-        labelVariant?: 'subtitle1' | 'body1';
+        labelVariant?: "subtitle1" | "body1";
         sx?: SxProps;
       };
     }
   | {
-      type?: 'RadioButtons';
+      type?: "RadioButtons";
       options: Option[];
     }
   | {
-      type?: 'Number';
+      type?: "Number";
       props?: Partial<CustomTextFieldProps>;
       limitations?: NumberLimitations;
     }
   | {
-      type?: 'Switch';
+      type?: "Switch";
     }
   | {
-      type?: 'Checkbox';
+      type?: "Checkbox";
     }
   | {
-      type?: 'String';
+      type?: "String";
       props?: Partial<CustomTextFieldProps>;
       limitations?: TextLimitations;
     }
   | {
-      type?: 'Textarea';
+      type?: "Textarea";
       props?: Partial<CustomTextFieldProps>;
       limitations?: TextLimitations;
     }
   | {
-      type?: 'Currency';
+      type?: "Currency";
       limitations?: NumberLimitations;
     }
   | {
-      type: 'FreeSoloSelective';
+      type: "FreeSoloSelective";
       props?: Partial<MultipleFreeSoloProps>;
       limitations?: FreeSoloLimitations;
     }
   | {
-      type: 'Selective';
+      type: "Selective";
       props?: Partial<CustomTextFieldProps>;
       options: Option[];
     }
   | {
-      type: 'SearchableSelective';
+      type: "SearchableSelective";
       options: Option[];
     }
   | {
-      type: 'ServerSideSelective';
+      type: "ServerSideSelective";
       queryFn: (searchText?: string | null) => Promise<Option[]>;
       props?: Partial<ServerSideCustomAutoCompleteProps>;
     };

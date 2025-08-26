@@ -87,8 +87,9 @@
     "signInConfirm": {
       "checkEmail": "Check your Email",
       "enterCode": "Enter the code below to confirm your authentication:",
-      "enterCodeMessage": "five-digit sent to: {email} ",
-      "requestAgainAfter": "Didn’t received code? Request again after {seconds}"
+      "enterCodeMessage": "five-digit sent to:",
+      "requestAgainAfter": "Didn’t received code? Request again after ",
+      "wrongCode": "Must be at least {count} characters"
     },
     "signUp": {
       "createAccount": "Create Your Account",

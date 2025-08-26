@@ -69,7 +69,7 @@ const themeOptions: ThemeOptions = {
     blue: bluePalette,
   },
   typography: {
-    // fontFamily: "Inter, sans-serif",
+    fontFamily: "Inter, sans-serif",
     htmlFontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
@@ -90,7 +90,6 @@ const themeOptions: ThemeOptions = {
     h4: {
       fontSize: "1rem", //16px
       lineHeight: 1.4,
-      fontWeight: 500,
     },
     h5: {
       fontSize: "0.875rem", //14px
@@ -101,11 +100,11 @@ const themeOptions: ThemeOptions = {
       lineHeight: 1.57,
     },
     body1: {
-      fontSize: "0.875rem", //14px
+      fontSize: "1rem", //16px
       lineHeight: 1.57,
     },
     body2: {
-      fontSize: "1.25rem", //20px
+      fontSize: "1.125", //18px
       lineHeight: 1.66,
     },
     subtitle1: {

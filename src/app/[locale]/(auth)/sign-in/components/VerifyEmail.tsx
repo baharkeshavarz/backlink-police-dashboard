@@ -24,6 +24,7 @@ import OtpInput from "react-otp-input";
 import * as yup from "yup";
 
 type FieldNames = Record<"password", string>;
+const codeLength = 5;
 
 const VerifyEmail = () => {
   const t = useTranslations();
@@ -34,14 +35,17 @@ const VerifyEmail = () => {
   );
 
   const userName = searchParams.get("username") || "sample@backlink.com"; //todo
-  const entryPoint = searchParams.get("backUrl") || "";
-
   const labels: Record<keyof FieldNames, string> = {
-    password: t("pages.confirm.fields.code"),
+    password: t("pages.signInConfirm.wrongCode", { count: codeLength }),
   };
 
   const resolveSchema: yup.ObjectSchema<FieldNames> = yup.object({
-    password: yup.string().nullable().required().min(6).label(labels.password),
+    password: yup
+      .string()
+      .nullable()
+      .required()
+      .min(codeLength)
+      .label(labels.password),
   });
 
   const methods = useForm<FieldNames>({
@@ -68,7 +72,7 @@ const VerifyEmail = () => {
   });
 
   const onSubmit: SubmitHandler<FieldNames> = async (payload) => {
-    await mutateAsync(payload);
+    // await mutateAsync(payload);
   };
 
   const [password] = watch(["password"]);
@@ -83,12 +87,12 @@ const VerifyEmail = () => {
     if (password?.length === 5) {
       handleSubmit(onSubmit)();
     }
-  }, [password, handleSubmit]);
+  }, [password, handleSubmit, onSubmit]);
 
-  const { mutateAsync: mutateAsyncSendAgain, isPending: isPendingSendAgain } =
-    useMutation({
-      // mutationFn: sendLoginOtp,
-    });
+  // const { mutateAsync: mutateAsyncSendAgain, isPending: isPendingSendAgain } =
+  //   useMutation({
+  //     mutationFn: sendLoginOtp,
+  //   });
 
   const handleClickOnSendAgain = async () => {
     setTimerEndDate(Date.now() + RESEND_AUTH_TIMER * 1000);
@@ -107,15 +111,27 @@ const VerifyEmail = () => {
     >
       <Container maxWidth="customSize">
         <Box bgcolor="common.white" width="100%" p={4} borderRadius={2}>
-          <Stack spacing={2}>
-            <Typography>{t("pages.signInConfirm.checkEmail")}</Typography>
-            <Typography>{t("pages.signInConfirm.enterCode")}</Typography>
-            <Typography variant="body1">
-              {t("pages.signInConfirm.enterCodeMessage", {
-                email: userName,
-              })}
+          <Stack>
+            <Typography variant="h1" fontWeight={700}>
+              {t("pages.signInConfirm.checkEmail")}
             </Typography>
-            <Box sx={{ mt: 2 }}>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignContent="center"
+              sx={{ pt: 2 }}
+            >
+              <Typography variant="body1" color="grey.700">
+                {t("pages.signInConfirm.enterCodeMessage")}
+              </Typography>
+              <Typography variant="body1" fontWeight={700}>
+                {userName}
+              </Typography>
+            </Box>
+            <Typography variant="body1" color="grey.700">
+              {t("pages.signInConfirm.enterCode")}
+            </Typography>
+            <Box mt={3}>
               <Controller
                 control={control}
                 name="password"
@@ -131,22 +147,23 @@ const VerifyEmail = () => {
                           justifyContent: "space-between",
                         }}
                         inputStyle={{
-                          width: 40,
-                          height: 40,
+                          width: 74,
+                          height: 72,
                           marginRight: 8,
-                          borderRadius: 4,
+                          borderRadius: 8,
                           boxShadow: "none",
                           outlineWidth: 0,
                           border: "1px solid",
                           borderColor: error?.message ? red[500] : grey[300],
                           textAlign: "center",
-                          fontSize: 24,
+                          fontSize: 30,
+                          fontWeight: 800,
                         }}
                         value={value}
                         onChange={(value) => {
                           onChange(digitsFaToEn(value));
                         }}
-                        numInputs={5}
+                        numInputs={codeLength}
                         inputType="tel"
                         renderInput={(props) => <input {...props} />}
                       />
@@ -164,27 +181,37 @@ const VerifyEmail = () => {
               key={timerEndDate}
               date={timerEndDate}
               renderer={({ completed, minutes, seconds }) => (
-                <Stack spacing={1}>
-                  <Typography variant="body2" color="text.secondary">
-                    {completed
-                      ? ""
-                      : t("pages.signInConfirm.requestAgainAfter", {
-                          seconds: `${String(minutes).padStart(
-                            2,
-                            "0"
-                          )}:${String(seconds).padStart(2, "0")}`,
-                        })}
-                  </Typography>
+                <Box width="100%">
+                  {completed ? (
+                    ""
+                  ) : (
+                    <Box
+                      display="flex"
+                      justifyContent="flex-start"
+                      alignContent="center"
+                      gap={1}
+                    >
+                      <Typography variant="body1" color="grey.700">
+                        {t("pages.signInConfirm.requestAgainAfter")}
+                      </Typography>
+                      <Typography variant="body1" fontWeight={700}>
+                        {`${String(minutes).padStart(2, "0")}:${String(
+                          seconds
+                        ).padStart(2, "0")}`}
+                      </Typography>
+                    </Box>
+                  )}
 
                   <Button
-                    color="warning"
                     variant="outlined"
                     onClick={handleClickOnSendAgain}
                     disabled={!completed}
+                    fullWidth
+                    sx={{ mt: 2, bgcolor: "grey.200", color: "grey.600" }}
                   >
                     {t("common.buttons.sendAgain")}
                   </Button>
-                </Stack>
+                </Box>
               )}
             />
           </Stack>

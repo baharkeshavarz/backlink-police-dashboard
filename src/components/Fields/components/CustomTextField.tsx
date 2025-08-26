@@ -15,7 +15,7 @@ const CustomTextField: FC<CustomTextFieldProps> = ({
   forbiddenChars = DEFAULT_FORBIDDEN_CHARS,
   label,
   boldLabel = false,
-  labelVariant = "body1",
+  labelVariant = "subtitle2",
   ...props
 }) => {
   const {
@@ -70,7 +70,7 @@ const CustomTextField: FC<CustomTextFieldProps> = ({
                 <Typography
                   variant={labelVariant}
                   mb={1}
-                  fontWeight={boldLabel ? "bold" : "normal"}
+                  fontWeight={boldLabel ? "bold" : "500"}
                 >
                   {label}
                 </Typography>
