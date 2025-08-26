@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-const Login = () => {
+const LoginForm = () => {
   const t = useTranslations();
   const router = useRouter();
 
@@ -118,6 +118,7 @@ const Login = () => {
                       disableRipple
                       sx={{
                         ...customCheckboxSx,
+                        color: "grey.500",
                       }}
                     />
                   </Stack>
@@ -137,7 +138,7 @@ const Login = () => {
                   color="primary"
                   size="large"
                 >
-                  <Typography variant="body1">
+                  <Typography variant="subtitle2">
                     {t("common.buttons.signIn")}
                   </Typography>
                 </ButtonWithLoading>
@@ -150,4 +151,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginForm;

@@ -5,4 +5,8 @@ export const customCheckboxSx = {
     fontSize: "unset",
     fill: "#D1D5DB",
   },
+
+  "& .MuiFormControlLabel-label": {
+    fontSize: "14px",
+  },
 };

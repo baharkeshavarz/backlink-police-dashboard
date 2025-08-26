@@ -1,13 +1,13 @@
 "use client";
 
-import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
 import VerifyEmail from "./components/VerifyEmail";
 
 const SignIn = () => {
   return (
     <>
       <VerifyEmail />
-      <Login />
+      <LoginForm />
     </>
   );
 };

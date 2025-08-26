@@ -14,6 +14,15 @@ export interface SignUpPayload {
   password: string;
   name: string;
 }
+
+export interface ForgetPasswordPayload {
+  email: string;
+}
+
 export interface SignUpService {
   (args: { payload: SignUpPayload }): Response;
+}
+
+export interface ForgetPasswordService {
+  (args: { payload: ForgetPasswordPayload }): Response;
 }

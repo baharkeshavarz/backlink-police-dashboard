@@ -14,7 +14,7 @@ const Title: FC<TitleProps> = ({ title, subTitle, sx, variant = "h1" }) => {
         {title}
       </Typography>
       {subTitle && (
-        <Typography variant="h4" fontWeight={400} color="grey.900">
+        <Typography variant="h4" fontWeight={400} color="grey.500">
           {subTitle}
         </Typography>
       )}

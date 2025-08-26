@@ -20,6 +20,7 @@
       "logout": "Logout",
       "setting": "Settings",
       "sendAgain": "Re-send Code",
+      "sendLinkAgain": "Re-send Link",
       "back": "Back"
     },
     "links": {
@@ -91,6 +92,14 @@
       "requestAgainAfter": "Didn’t received code? Request again after ",
       "wrongCode": "Must be at least {count} characters"
     },
+    "forgetPassword": {
+      "titleMsg": "Forgot your password?",
+      "subTitleMsg": "Type in your email and we will send you a code to reset your password!",
+      "forgetButton": "Recover password",
+      "recoveryMsg": "Check our your email inbox for recovery link!",
+      "forgetRecoveryButton": "Resend email after "
+    },
+
     "signUp": {
       "createAccount": "Create Your Account",
       "signUpPrivacyPolicyText": "By signing up, you agree to our <terms>Terms of Service </terms> and <policy>Privacy Policy</policy>.",
