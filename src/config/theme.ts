@@ -4,6 +4,7 @@ import { GlobalStylesProps, ThemeOptions, createTheme } from "@mui/material";
 import Link from "next/link";
 import { grey } from "@mui/material/colors";
 import { bluePalette, grayPalette } from "./theme-color";
+import { createSvgIcon } from "@mui/material/utils";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -46,6 +47,74 @@ export const globalStyles: GlobalStylesProps["styles"] = () => ({
     height: "1em",
   },
 });
+
+const strokeVar = "var(--cb-stroke-width, 3)";
+
+import React from "react";
+
+const UncheckedIcon = createSvgIcon(
+  React.createElement(
+    "svg",
+    { viewBox: "0 0 24 24", fill: "none" },
+    React.createElement("rect", {
+      x: "3.5",
+      y: "3.5",
+      width: "16",
+      height: "20",
+      rx: "4",
+      stroke: "currentColor",
+      strokeWidth: strokeVar,
+    })
+  ),
+  "CheckboxBlank"
+);
+
+const CheckedIcon = createSvgIcon(
+  React.createElement(
+    "svg",
+    { viewBox: "0 0 24 24", fill: "none" },
+    React.createElement("rect", {
+      x: "3.5",
+      y: "3.5",
+      width: "16",
+      height: "20",
+      rx: "4",
+      stroke: "currentColor",
+      strokeWidth: strokeVar,
+    }),
+    React.createElement("path", {
+      d: "M7 12.5l3 3 7-7",
+      stroke: "currentColor",
+      strokeWidth: strokeVar,
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+    })
+  ),
+  "CheckboxChecked"
+);
+
+const IndeterminateIcon = createSvgIcon(
+  React.createElement(
+    "svg",
+    { viewBox: "0 0 24 24", fill: "none" },
+    React.createElement("rect", {
+      x: "3.5",
+      y: "3.5",
+      width: "16",
+      height: "20",
+      rx: "4",
+      stroke: "currentColor",
+      strokeWidth: strokeVar,
+    }),
+    React.createElement("path", {
+      d: "M7 12h10",
+      stroke: "currentColor",
+      strokeWidth: strokeVar,
+      strokeLinecap: "round",
+    })
+  ),
+  "CheckboxIndeterminate"
+);
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -104,7 +173,7 @@ const themeOptions: ThemeOptions = {
       lineHeight: 1.57,
     },
     body2: {
-      fontSize: "1.125", //18px
+      fontSize: "1.125rem", //18px
       lineHeight: 1.66,
     },
     subtitle1: {
@@ -185,6 +254,19 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           borderRadius: 4,
+        },
+      },
+    },
+
+    MuiCheckbox: {
+      defaultProps: {
+        icon: React.createElement(UncheckedIcon),
+        checkedIcon: React.createElement(CheckedIcon),
+        indeterminateIcon: React.createElement(IndeterminateIcon),
+      },
+      styleOverrides: {
+        root: {
+          "--cb-stroke-width": "1",
         },
       },
     },
