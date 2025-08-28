@@ -104,6 +104,11 @@
     "resetPassword": {
       "titleMsg": "Reset your password",
       "resetButton": "Reset password "
+    },
+    "dashboard": {
+      "layout": {
+        "footer": "© Backlink Police. All rights reserved."
+      }
     }
   }
 }

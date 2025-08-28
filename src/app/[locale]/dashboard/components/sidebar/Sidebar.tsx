@@ -14,7 +14,7 @@ const Sidebar = () => {
           width: drawerWidth,
           boxSizing: "border-box",
           transition: "width 0.3s",
-          bgcolor: (theme) => theme.palette.background.paper,
+          bgcolor: (theme) => theme.palette.blue[400],
           top: NAVBAR_HEIGHT,
           height: `calc(100% - ${NAVBAR_HEIGHT}px`,
         },

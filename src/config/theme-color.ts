@@ -40,5 +40,3 @@ export const orangePalette = {
   900: "#7c2d12", // adjusted to keep darker progression
   950: "#431407",
 };
-
-/* Orange Color Palette */
