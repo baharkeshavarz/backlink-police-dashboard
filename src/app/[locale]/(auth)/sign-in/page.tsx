@@ -43,8 +43,8 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
     const result = await signIn("credentials", {
       ...payload,
+      redirect: false,
     });
-    console.log("result", result);
 
     if (!result) {
       toast.error(t("messages.authenticationError"));

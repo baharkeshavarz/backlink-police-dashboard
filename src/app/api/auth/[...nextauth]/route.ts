@@ -30,8 +30,8 @@ export const handler = NextAuth({
             payload: {
               email,
               password,
-              loginProvider: "credentials",
-              deviceId: "chrome",
+              // loginProvider: "credentials",
+              // deviceId: "chrome",
             },
           });
 

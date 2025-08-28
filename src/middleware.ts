@@ -1,43 +1,25 @@
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { routing } from "./routing";
-import createMiddleware from "next-intl/middleware";
-
-function isPublicPath(pathname: string): boolean {
-  return (
-    pathname === "/" ||
-    pathname.startsWith("/sign-in") ||
-    pathname.startsWith("/api/auth")
-  );
-}
-const intlMiddleware = createMiddleware(routing);
+import { PUBLIC_GATEWAY_URL } from "./config/app";
 
 async function middleware(request: NextRequestWithAuth) {
   const { pathname } = request.nextUrl;
   request.headers.set("x-pathname", pathname);
-  const response = intlMiddleware(request);
 
-  // Skip auth protection on public routes
-  if (isPublicPath(request.nextUrl.pathname)) {
-    return response;
-  }
-
-  console.log("pathname", pathname);
-  console.log(
-    "pathname starts with",
-    pathname.startsWith(process.env.NEXT_PUBLIC_API_URL ?? "")
-  );
-  if (pathname.startsWith(process.env.NEXT_PUBLIC_API_URL ?? "")) {
-    console.log(
-      "pathname starts with",
-      pathname.startsWith(process.env.NEXT_PUBLIC_API_URL ?? "")
-    );
+  if (pathname.startsWith(PUBLIC_GATEWAY_URL)) {
     request.headers.delete("cookie");
 
     const token = request.nextauth.token;
     if (token?.accessToken) {
       request.headers.set("Authorization", `Bearer ${token?.accessToken}`);
     }
+
+    return NextResponse.rewrite(
+      new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`),
+      {
+        headers: request.headers,
+      }
+    );
   }
 
   return NextResponse.next();
