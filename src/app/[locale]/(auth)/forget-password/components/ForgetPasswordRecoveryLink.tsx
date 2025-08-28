@@ -4,7 +4,6 @@ import Logo from "@/components/common/Logo";
 import Title from "@/components/common/Title";
 import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import { DEFAULT_SIGNUP_PATH } from "@/constants/routes";
 import { forgetPassword } from "@/services/iam";
 import { ForgetPasswordPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
@@ -44,9 +43,7 @@ const ForgetPasswordRecoveryLink = () => {
     mutationFn: forgetPassword,
   });
 
-  const onSubmit: SubmitHandler<ForgetPasswordPayload> = async (payload) => {
-    router.push(DEFAULT_SIGNUP_PATH);
-  };
+  const onSubmit: SubmitHandler<ForgetPasswordPayload> = async (payload) => {};
 
   const handleClickOnSendAgain = async () => {
     setTimerEndDate(Date.now() + RESEND_AUTH_TIMER * 1000);

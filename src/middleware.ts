@@ -1,6 +1,19 @@
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
+import nextIntlMiddleware from "next-intl/middleware";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { PUBLIC_GATEWAY_URL } from "./config/app";
+import { PUBLIC_GATEWAY_URL, protectedRoutes } from "./config/app";
+import { defaultLocale, locales } from "./routing";
+
+const intlMiddleware = (request: NextRequest) =>
+  Promise.resolve(
+    nextIntlMiddleware({
+      localePrefix: "as-needed",
+      defaultLocale,
+      locales,
+      localeDetection: false,
+    })(request)
+  );
 
 async function middleware(request: NextRequestWithAuth) {
   const { pathname } = request.nextUrl;
@@ -15,19 +28,27 @@ async function middleware(request: NextRequestWithAuth) {
     }
 
     return NextResponse.rewrite(
-      new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/graphql`),
+      new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}`),
       {
         headers: request.headers,
       }
     );
   }
 
-  return NextResponse.next();
+  const intlResponse = await intlMiddleware(request);
+  const response = intlResponse ? intlResponse : NextResponse.next();
+
+  return response;
 }
 
 const withAuthMiddleware = withAuth(middleware, {
   callbacks: {
     authorized: ({ req, token }) => {
+      if (
+        protectedRoutes.some((route) => req.nextUrl.pathname.includes(route))
+      ) {
+        return !!token;
+      }
       return true;
     },
   },

@@ -9,10 +9,6 @@ export const routing = defineRouting({
   defaultLocale,
   pathnames: {
     "/": "/",
-    "/sign-in": {
-      en: "/sign-in",
-      ar: "/sign-in",
-    },
     "/pathnames": {
       ar: "/pfadnamen",
     },

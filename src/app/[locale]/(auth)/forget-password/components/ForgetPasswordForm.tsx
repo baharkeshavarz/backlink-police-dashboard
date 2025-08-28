@@ -6,7 +6,6 @@ import Title from "@/components/common/Title";
 import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import { FIXED_BOX_410 } from "@/constants/general";
-import { DEFAULT_SIGNUP_PATH } from "@/constants/routes";
 import { forgetPassword } from "@/services/iam";
 import { ForgetPasswordPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
@@ -40,9 +39,7 @@ const ForgetPasswordForm = () => {
     mutationFn: forgetPassword,
   });
 
-  const onSubmit: SubmitHandler<ForgetPasswordPayload> = async (payload) => {
-    router.push(DEFAULT_SIGNUP_PATH);
-  };
+  const onSubmit: SubmitHandler<ForgetPasswordPayload> = async (payload) => {};
 
   const fields: FormBuilderProps["fields"] = {
     email: {

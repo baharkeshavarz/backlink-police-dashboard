@@ -12,7 +12,9 @@ export interface AuthPayload {
   deviceId?: string;
 }
 
-export interface ResetPasswordPayload extends AuthPayload {
+export interface ResetPasswordPayload {
+  email: string;
+  password: string;
   confirmPassword: string;
 }
 

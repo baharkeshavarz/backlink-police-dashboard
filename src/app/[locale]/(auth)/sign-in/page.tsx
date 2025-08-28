@@ -5,7 +5,10 @@ import { customCheckboxSx } from "@/components/common/SharedStyles";
 import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import { DEFAULT_FORGOT_PASSWORD_PATH } from "@/constants/routes";
+import {
+  DEFAULT_DASHBOARD_PATH,
+  DEFAULT_FORGOT_PASSWORD_PATH,
+} from "@/constants/routes";
 import { SignInPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,7 +19,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 
 const LoginForm = () => {
   const t = useTranslations();
@@ -38,8 +41,6 @@ const LoginForm = () => {
 
   const { handleSubmit } = methods;
 
-  //const { navigate } = useSignin();
-
   const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
     const result = await signIn("credentials", {
       ...payload,
@@ -49,7 +50,7 @@ const LoginForm = () => {
     if (!result) {
       toast.error(t("messages.authenticationError"));
     } else {
-      router.push("/forget-password");
+      router.push(DEFAULT_DASHBOARD_PATH);
     }
   };
 

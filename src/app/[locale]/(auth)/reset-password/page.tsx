@@ -1,25 +1,21 @@
 "use client";
 
-import { ButtonWithLoading } from "@/components/ButtonWithLoading";
 import Title from "@/components/common/Title";
 import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import { DEFAULT_SIGNUP_PATH } from "@/constants/routes";
-import { signIn } from "@/services/iam";
 import { ResetPasswordPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import CheckClubRulesForm from "./components/CheckRulesForm";
+import { LoginIn } from "@/services/iam";
 
 const ResetPassword = () => {
   const t = useTranslations();
-  const router = useRouter();
 
   const labels: Record<keyof ResetPasswordPayload, string> = {
     email: t("common.fields.email"),
@@ -45,13 +41,12 @@ const ResetPassword = () => {
   const { handleSubmit } = methods;
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: signIn,
+    mutationFn: LoginIn,
   });
 
   const onSubmit: SubmitHandler<ResetPasswordPayload> = async (payload) => {
     // await mutateAsync({ payload });
     // router.push(DEFAULT_DASHBOARD_CHAT_PATH + `/${SAMPLE_CHAT_ID}`);
-    router.push(DEFAULT_SIGNUP_PATH);
   };
 
   const fields: FormBuilderProps["fields"] = {

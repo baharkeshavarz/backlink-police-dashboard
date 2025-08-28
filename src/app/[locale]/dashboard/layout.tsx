@@ -3,6 +3,7 @@
 import { Locale, useRouter } from "@/navigation";
 import { PropsWithChildren, ReactNode } from "react";
 import { useSession } from "next-auth/react";
+import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 
 type LocaleLayoutParams = {
   children: ReactNode;
@@ -16,7 +17,10 @@ export default function LocaleLayout({
   useSession({
     required: true,
     onUnauthenticated() {
-      router.replace(`/sign-in?callbackUrl=${window.location.pathname}`);
+      router.replace({
+        pathname: DEFAULT_SIGNIN_PATH,
+        query: { callbackUrl: window.location.pathname },
+      });
     },
   });
 
