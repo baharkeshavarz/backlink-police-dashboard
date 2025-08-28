@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import NextAuth from "next-auth";
@@ -30,12 +31,10 @@ export const handler = NextAuth({
             payload: {
               email,
               password,
-              // loginProvider: "credentials",
-              // deviceId: "chrome",
+              loginProvider: "credentials",
+              deviceId: "chrome", //TODO
             },
           });
-
-          console.log("LoginIn response", response);
 
           if (response?.data?.accessToken) {
             return {
@@ -55,7 +54,6 @@ export const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log("LoginIn user", user);
       if (user) {
         token.accessToken = user?.accessToken;
         token.refreshToken = user?.refreshToken;

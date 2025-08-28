@@ -1,10 +1,9 @@
-import { useLocale, useTranslations } from 'next-intl';
-import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { languages } from '@/navigation';
-import { MenuItem } from '@mui/material';
+import { useLocale } from "next-intl";
+import LocaleSwitcherSelect from "./LocaleSwitcherSelect";
+import { languages } from "@/navigation";
+import { MenuItem } from "@mui/material";
 
 export default function LocaleSwitcher() {
-  const t = useTranslations();
   const locale = useLocale();
   return (
     <LocaleSwitcherSelect defaultValue={locale} label="">

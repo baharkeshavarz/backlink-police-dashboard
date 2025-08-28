@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AutocompleteProps,
   ButtonProps,
@@ -61,7 +62,7 @@ export interface CustomAutoCompleteProps<
   TData extends Option,
   TMultiple extends boolean = false,
   TDisableClearable extends boolean = false,
-  TFreeSolo extends boolean = false
+  TFreeSolo extends boolean = false,
 > extends Omit<
     AutocompleteProps<TData, TMultiple, TDisableClearable, TFreeSolo>,
     "renderInput"
@@ -91,7 +92,7 @@ export interface ServerSideAutoComplete<
   TData extends Option,
   TMultiple extends boolean = false,
   TDisableClearable extends boolean = false,
-  TFreeSolo extends boolean = false
+  TFreeSolo extends boolean = false,
 > extends Omit<
     CustomAutoCompleteProps<TData, TMultiple, TDisableClearable, TFreeSolo>,
     "options"

@@ -18,8 +18,14 @@ export interface ResetPasswordPayload {
   confirmPassword: string;
 }
 
+export interface AuthResponsePayload {
+  accessToken: string;
+  refreshToken?: string;
+  user: { id: string | number; name?: string; email?: string };
+}
+
 export interface SignInService {
-  (args: { payload: AuthPayload }): Response<Basic>;
+  (args: { payload: AuthPayload }): Response<Basic<AuthResponsePayload>>;
 }
 
 export interface SignUpPayload {

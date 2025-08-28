@@ -1,12 +1,10 @@
-'use client';
+"use client";
 
-import { Box, LinearProgress } from '@mui/material';
-import { useTranslations } from 'next-intl';
+import { Box, LinearProgress } from "@mui/material";
 
 const ProgressLoading = () => {
-  const t = useTranslations();
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <LinearProgress variant="indeterminate" />
     </Box>
   );

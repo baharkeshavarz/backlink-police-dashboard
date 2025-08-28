@@ -1,18 +1,19 @@
-import { DatePicker } from '@mui/x-date-pickers';
-import { FC } from 'react';
-import { useController, useFormContext } from 'react-hook-form';
-import { ICustomDatePicker } from '../types';
-import ClearButtonAdornment from './ClearButtonAdornment';
-import { Box, Typography } from '@mui/material';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DatePicker } from "@mui/x-date-pickers";
+import { FC } from "react";
+import { useController, useFormContext } from "react-hook-form";
+import { ICustomDatePicker } from "../types";
+import ClearButtonAdornment from "./ClearButtonAdornment";
+import { Box, Typography } from "@mui/material";
 
-const CustomDatePicker: FC<ICustomDatePicker['props']> = ({
+const CustomDatePicker: FC<ICustomDatePicker["props"]> = ({
   name,
   label,
-  variant = 'outlined',
-  labelVariant = 'subtitle1',
+  variant = "outlined",
+  labelVariant = "subtitle1",
   boldLabel = true,
   valueFormatter,
-  format = 'yyyy/MM/dd',
+  format = "yyyy/MM/dd",
   ...props
 }) => {
   const { control } = useFormContext();
@@ -31,12 +32,12 @@ const CustomDatePicker: FC<ICustomDatePicker['props']> = ({
   };
 
   return (
-    <Box style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <Box style={{ display: "flex", flexDirection: "column", gap: 4 }}>
       {label && (
         <Typography
           variant={labelVariant}
           mb={1}
-          fontWeight={boldLabel ? 'bold' : 'normal'}
+          fontWeight={boldLabel ? "bold" : "normal"}
         >
           {label}
         </Typography>
@@ -45,7 +46,7 @@ const CustomDatePicker: FC<ICustomDatePicker['props']> = ({
       <DatePicker
         format={format}
         {...props}
-        value={(field.value as unknown as never) || ''}
+        value={(field.value as unknown as never) || ""}
         onChange={handleChange}
         onSelectedSectionsChange={() => {}}
         closeOnSelect={true}
@@ -58,7 +59,7 @@ const CustomDatePicker: FC<ICustomDatePicker['props']> = ({
             error: !!errors[name],
             fullWidth: true,
             variant,
-            size: 'small',
+            size: "small",
             InputProps: {
               startAdornment: field.value ? (
                 <ClearButtonAdornment onChange={field.onChange} />

@@ -7,6 +7,7 @@ import {
   CssBaseline,
   GlobalStyles,
 } from "@mui/material";
+import type { GlobalStylesProps } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import TanstackProvider from "./TanstackProvider";
 import ToastProvider from "./ToastProvider";
@@ -15,13 +16,16 @@ import RTLProvider from "./RTLProvider";
 import CustomLocalizationProvider from "./CustomLocalizationProvider";
 import ConfirmAlertProvider from "./ConfirmAlertProvider";
 import AppSessionProvider from "./AppSessionProvider";
+import type { Locale } from "@/navigation";
+import { Session } from "next-auth";
+import type { userAgent } from "next/server";
 
 export interface ClientProvidersProps {
   theme: ThemeOptions;
-  locale: string;
-  userAgent: any;
-  session: any;
-  globalStyles: any;
+  locale: Locale;
+  userAgent: ReturnType<typeof userAgent>;
+  session: Session | null;
+  globalStyles: GlobalStylesProps["styles"];
 }
 
 const ClientProviders: FC<PropsWithChildren<ClientProvidersProps>> = ({
@@ -41,8 +45,8 @@ const ClientProviders: FC<PropsWithChildren<ClientProvidersProps>> = ({
             <AppProvider userAgent={userAgent}>
               <CssBaseline />
               <GlobalStyles styles={globalStyles} />
-              <RTLProvider locale={locale as any}>
-                <CustomLocalizationProvider locale={locale as any}>
+              <RTLProvider locale={locale}>
+                <CustomLocalizationProvider locale={locale}>
                   <ConfirmAlertProvider>{children}</ConfirmAlertProvider>
                 </CustomLocalizationProvider>
               </RTLProvider>

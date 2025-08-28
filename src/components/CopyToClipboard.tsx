@@ -1,34 +1,32 @@
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { IconButton, IconButtonProps } from '@mui/material';
-import { useTranslations } from 'next-intl';
-import { FC, useState } from 'react';
-import DoneIcon from '@mui/icons-material/Done';
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { IconButton, IconButtonProps } from "@mui/material";
+import { FC, useState } from "react";
+import DoneIcon from "@mui/icons-material/Done";
 
-type CopyStatus = 'idle' | 'success' | 'error';
+type CopyStatus = "idle" | "success" | "error";
 
 export interface CopyToClipboardProps extends IconButtonProps {
   value: string;
 }
 
 const CopyToClipboard: FC<CopyToClipboardProps> = ({ value }) => {
-  const t = useTranslations();
-  const [status, setStatus] = useState<CopyStatus>('idle');
+  const [status, setStatus] = useState<CopyStatus>("idle");
 
   const handleCopyClick = () => {
     navigator.clipboard
       .writeText(value)
       .then(() => {
-        setStatus('success');
+        setStatus("success");
       })
       .catch((err) => {
-        setStatus('error');
+        setStatus(err);
       });
-    setTimeout(() => setStatus('idle'), 2000);
+    setTimeout(() => setStatus("idle"), 2000);
   };
 
   return (
     <IconButton aria-label="copy" onClick={handleCopyClick}>
-      {status === 'success' ? (
+      {status === "success" ? (
         <DoneIcon fontSize="small" />
       ) : (
         <ContentCopyIcon fontSize="small" />

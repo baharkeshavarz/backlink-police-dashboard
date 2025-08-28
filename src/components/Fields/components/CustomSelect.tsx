@@ -1,4 +1,5 @@
-'use client';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
 import {
   FormControl,
@@ -8,19 +9,19 @@ import {
   Typography,
   MenuItem,
   Box,
-} from '@mui/material';
-import { FC } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import CustomSkeleton from '../../common/CustomSkeleton';
-import useLocalFormContext from '../hooks/useLocalFormContext';
-import { CustomSelectProps } from '../types';
-import ClearButtonAdornment from './ClearButtonAdornment';
-import { FIXED_SELECT_HEIGHT } from '@/constants/general';
+} from "@mui/material";
+import { FC } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import CustomSkeleton from "../../common/CustomSkeleton";
+import useLocalFormContext from "../hooks/useLocalFormContext";
+import { CustomSelectProps } from "../types";
+import ClearButtonAdornment from "./ClearButtonAdornment";
+import { FIXED_SELECT_HEIGHT } from "@/constants/general";
 
 const CustomSelect: FC<CustomSelectProps> = ({
   options = [],
-  name = '',
-  size = 'small',
+  name = "",
+  size = "small",
   label,
   labelFormatter,
   resetFieldsOnChange = [],
@@ -40,17 +41,17 @@ const CustomSelect: FC<CustomSelectProps> = ({
       name={name}
       control={control}
       render={({ field }) => {
-        let normalizedValue: number | number[] | '' = '';
+        let normalizedValue: number | number[] | "" = "";
         if (Array.isArray(field.value)) {
           normalizedValue = field?.value?.map((item) =>
-            typeof item === 'object' ? item.id : item,
+            typeof item === "object" ? item.id : item
           );
-        } else if (typeof field.value === 'object' && field.value?.id) {
+        } else if (typeof field.value === "object" && field.value?.id) {
           normalizedValue = field.value.id;
-        } else if (typeof field.value === 'number') {
+        } else if (typeof field.value === "number") {
           normalizedValue = field.value;
         } else {
-          normalizedValue = field.value ?? '';
+          normalizedValue = field.value ?? "";
         }
 
         const handleChange = (event: SelectChangeEvent<any>) => {
@@ -67,8 +68,8 @@ const CustomSelect: FC<CustomSelectProps> = ({
             <FormControl fullWidth error={!!errors[name]} size={size}>
               <Box
                 style={{
-                  display: 'flex',
-                  flexDirection: 'column',
+                  display: "flex",
+                  flexDirection: "column",
                   gap: 4,
                 }}
               >
@@ -101,8 +102,8 @@ const CustomSelect: FC<CustomSelectProps> = ({
                       sx={
                         showOptionRight
                           ? {
-                              display: 'flex',
-                              justifyContent: 'flex-end',
+                              display: "flex",
+                              justifyContent: "flex-end",
                             }
                           : undefined
                       }

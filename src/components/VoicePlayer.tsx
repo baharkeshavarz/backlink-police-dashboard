@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface VoicePlayerProps {
   voiceUrl: string;
@@ -20,10 +20,10 @@ const VoicePlayer = ({ voiceUrl, playbackKey }: VoicePlayerProps) => {
       audio.src = voiceUrl;
       audio.load();
       audio.play().catch((err) => {
-        console.error('Audio playback failed:', err);
+        console.error("Audio playback failed:", err);
       });
     }
-  }, [playbackKey]); // triggers whenever a new key is passed
+  }, [playbackKey, voiceUrl]); // triggers whenever a new key is passed
 
   return <audio ref={audioRef} />;
 };
