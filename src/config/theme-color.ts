@@ -26,3 +26,19 @@ export const bluePalette = {
   800: "#010372",
   900: "#020945",
 };
+
+export const orangePalette = {
+  50: "#fff7ed",
+  100: "#ffe9dc",
+  200: "#fed7aa",
+  300: "#fdba74",
+  400: "#fb923c",
+  500: "#f97316",
+  600: "#ea580c",
+  700: "#c2410c",
+  800: "#9a3412",
+  900: "#7c2d12", // adjusted to keep darker progression
+  950: "#431407",
+};
+
+/* Orange Color Palette */

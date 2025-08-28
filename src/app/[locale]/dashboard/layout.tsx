@@ -13,16 +13,16 @@ type LocaleLayoutParams = {
 export default function LocaleLayout({
   children,
 }: PropsWithChildren<LocaleLayoutParams>) {
-  const router = useRouter();
-  useSession({
-    required: true,
-    onUnauthenticated() {
-      router.replace({
-        pathname: DEFAULT_SIGNIN_PATH,
-        query: { callbackUrl: window.location.pathname },
-      });
-    },
-  });
+  // const router = useRouter();
+  // useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     router.replace({
+  //       pathname: DEFAULT_SIGNIN_PATH,
+  //       query: { callbackUrl: window.location.pathname },
+  //     });
+  //   },
+  // });
 
   return (
     <body>

@@ -4,14 +4,16 @@ export const FIXED_BUTTON_HEIGHT = 41;
 export const RESEND_AUTH_TIMER = 10;
 export const FIXED_INPUT_HEIGHT = 42;
 export const FIXED_BOX_410 = 410;
+export const DRAWER_WIDTH = 250;
+export const NAVBAR_HEIGHT = 60;
+export const DEFAULT_DASHBOARD_IMAGES = "/assets/images/dashboard";
+export const DEFAULT_DASHBOARD_ICONS = `${DEFAULT_DASHBOARD_IMAGES}/icons/`;
 
 /*-------------------------------*/
 
-export const DRAWER_WIDTH = 240;
 export const DRAWER_MIN_WIDTH = 0;
 export const MINI_DRAWER_WIDTH = 80;
 export const DIALOG_SIDEBAR_WIDTH = 240;
-export const NAVBAR_HEIGHT = 80;
 export const FIXED_INPUT_MEDIUM_HEIGHT = 42;
 
 export const FIXED_SELECT_HEIGHT = 50;
@@ -51,7 +53,6 @@ export const INSTAGRAM_ICON_PATH = `${SOCIAL_MEDIA_ICONS}/instagram.png`;
 export const X_ICON_PATH = `${SOCIAL_MEDIA_ICONS}/x.png`;
 export const FACEBOOK_ICON_PATH = `${SOCIAL_MEDIA_ICONS}/facebook.png`;
 export const WHATSAPP_ICON_PATH = `${SOCIAL_MEDIA_ICONS}/whatsapp.png`;
-export const DEFAULT_DASHBOARD_ICONS = "/assets/images/dashboard";
 
 export const PersonalityList: Option[] = [
   {
