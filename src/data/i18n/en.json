@@ -60,15 +60,6 @@
       "province": "State/Province",
       "city": "City",
       "postalCode": "Postal Code"
-    },
-    "sidebar": {
-      "menu": {
-        "notification": "Notifications",
-        "settings": "Settings",
-        "subscription": "Subscription",
-        "helpCenter": "Help Center",
-        "privacyPolicy": "Privacy Policy"
-      }
     }
   },
   "messages": {
@@ -108,6 +99,17 @@
     "dashboard": {
       "layout": {
         "footer": "© Backlink Police. All rights reserved."
+      },
+      "sidebar": {
+        "menu": {
+          "overview": "Overview",
+          "users": "Users",
+          "messages": "Messages",
+          "authentication": "Authentication",
+          "docs": "Docs",
+          "components": "Components",
+          "help": "Help"
+        }
       }
     }
   }

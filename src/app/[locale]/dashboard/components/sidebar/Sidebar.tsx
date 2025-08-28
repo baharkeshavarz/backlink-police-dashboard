@@ -1,5 +1,6 @@
 import { DRAWER_WIDTH, NAVBAR_HEIGHT } from "@/constants/general";
 import { Box, Drawer } from "@mui/material";
+import SidebarMenus from "./SidebarMenus";
 
 const drawerWidth = DRAWER_WIDTH;
 
@@ -29,9 +30,7 @@ const Sidebar = () => {
         width="100%"
       >
         <Box width="100%">
-          UserDetails
-          {/* <UserDetails />
-          <SidebarMenus collapsed={collapsed} /> */}
+          <SidebarMenus />
         </Box>
       </Box>
     </Drawer>
