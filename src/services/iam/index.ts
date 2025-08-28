@@ -3,7 +3,7 @@ import { ForgetPasswordService, SignInService } from "./types";
 
 const BASE_URL = "/auth";
 
-export const signIn: SignInService = ({ payload }) => {
+export const LoginIn: SignInService = ({ payload }) => {
   return axiosInstance.post(`${BASE_URL}/login`, payload);
 };
 

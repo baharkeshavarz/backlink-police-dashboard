@@ -76,6 +76,7 @@
     "personalityCreatedSuccessfully": "Your personality was created successfully!",
     "somethingWentWrong": "Sorry! Something went wrong!",
     "terms": "I accept the <terms>Terms and Conditions</terms>",
+    "authenticationError": "Authentication failed!",
     "toast": {
       "defaultError": "Encountered an error!",
       "copied": "Copied!"

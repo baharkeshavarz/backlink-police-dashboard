@@ -1,32 +1,21 @@
 import { languages, Locale } from "@/navigation";
-import {
-  AppProvider,
-  ConfirmAlertProvider,
-  TanstackProvider,
-  I18nProvider,
-  ToastProvider,
-  RTLProvider,
-  CustomLocalizationProvider,
-} from "@/providers";
+import { I18nProvider } from "@/providers";
 import { defaultTheme, globalStyles, persianTheme } from "@/config/theme";
-import {
-  CssBaseline,
-  ThemeOptions,
-  ThemeProvider,
-  GlobalStyles,
-} from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { ThemeOptions } from "@mui/material";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { userAgent } from "next/server";
 import { PropsWithChildren, ReactNode } from "react";
 import "../../../global.css";
+import ClientProviders from "@/providers/ClientProviders";
+
 import { Inter } from "next/font/google";
+import { Session } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
   children: ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: Locale; session: Session | null }>;
 };
 
 export const metadata: Metadata = {
@@ -45,29 +34,22 @@ export default async function LocaleLayout({
     en: defaultTheme,
     ar: persianTheme,
   };
-  const { locale } = await params;
+  const { locale, session } = await params;
 
   return (
     <html lang={locale} dir={languages?.[locale]?.direction}>
       <body className={inter.className}>
-        <TanstackProvider>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={themes[locale] ?? defaultTheme}>
-              <ToastProvider />
-              <AppProvider userAgent={reqUserAgent}>
-                <CssBaseline />
-                <GlobalStyles styles={globalStyles} />
-                <RTLProvider locale={locale}>
-                  <CustomLocalizationProvider locale={locale}>
-                    <I18nProvider locale={locale}>
-                      <ConfirmAlertProvider>{children}</ConfirmAlertProvider>
-                    </I18nProvider>
-                  </CustomLocalizationProvider>
-                </RTLProvider>
-              </AppProvider>
-            </ThemeProvider>
-          </AppRouterCacheProvider>
-        </TanstackProvider>
+        <I18nProvider locale={locale}>
+          <ClientProviders
+            theme={themes[locale] ?? defaultTheme}
+            locale={locale}
+            userAgent={reqUserAgent}
+            session={session}
+            globalStyles={globalStyles}
+          >
+            {children}
+          </ClientProviders>
+        </I18nProvider>
       </body>
     </html>
   );

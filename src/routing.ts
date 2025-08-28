@@ -1,16 +1,20 @@
-import { defineRouting } from 'next-intl/routing';
+import { defineRouting } from "next-intl/routing";
 
-export const defaultLocale = 'en' as const;
-export const locales = ['en', 'ar'] as const;
+export const defaultLocale = "en" as const;
+export const locales = ["en", "ar"] as const;
 
 export const routing = defineRouting({
   locales,
-  localePrefix: 'as-needed',
+  localePrefix: "as-needed",
   defaultLocale,
   pathnames: {
-    '/': '/',
-    '/pathnames': {
-      ar: '/pfadnamen',
+    "/": "/",
+    "/sign-in": {
+      en: "/sign-in",
+      ar: "/sign-in",
+    },
+    "/pathnames": {
+      ar: "/pfadnamen",
     },
   },
 });

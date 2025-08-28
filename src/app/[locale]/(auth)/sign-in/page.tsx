@@ -6,17 +6,17 @@ import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import { DEFAULT_FORGOT_PASSWORD_PATH } from "@/constants/routes";
-import { signIn } from "@/services/iam";
-import { AuthPayload, SignInPayload } from "@/services/iam/types";
+import { SignInPayload } from "@/services/iam/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Container, Grid, Stack, Typography } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import * as yup from "yup";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const t = useTranslations();
@@ -38,18 +38,19 @@ const LoginForm = () => {
 
   const { handleSubmit } = methods;
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: signIn,
-  });
+  //const { navigate } = useSignin();
 
   const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
-    const newPayload: AuthPayload = {
+    const result = await signIn("credentials", {
       ...payload,
-      loginProvider: "credentials",
-      deviceId: "Chrome", //TODO
-    };
-    const { data } = await mutateAsync({ payload: newPayload });
-    console.log(data);
+    });
+    console.log("result", result);
+
+    if (!result) {
+      toast.error(t("messages.authenticationError"));
+    } else {
+      router.push("/forget-password");
+    }
   };
 
   const fields: FormBuilderProps["fields"] = {
@@ -132,7 +133,7 @@ const LoginForm = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <ButtonWithLoading
-                  isLoading={isPending}
+                  // isLoading={isPending}
                   type="submit"
                   fullWidth
                   variant="contained"
