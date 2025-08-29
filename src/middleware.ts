@@ -29,7 +29,8 @@ async function middleware(request: NextRequestWithAuth) {
       request.headers.set("Authorization", `Bearer ${token?.accessToken}`);
     }
 
-    return NextResponse.rewrite(new URL(`${process.env.NEXT_PUBLIC_API_URL}`), {
+    const destinationUrl = `${process.env.NEXT_PUBLIC_API_URL}${pathname.replace(PUBLIC_GATEWAY_URL, "")}`;
+    return NextResponse.rewrite(new URL(destinationUrl), {
       headers: request.headers,
     });
   }
@@ -59,6 +60,7 @@ export const config = {
   matcher: [
     /**
      * It matches all paths except:
+     * 1. /api/ (includes trpc there)
      * 2. /_next/ (Next.js internals)
      * 3. /_proxy/ (OG tags proxying)
      * 4. /_vercel (Vercel internals)
@@ -66,6 +68,6 @@ export const config = {
      * 6. /favicon.ico, /sitemap.xml, /robots.txt (static files)
      * 7. The paths containing a file extension (e.g., .jpg, .png, etc.)
      */
-    "/((?!_next/|_proxy/|_vercel|_static|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
+    "/((?!api/|_next/|_proxy/|_vercel|_static|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
   ],
 };

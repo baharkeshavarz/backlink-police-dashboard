@@ -7,6 +7,9 @@ import Sidebar from "./components/sidebar/Sidebar";
 import TopBar from "./components/TopBar";
 import { FOOTER_HEIGHT } from "@/constants/general";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 
 type LocaleLayoutParams = {
   children: ReactNode;

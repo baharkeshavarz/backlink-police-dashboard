@@ -4,6 +4,7 @@ import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { LoginIn } from "@/services/iam";
+import console from "console";
 
 export const handler = NextAuth({
   session: {
@@ -35,6 +36,7 @@ export const handler = NextAuth({
               deviceId: "chrome", //TODO
             },
           });
+          console.log("response", response);
 
           if (response?.data?.accessToken) {
             return {
