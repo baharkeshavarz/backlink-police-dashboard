@@ -17,22 +17,21 @@ const intlMiddleware = (request: NextRequest) =>
 
 async function middleware(request: NextRequestWithAuth) {
   const { pathname } = request.nextUrl;
-  request.headers.set("x-pathname", pathname);
+  const headers = new Headers(request.headers);
+  headers.set("x-pathname", pathname);
 
   if (pathname.startsWith(PUBLIC_GATEWAY_URL)) {
     request.headers.delete("cookie");
 
-    const token = request.nextauth.token;
+    const token = request.nextauth?.token;
+
     if (token?.accessToken) {
       request.headers.set("Authorization", `Bearer ${token?.accessToken}`);
     }
 
-    return NextResponse.rewrite(
-      new URL(`${process.env.NEXT_PUBLIC_BACKEND_URL}`),
-      {
-        headers: request.headers,
-      }
-    );
+    return NextResponse.rewrite(new URL(`${process.env.NEXT_PUBLIC_API_URL}`), {
+      headers: request.headers,
+    });
   }
 
   const intlResponse = await intlMiddleware(request);
@@ -60,7 +59,6 @@ export const config = {
   matcher: [
     /**
      * It matches all paths except:
-     * 1. /api/ (includes trpc there)
      * 2. /_next/ (Next.js internals)
      * 3. /_proxy/ (OG tags proxying)
      * 4. /_vercel (Vercel internals)
@@ -68,6 +66,6 @@ export const config = {
      * 6. /favicon.ico, /sitemap.xml, /robots.txt (static files)
      * 7. The paths containing a file extension (e.g., .jpg, .png, etc.)
      */
-    "/((?!api/|_next/|_proxy/|_vercel|_static|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
+    "/((?!_next/|_proxy/|_vercel|_static|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)",
   ],
 };

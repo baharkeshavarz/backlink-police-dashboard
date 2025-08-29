@@ -19,6 +19,7 @@ import AppSessionProvider from "./AppSessionProvider";
 import type { Locale } from "@/navigation";
 import { Session } from "next-auth";
 import type { userAgent } from "next/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export interface ClientProvidersProps {
   theme: ThemeOptions;
@@ -38,22 +39,24 @@ const ClientProviders: FC<PropsWithChildren<ClientProvidersProps>> = ({
 }) => {
   return (
     <AppSessionProvider session={session}>
-      <TanstackProvider>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <ToastProvider />
-            <AppProvider userAgent={userAgent}>
-              <CssBaseline />
-              <GlobalStyles styles={globalStyles} />
-              <RTLProvider locale={locale}>
-                <CustomLocalizationProvider locale={locale}>
-                  <ConfirmAlertProvider>{children}</ConfirmAlertProvider>
-                </CustomLocalizationProvider>
-              </RTLProvider>
-            </AppProvider>
-          </ThemeProvider>
-        </AppRouterCacheProvider>
-      </TanstackProvider>
+      <NuqsAdapter>
+        <TanstackProvider>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <ToastProvider />
+              <AppProvider userAgent={userAgent}>
+                <CssBaseline />
+                <GlobalStyles styles={globalStyles} />
+                <RTLProvider locale={locale}>
+                  <CustomLocalizationProvider locale={locale}>
+                    <ConfirmAlertProvider>{children}</ConfirmAlertProvider>
+                  </CustomLocalizationProvider>
+                </RTLProvider>
+              </AppProvider>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </TanstackProvider>
+      </NuqsAdapter>
     </AppSessionProvider>
   );
 };

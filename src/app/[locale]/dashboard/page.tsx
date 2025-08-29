@@ -22,7 +22,6 @@ const DashboardPage = () => {
       <Box display="flex" flex={1}>
         <Sidebar />
         <Box flex={1} display="flex" flexDirection="column" position="relative">
-          {/* Content */}
           <Box flex={1} minHeight={500} sx={{ pb: `${FOOTER_HEIGHT}px` }}>
             {/* Page content goes here */}
           </Box>

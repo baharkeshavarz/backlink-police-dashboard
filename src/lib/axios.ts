@@ -1,8 +1,9 @@
+import { PUBLIC_GATEWAY_URL } from "@/config/app";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 export const config = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "api",
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
   timeout: 3000 * 10,
   headers: {
     "Access-Control-Allow-Credentials": true,
