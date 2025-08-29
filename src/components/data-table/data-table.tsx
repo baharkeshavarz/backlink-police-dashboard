@@ -1,16 +1,14 @@
 import { flexRender, type Table as TanstackTable } from "@tanstack/react-table";
 import type * as React from "react";
-
-import { DataTablePagination } from "@/components/data-table/data-table-pagination";
 import {
+  Box,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { cn } from "@/lib/utils";
+} from "@mui/material";
+import { DataTablePagination } from "@/components/data-table/data-table-pagination";
 
 interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   table: TanstackTable<TData>;
@@ -29,93 +27,77 @@ export function DataTable<TData>({
   actionBar,
   emptyState,
   children,
-  className,
-  showBodyBorder = true,
   showRowBorders = true,
-  bodyClassName,
-  headerBackgroundColor = "bg-transparent",
-  enableAlternatingRowColors = false,
-  alternatingRowColor = "bg-muted/50",
+  showBodyBorder = false,
+  headerBackgroundColor,
+  enableAlternatingRowColors,
+  alternatingRowColor,
   ...props
 }: DataTableProps<TData>) {
   return (
-    <div className={cn("flex w-full flex-col gap-2.5", className)} {...props}>
+    <Box display="flex" flexDirection="column" gap={2} {...props}>
       {children}
-      <div
-        className={cn(
-          "bg-background overflow-hidden rounded-lg",
-          showBodyBorder && "border",
-          bodyClassName
-        )}
-      >
-        <Table>
-          <TableHeader
-            className={cn(
-              "rounded-t-lg border-b bg-transparent",
-              headerBackgroundColor
-            )}
+      <Box>
+        <Table
+          sx={{
+            border: showBodyBorder ? "1px solid" : "none",
+            borderColor: "divider",
+          }}
+        >
+          {/* Header */}
+          <TableHead
+            sx={{
+              backgroundColor: headerBackgroundColor || "grey.100",
+              "& th": {
+                borderBottom: "1px solid",
+                borderColor: "divider",
+                fontSize: 14,
+                color: "grey.600",
+                fontWeight: 600,
+              },
+            }}
           >
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow
-                key={headerGroup.id}
-                className={cn("border-none", headerBackgroundColor)}
-              >
-                {headerGroup.headers.map((header, index) => (
-                  <TableHead
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    className={cn(
-                      "border-none",
-                      headerBackgroundColor,
-                      index === 0 && "rounded-tl-lg",
-                      index === headerGroup.headers.length - 1 &&
-                        "rounded-tr-lg"
-                    )}
-                    // style={{
-                    //   ...getCommonPinningStyles({ column: header.column }),
-                    // }}
-                  >
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableCell key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
                           header.getContext()
                         )}
-                  </TableHead>
+                  </TableCell>
                 ))}
               </TableRow>
             ))}
-          </TableHeader>
-          <TableBody>
+          </TableHead>
+
+          {/* Body */}
+          <TableBody
+            sx={{
+              "& tr:nth-of-type(odd)": enableAlternatingRowColors
+                ? {
+                    backgroundColor: alternatingRowColor || "grey.50",
+                  }
+                : {},
+              "& td": {
+                borderBottom: showRowBorders ? "1px solid" : "none",
+                borderColor: "divider",
+                fontSize: 16,
+                color: "grey.900",
+                fontWeight: 500,
+              },
+            }}
+          >
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row, index) => (
+              table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className={cn(
-                    !showRowBorders && "border-none",
-                    enableAlternatingRowColors &&
-                      index % 2 === 1 &&
-                      alternatingRowColor,
-                    index === table.getRowModel().rows.length - 1 &&
-                      "rounded-b-lg"
-                  )}
                 >
-                  {row.getVisibleCells().map((cell, cellIndex) => (
-                    <TableCell
-                      key={cell.id}
-                      className={cn(
-                        index === table.getRowModel().rows.length - 1 &&
-                          cellIndex === 0 &&
-                          "rounded-bl-lg",
-                        index === table.getRowModel().rows.length - 1 &&
-                          cellIndex === row.getVisibleCells().length - 1 &&
-                          "rounded-br-lg"
-                      )}
-                      style={{
-                        ...getCommonPinningStyles({ column: cell.column }),
-                      }}
-                    >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -125,10 +107,10 @@ export function DataTable<TData>({
                 </TableRow>
               ))
             ) : (
-              <TableRow className={cn(!showRowBorders && "border-none")}>
+              <TableRow>
                 <TableCell
                   colSpan={table.getAllColumns().length}
-                  className="h-24 text-center"
+                  sx={{ textAlign: "center", py: 4, color: "text.secondary" }}
                 >
                   {emptyState || "No results."}
                 </TableCell>
@@ -136,13 +118,15 @@ export function DataTable<TData>({
             )}
           </TableBody>
         </Table>
-      </div>
-      <div className="flex flex-col gap-2.5">
+      </Box>
+
+      {/* Footer: Pagination + Action bar */}
+      <Box display="flex" flexDirection="column" gap={2.5}>
         <DataTablePagination table={table} />
         {actionBar &&
           table.getFilteredSelectedRowModel().rows.length > 0 &&
           actionBar}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

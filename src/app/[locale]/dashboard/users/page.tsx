@@ -1,17 +1,17 @@
 "use client";
 
-import { Box } from "@mui/material";
 import React from "react";
 import UsersTable from "./components/table/UsersTable";
 import useGetUsers from "./hooks/useGetUsers";
+import CustomSkeleton from "@/components/common/CustomSkeleton";
 
 const UsersPage = () => {
-  const { data } = useGetUsers();
-  // console.log("data", data);
+  const { data, isLoading } = useGetUsers();
+
   return (
-    <Box>
-      <UsersTable data={{}} />
-    </Box>
+    <CustomSkeleton isLoading={isLoading}>
+      <UsersTable data={data?.items || []} />
+    </CustomSkeleton>
   );
 };
 

@@ -36,7 +36,6 @@ export const handler = NextAuth({
               deviceId: "chrome", //TODO
             },
           });
-          console.log("response", response);
 
           if (response?.data?.accessToken) {
             return {

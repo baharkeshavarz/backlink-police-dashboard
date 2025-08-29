@@ -28,6 +28,13 @@ export interface IUser {
   isAdmin: boolean;
 }
 
+export enum UserStatusEnum {
+  Online = 1,
+  Offline = 2,
+}
+export interface IGetUsers {
+  items: IUser[];
+}
 export interface UsersListService {
-  (args: { params: Partial<IUser> }): Response;
+  (args: { params: Partial<IUser> }): Response<IGetUsers>;
 }

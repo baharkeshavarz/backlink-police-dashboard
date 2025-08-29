@@ -51,7 +51,7 @@ export default function LocaleLayout({
               flexDirection="column"
               position="relative"
             >
-              <Box flex={1} minHeight={500} px={2} pt={8}>
+              <Box flex={1} bgcolor="white" minHeight={500} pt={8}>
                 {children}
               </Box>
               <Box
@@ -61,6 +61,7 @@ export default function LocaleLayout({
                 left={0}
                 right={0}
                 height={FOOTER_HEIGHT}
+                bgcolor="white"
                 sx={{
                   display: "flex",
                   alignItems: "center",

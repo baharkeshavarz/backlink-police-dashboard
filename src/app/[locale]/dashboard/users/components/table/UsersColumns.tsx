@@ -1,59 +1,125 @@
-import { Box } from "@mui/material";
+import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
+import { IUser } from "@/services/users/types";
+import { RemoveRedEyeOutlined } from "@mui/icons-material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
+import Image from "next/image";
+import UserStatus from "../UserStatus";
 
-export const UsersColumns: ColumnDef<any>[] = [
+export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
   {
-    id: "status",
-    accessorKey: "status",
-    header: "Status",
+    id: "id",
+    accessorKey: "id",
+    header: () => <Checkbox size="small" />,
+    size: 20,
     cell: ({ cell }) => {
-      const value = cell.row.original.status;
-      let color = "";
-      const statusName = value.name?.toLowerCase();
-      if (statusName === "done") color = "bg-[#D7E84F] text-[#234F18]";
-      else if (statusName === "rejected") color = "bg-[#FDE8E8] text-[#9B1C1C]";
-      else color = "bg-[#DCE7FA] text-[#42389D]";
-      return <Box>{value.name}</Box>;
-    },
-  },
-  {
-    id: "payedPrice",
-    accessorKey: "payedPrice",
-    header: "Amount",
-    cell: ({ cell }) => (
-      <span className="text-sm leading-tight font-semibold">
-        {cell.getValue<number>() < 0 ? "-" : ""}$
-        {Math.abs(cell.getValue<number>())}
-      </span>
-    ),
-  },
-  {
-    id: "startDate",
-    accessorKey: "startDate",
-    header: "Date & Time",
-    cell: ({ cell }) => {
-      const date = cell.row.original.startDate;
       return (
-        <span className="text-muted-foreground text-sm leading-tight font-normal">
-          {format(new Date(date), "dd MMM yyyy")}
-        </span>
+        <Box>
+          <Checkbox size="small" />
+        </Box>
       );
     },
   },
   {
-    id: "transaction",
-    accessorKey: "transaction",
-    header: "Transaction",
-    cell: ({ cell }) => (
-      <span className="text-sm leading-tight font-normal">
-        Payment from{" "}
-        <span className="text-sm font-medium">
-          {cell.row.original.userFirstName +
-            " " +
-            cell.row.original.userLastName}
-        </span>
-      </span>
-    ),
+    id: "name",
+    accessorKey: "name",
+    header: "name".toUpperCase(),
+    cell: ({ cell }) => {
+      const fullName = `${cell.row.original.firstName} ${cell.row.original.lastName}`;
+      const email = cell.row.original.email;
+      return (
+        <Box
+          display="flex"
+          justifyContent="flex-start"
+          alignItems="center"
+          gap={1}
+        >
+          <Avatar
+            alt=""
+            src={`${DEFAULT_DASHBOARD_ICONS}/user-test.jpg`}
+            sx={{ width: 48, height: 48 }}
+          />
+          <Stack>
+            <Typography variant="subtitle1" fontWeight="600">
+              {fullName}
+            </Typography>
+            <Typography variant="subtitle2" color="grey.600" fontWeight="400">
+              {email}
+            </Typography>
+          </Stack>
+        </Box>
+      );
+    },
+  },
+  {
+    id: "organization",
+    accessorKey: "organization",
+    header: "company".toUpperCase(),
+    cell: ({ cell }) => {
+      const value = cell.row.original.organization || "N/A";
+      return <Box>{value}</Box>;
+    },
+  },
+  {
+    id: "lastSession",
+    accessorKey: "lastSession",
+    header: "last session".toUpperCase(),
+    cell: ({ cell }) => {
+      const value = cell.row.original.lastSession
+        ? new Date(cell.row.original.lastSession).toLocaleDateString()
+        : "N/A";
+
+      return <Box>{value}</Box>;
+    },
+  },
+  {
+    id: "status",
+    accessorKey: "status",
+    header: "status".toUpperCase(),
+    cell: ({ cell }) => {
+      const status = Math.random() < 0.5 ? 1 : 2; //TODO
+      return <UserStatus status={status} />;
+    },
+  },
+  {
+    id: "operation",
+    accessorKey: "",
+    header: "",
+    cell: ({ cell }) => {
+      return (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap={1.5}
+        >
+          <Button variant="outlined" startIcon={<RemoveRedEyeOutlined />}>
+            View Profile
+          </Button>
+          <Button
+            variant="contained"
+            sx={{
+              width: 39,
+              height: 37,
+              p: 0,
+            }}
+          >
+            <Image
+              alt="edit"
+              src={`${DEFAULT_DASHBOARD_ICONS}/pencil-icon.svg`}
+              width={16}
+              height={16}
+            />
+          </Button>
+        </Box>
+      );
+    },
   },
 ];

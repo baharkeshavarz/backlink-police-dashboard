@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 export const config = {
-  baseURL: `${PUBLIC_GATEWAY_URL}`,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}${PUBLIC_GATEWAY_URL}`,
   timeout: 3000 * 10,
   headers: {
     "Access-Control-Allow-Credentials": true,

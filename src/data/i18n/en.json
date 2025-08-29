@@ -111,6 +111,12 @@
           "help": "Help"
         }
       }
+    },
+    "users": {
+      "status": {
+        "online": "Online",
+        "offline": "Offline"
+      }
     }
   }
 }
