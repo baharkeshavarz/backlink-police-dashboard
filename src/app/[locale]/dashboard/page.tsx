@@ -3,42 +3,57 @@
 import { PropsWithChildren } from "react";
 import { Box, Typography } from "@mui/material";
 import { FOOTER_HEIGHT } from "@/constants/general";
-
 import { useTranslations } from "next-intl";
+
 import TopBar from "./components/TopBar";
 import Sidebar from "./components/sidebar/Sidebar";
 
 const PageContainer = ({ children }: PropsWithChildren) => {
   const t = useTranslations();
+
   return (
     <Box
       sx={{
         display: "flex",
-        height: "100vh",
         flexDirection: "column",
-        // bgcolor: "white",
+        height: "100vh",
       }}
     >
       <TopBar />
-      <Box display="flex" flex={1}>
+
+      <Box sx={{ display: "flex", flex: 1 }}>
         <Sidebar />
-        <Box flex={1} display="flex" flexDirection="column" position="relative">
-          <Box flex={1} minHeight={600} pt={8}>
+        <Box
+          component="main"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            minHeight: 0,
+          }}
+        >
+          <Box
+            flex={1}
+            sx={{
+              overflowY: "auto",
+              bgcolor: "white",
+              minHeight: 400,
+            }}
+          >
             {children}
           </Box>
           <Box
-            width="100%"
-            position="sticky"
-            bottom={0}
-            left={0}
-            right={0}
-            height={FOOTER_HEIGHT}
-            bgcolor="white"
+            component="footer"
             sx={{
+              flexShrink: 0,
+              height: FOOTER_HEIGHT,
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-start",
               px: 4,
+              bgcolor: "white",
+              borderTop: "1px solid",
+              borderColor: "grey.200",
             }}
           >
             <Typography variant="subtitle2" color="grey.500">

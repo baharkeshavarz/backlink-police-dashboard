@@ -29,10 +29,7 @@ export default async function LocaleLayout({
   // });
   return (
     <html lang={locale} dir={languages?.[locale]?.direction}>
-      <body className={inter.className}>
-        {/* <Overview /> */}
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

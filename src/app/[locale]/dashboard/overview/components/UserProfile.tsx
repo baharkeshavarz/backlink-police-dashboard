@@ -6,7 +6,14 @@ const UserProfile = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ mb: 4, p: 3, display: "flex", alignItems: "center", gap: 1.5 }}
+      sx={{
+        p: 5.5,
+        my: 2,
+        border: 0,
+        display: "flex",
+        alignItems: "center",
+        gap: 1.5,
+      }}
     >
       <Box
         sx={{
