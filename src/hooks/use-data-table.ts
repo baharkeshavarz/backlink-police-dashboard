@@ -11,7 +11,6 @@ import {
   getSortedRowModel,
   type PaginationState,
   type RowSelectionState,
-  type SortingState,
   type TableOptions,
   type TableState,
   type Updater,

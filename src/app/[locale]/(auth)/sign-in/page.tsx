@@ -20,10 +20,12 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/navigation";
+import { useState } from "react";
 
 const LoginForm = () => {
   const t = useTranslations();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const labels: Record<keyof SignInPayload, string> = {
     email: t("common.fields.email"),
@@ -31,8 +33,8 @@ const LoginForm = () => {
   };
 
   const resolveSchema: yup.ObjectSchema<SignInPayload> = yup.object({
-    email: yup.string().nullable().required().label(labels.email),
-    password: yup.string().nullable().required().label(labels.password),
+    email: yup.string().required().required().label(labels.email),
+    password: yup.string().required().required().label(labels.password),
   });
 
   const methods = useForm<SignInPayload>({
@@ -42,6 +44,8 @@ const LoginForm = () => {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
+    console.log(payload);
+    setIsLoading(true);
     const result = await signIn("credentials", {
       ...payload,
       redirect: false,
@@ -49,6 +53,7 @@ const LoginForm = () => {
 
     if (!result) {
       toast.error(t("messages.authenticationError"));
+      setIsLoading(false);
     } else {
       router.push(DEFAULT_DASHBOARD_PATH);
     }
@@ -134,7 +139,7 @@ const LoginForm = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <ButtonWithLoading
-                  // isLoading={isPending}
+                  isLoading={isLoading}
                   type="submit"
                   fullWidth
                   variant="contained"
