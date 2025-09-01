@@ -1,15 +1,17 @@
 "use client";
 
 import { Box, Grid } from "@mui/material";
-import PageContainer from "../page";
 import StatCard from "./components/StatCard";
 import UserProfile from "./components/UserProfile";
 import { Icons } from "@/components/common/icons";
+import UsersSearch from "../components/UsersSearch";
+import PageContainer from "../page";
 
 const DashboardPage = () => {
   return (
     <PageContainer>
-      <Box sx={{ py: 8, px: 2, bgcolor: "#f4f5ff", height: "100%" }}>
+      <Box sx={{ pt: 10, px: 2, bgcolor: "#f4f5ff", height: "100%" }}>
+        <UsersSearch />
         <UserProfile />
         <Grid container spacing={1}>
           <Grid size={{ xs: 12, sm: 3 }}>
