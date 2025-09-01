@@ -16,14 +16,14 @@ const PageContainer = ({ children }: PropsWithChildren) => {
         display: "flex",
         height: "100vh",
         flexDirection: "column",
-        bgcolor: "white",
+        // bgcolor: "white",
       }}
     >
       <TopBar />
       <Box display="flex" flex={1}>
         <Sidebar />
         <Box flex={1} display="flex" flexDirection="column" position="relative">
-          <Box flex={1} bgcolor="white" minHeight={500} pt={8}>
+          <Box flex={1} minHeight={600} pt={8}>
             {children}
           </Box>
           <Box

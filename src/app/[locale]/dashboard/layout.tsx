@@ -3,6 +3,7 @@ import { Session } from "next-auth";
 import { Inter } from "next/font/google";
 import { PropsWithChildren, ReactNode } from "react";
 import PageContainer from "./page";
+import Overview from "./overview/page";
 const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
@@ -29,7 +30,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={languages?.[locale]?.direction}>
       <body className={inter.className}>
-        <PageContainer>{children}</PageContainer>
+        {/* <Overview /> */}
+        {children}
       </body>
     </html>
   );
