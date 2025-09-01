@@ -1,14 +1,15 @@
 "use client";
 
+import { PropsWithChildren } from "react";
 import { Box, Typography } from "@mui/material";
-import Sidebar from "./components/sidebar/Sidebar";
-import TopBar from "./components/TopBar";
 import { FOOTER_HEIGHT } from "@/constants/general";
+
 import { useTranslations } from "next-intl";
+import TopBar from "./components/TopBar";
+import Sidebar from "./components/sidebar/Sidebar";
 
-const DashboardPage = () => {
+const PageContainer = ({ children }: PropsWithChildren) => {
   const t = useTranslations();
-
   return (
     <Box
       sx={{
@@ -22,11 +23,9 @@ const DashboardPage = () => {
       <Box display="flex" flex={1}>
         <Sidebar />
         <Box flex={1} display="flex" flexDirection="column" position="relative">
-          <Box flex={1} minHeight={500} sx={{ pb: `${FOOTER_HEIGHT}px` }}>
-            {/* Page content goes here */}
+          <Box flex={1} bgcolor="white" minHeight={500} pt={8}>
+            {children}
           </Box>
-
-          {/* Footer */}
           <Box
             width="100%"
             position="sticky"
@@ -34,6 +33,7 @@ const DashboardPage = () => {
             left={0}
             right={0}
             height={FOOTER_HEIGHT}
+            bgcolor="white"
             sx={{
               display: "flex",
               alignItems: "center",
@@ -51,4 +51,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default PageContainer;

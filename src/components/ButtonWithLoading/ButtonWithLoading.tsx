@@ -41,7 +41,7 @@ const ButtonWithLoading: FC<ButtonWithLoadingProps> = ({
       {isLoading ? (
         <>
           <Spinner variant="bars" />
-          {children}
+          Processing...
         </>
       ) : (
         children
