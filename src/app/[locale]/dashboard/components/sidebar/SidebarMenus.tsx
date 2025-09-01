@@ -11,6 +11,10 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import RoundedIcon from "@/components/common/RoundedIcon";
+import {
+  DEFAULT_DASHBOARD_OVERVIEW_PATH,
+  DEFAULT_DASHBOARD_USERS_PATH,
+} from "@/constants/routes";
 
 interface ISideBarMenu {
   text: string;
@@ -27,10 +31,12 @@ const SidebarMenus = () => {
     {
       text: t("pages.dashboard.sidebar.menu.overview"),
       icon: `${DEFAULT_DASHBOARD_ICONS}/chart-pie.svg`,
+      linkUrl: DEFAULT_DASHBOARD_OVERVIEW_PATH,
     },
     {
       text: t("pages.dashboard.sidebar.menu.users"),
       icon: `${DEFAULT_DASHBOARD_ICONS}/shopping-bag.svg`,
+      linkUrl: DEFAULT_DASHBOARD_USERS_PATH,
     },
     {
       text: t("pages.dashboard.sidebar.menu.messages"),
@@ -58,7 +64,7 @@ const SidebarMenus = () => {
   return (
     <>
       <List>
-        {menus?.map(({ text, icon, callFunc, linkUrl, badgeCount }, index) => {
+        {menus?.map(({ text, icon, callFunc, linkUrl, badgeCount }, _) => {
           const buttonContent = (
             <ListItemButton
               onClick={callFunc}

@@ -18,12 +18,11 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
     id: "id",
     accessorKey: "id",
     header: () => <Checkbox size="small" />,
-    size: 20,
     cell: ({ cell }) => {
       return (
-        <Box>
-          <Checkbox size="small" />
-        </Box>
+        <Stack alignItems="flex-start">
+          <Checkbox />
+        </Stack>
       );
     },
   },

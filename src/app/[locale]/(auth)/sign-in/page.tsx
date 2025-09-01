@@ -6,7 +6,7 @@ import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import {
-  DEFAULT_DASHBOARD_PATH,
+  DEFAULT_DASHBOARD_OVERVIEW_PATH,
   DEFAULT_FORGOT_PASSWORD_PATH,
 } from "@/constants/routes";
 import { SignInPayload } from "@/services/iam/types";
@@ -55,7 +55,7 @@ const LoginForm = () => {
       toast.error(t("messages.authenticationError"));
       setIsLoading(false);
     } else {
-      router.push(DEFAULT_DASHBOARD_PATH);
+      router.push(DEFAULT_DASHBOARD_OVERVIEW_PATH);
     }
   };
 

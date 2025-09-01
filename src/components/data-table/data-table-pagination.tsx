@@ -59,6 +59,7 @@ export function DataTablePagination<TData>({
           {totalPages}
         </Typography>
         <Typography component="span" color="grey.500">
+          {" "}
           of{" "}
         </Typography>
         <Typography component="span" color="black">

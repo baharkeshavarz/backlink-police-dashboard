@@ -1,8 +1,9 @@
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import { Card, Typography, Box } from "@mui/material";
+import { useSession } from "next-auth/react";
 
 const UserProfile = () => {
-  const user = { firstName: "John" }; //TODO
+  const { data: session } = useSession();
   return (
     <Card
       variant="outlined"
@@ -37,7 +38,7 @@ const UserProfile = () => {
         />
       </Box>
       <Typography variant="h2" fontWeight="700">
-        Welcome back {user?.firstName || "Admin"}! 👋
+        Welcome back {session?.user?.name || "Admin"}! 👋
       </Typography>
     </Card>
   );

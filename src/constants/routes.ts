@@ -1,6 +1,8 @@
 export const DEFAULT_IMAGES_PATH = "/assets/images";
 export const DEFAULT_LOGO_PATH = `${DEFAULT_IMAGES_PATH}/logo.png`;
 export const DEFAULT_DASHBOARD_PATH = "/dashboard";
+export const DEFAULT_DASHBOARD_OVERVIEW_PATH = `${DEFAULT_DASHBOARD_PATH}/overview`;
+export const DEFAULT_DASHBOARD_USERS_PATH = `${DEFAULT_DASHBOARD_PATH}/users`;
 export const DEFAULT_SIGNIN_PATH = "/sign-in";
 export const DEFAULT_LOGIN_OTP_PATH = `${DEFAULT_SIGNIN_PATH}/otp`;
 export const DEFAULT_FORGOT_PASSWORD_PATH = "/forgot-password";
