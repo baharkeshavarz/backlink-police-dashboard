@@ -13,6 +13,8 @@ import {
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import UserStatus from "../UserStatus";
+import Link from "next/link";
+import { DEFAULT_DASHBOARD_USERS_PATH } from "@/constants/routes";
 
 export const UsersColumns = (
   handleEditClick: (userId: string) => void
@@ -104,23 +106,21 @@ export const UsersColumns = (
           gap={1.5}
         >
           <Button
+            component={Link}
+            href={`${DEFAULT_DASHBOARD_USERS_PATH}/${userId}`}
             variant="outlined"
             sx={{
               borderColor: "blue.400",
               color: "blue.600",
               width: "128px",
               height: "37px",
+              display: "flex",
+              alignItems: "center",
+              gap: 0.1,
             }}
           >
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              gap={0.1}
-            >
-              <RemoveRedEyeOutlined sx={{ fontSize: "15px" }} />
-              <Typography variant="subtitle2">View Profile</Typography>
-            </Box>
+            <RemoveRedEyeOutlined sx={{ fontSize: 15 }} />
+            <Typography variant="subtitle2">View Profile</Typography>
           </Button>
           <IconButton
             aria-label="edit"

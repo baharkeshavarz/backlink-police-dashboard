@@ -18,7 +18,7 @@ import { FC } from "react";
 
 type EditUserFormProps = {
   userId: string;
-  onSuccess: VoidFunction;
+  onSuccess?: VoidFunction;
 };
 
 const EditUserForm: FC<EditUserFormProps> = ({ userId, onSuccess }) => {

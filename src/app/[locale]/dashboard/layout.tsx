@@ -2,8 +2,6 @@ import { languages, Locale } from "@/navigation";
 import { Session } from "next-auth";
 import { Inter } from "next/font/google";
 import { PropsWithChildren, ReactNode } from "react";
-import PageContainer from "./page";
-import Overview from "./overview/page";
 const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
