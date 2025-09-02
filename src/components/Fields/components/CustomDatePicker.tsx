@@ -11,7 +11,7 @@ const CustomDatePicker: FC<ICustomDatePicker["props"]> = ({
   label,
   variant = "outlined",
   labelVariant = "subtitle1",
-  boldLabel = true,
+  boldLabel = false,
   valueFormatter,
   format = "yyyy/MM/dd",
   ...props

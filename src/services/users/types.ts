@@ -40,10 +40,34 @@ export enum UserStatusEnum {
 export interface IGetUsers {
   items: IUser[];
 }
+
+export interface IEditUserPayload {
+  firstName: string;
+  lastName: string;
+  countryId: number;
+  city: string;
+  address: string;
+  email: string;
+  phoneNumber: string;
+  birthDate: string;
+  organization: string;
+  role: string;
+  department: string;
+  zip: string;
+}
+
 export interface UsersListService {
   (args: { params: Partial<IUser> }): Response<IGetUsers>;
 }
 
 export interface AddInviteUserService {
   (args: { payload: IUserInvitePayload }): Response;
+}
+
+export interface GetUsertService {
+  (args: { id: number | string }): Response<IUser>;
+}
+
+export interface UpdateUserService {
+  (args: { payload: IEditUserPayload }): Response;
 }

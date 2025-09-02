@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonWithLoading } from "@/components/ButtonWithLoading";
+import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
 import { customCheckboxSx } from "@/components/common/SharedStyles";
 import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
@@ -138,7 +138,7 @@ const LoginForm = () => {
                 </Box>
               </Grid>
               <Grid size={{ xs: 12 }}>
-                <ButtonWithLoading
+                <ButtonWithLoadingText
                   isLoading={isLoading}
                   type="submit"
                   fullWidth
@@ -149,7 +149,7 @@ const LoginForm = () => {
                   <Typography variant="subtitle2">
                     {t("common.buttons.signIn")}
                   </Typography>
-                </ButtonWithLoading>
+                </ButtonWithLoadingText>
               </Grid>
             </Grid>
           </Box>

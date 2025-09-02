@@ -7,17 +7,30 @@ import { UsersColumns } from "./UsersColumns";
 import UsersSearch from "../../../components/UsersSearch";
 import { Paper } from "@mui/material";
 import UserOperation from "../UserOperation";
-import AddUserDialog from "../AddUserDialog";
-import { useState } from "react";
+import { FC, useState } from "react";
+import EditUserDialog from "../EditUserDialog";
 
-type Props = {
+type UsersTableProps = {
   data: IUser[];
 };
 
-export default function UsersTable({ data }: Props) {
+const UsersTable: FC<UsersTableProps> = ({ data }) => {
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const handleEditClick = (userId: string) => {
+    setSelectedUser(userId);
+    setOpenDialog(true);
+  };
+
+  const handleEditUserDialog = () => {
+    setOpenDialog((prev) => !prev);
+  };
+
+  const columns = UsersColumns(handleEditClick);
+
   const { table } = useDataTable({
     data: data,
-    columns: UsersColumns,
+    columns: columns,
     pageCount: data.length,
     shallow: false,
   });
@@ -38,6 +51,15 @@ export default function UsersTable({ data }: Props) {
         <UserOperation />
       </Paper>
       <DataTable table={table}></DataTable>
+
+      <EditUserDialog
+        open={openDialog}
+        userId={selectedUser}
+        onClose={handleEditUserDialog}
+        onSuccess={handleEditUserDialog}
+      />
     </>
   );
-}
+};
+
+export default UsersTable;

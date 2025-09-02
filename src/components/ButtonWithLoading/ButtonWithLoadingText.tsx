@@ -1,14 +1,14 @@
 import { FIXED_BUTTON_HEIGHT } from "@/constants/general";
-import { Button, ButtonProps, useTheme } from "@mui/material";
+import { Button, ButtonProps, Typography, useTheme } from "@mui/material";
 import { FC } from "react";
 import { Spinner } from "../common/SpinnerComponent";
 
-export interface ButtonWithLoadingProps extends ButtonProps {
+export interface ButtonWithLoadingTextProps extends ButtonProps {
   isLoading?: boolean;
   needStyling?: boolean;
 }
 
-const ButtonWithLoading: FC<ButtonWithLoadingProps> = ({
+const ButtonWithLoadingText: FC<ButtonWithLoadingTextProps> = ({
   isLoading,
   children,
   ...props
@@ -41,9 +41,16 @@ const ButtonWithLoading: FC<ButtonWithLoadingProps> = ({
         },
       }}
     >
-      {isLoading ? <Spinner variant="bars" /> : children}
+      {isLoading ? (
+        <>
+          <Spinner variant="bars" />
+          <Typography variant="subtitle2">Processing...</Typography>
+        </>
+      ) : (
+        children
+      )}
     </Button>
   );
 };
 
-export default ButtonWithLoading;
+export default ButtonWithLoadingText;

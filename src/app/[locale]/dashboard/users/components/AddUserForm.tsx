@@ -55,7 +55,7 @@ const AddUserForm: FC<AddUserFormProps> = ({ onSuccess }) => {
   const fields: FormBuilderProps["fields"] = {
     name: {
       name: "name",
-      label: "Name",
+      label: labels.name,
       type: "String",
       ui: {
         grid: {
@@ -65,7 +65,7 @@ const AddUserForm: FC<AddUserFormProps> = ({ onSuccess }) => {
     },
     email: {
       name: "email",
-      label: "Email Address",
+      label: labels.email,
       type: "String",
       ui: {
         grid: {

@@ -14,7 +14,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import UserStatus from "../UserStatus";
 
-export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
+export const UsersColumns = (
+  handleEditClick: (userId: string) => void
+): ColumnDef<Partial<IUser>>[] => [
   {
     id: "id",
     accessorKey: "id",
@@ -93,6 +95,7 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
     accessorKey: "",
     header: "",
     cell: ({ cell }) => {
+      const userId = cell.row.original.id!;
       return (
         <Box
           display="flex"
@@ -102,7 +105,6 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
         >
           <Button
             variant="outlined"
-            // startIcon={<RemoveRedEyeOutlined fontSize="small" />}
             sx={{
               borderColor: "blue.400",
               color: "blue.600",
@@ -131,6 +133,7 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
                 bgcolor: "blue.700",
               },
             }}
+            onClick={() => handleEditClick(userId)}
           >
             <Image
               alt="edit"

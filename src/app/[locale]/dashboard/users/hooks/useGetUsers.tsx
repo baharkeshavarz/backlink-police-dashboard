@@ -151,9 +151,9 @@ const useGetUsers = () => {
   const query = useQuery({
     queryKey: ["GET_USERS_LIST"],
     queryFn: async () => {
-      //   const { data } = await getUsers({ params: {} });
-      // return data
-      return { items: fakeUsers };
+      const { data } = await getUsers({ params: {} });
+      return data;
+      // return { items: fakeUsers };
     },
     gcTime: 0,
   });

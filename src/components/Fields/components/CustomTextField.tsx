@@ -91,7 +91,11 @@ const CustomTextField: FC<CustomTextFieldProps> = ({
                   input: {
                     ...(props.multiline
                       ? {}
-                      : { sx: { height: FIXED_INPUT_HEIGHT } }),
+                      : {
+                          sx: {
+                            height: FIXED_INPUT_HEIGHT,
+                          },
+                        }),
                     endAdornment: (
                       <>
                         {!props.disabled && value && (

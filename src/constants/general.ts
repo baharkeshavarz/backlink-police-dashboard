@@ -10,6 +10,7 @@ export const DEFAULT_DASHBOARD_IMAGES = "/assets/images/dashboard";
 export const DEFAULT_DASHBOARD_ICONS = `${DEFAULT_DASHBOARD_IMAGES}/icons/`;
 export const FOOTER_HEIGHT = 80;
 export const DEFAULT_MAX_WIDTH_415 = 415;
+export const DEFAULT_MAX_WIDTH_696 = 696;
 
 /*-------------------------------*/
 
