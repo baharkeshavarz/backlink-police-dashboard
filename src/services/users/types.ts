@@ -28,6 +28,11 @@ export interface IUser {
   isAdmin: boolean;
 }
 
+export interface IUserInvitePayload {
+  name: string;
+  email: string;
+}
+
 export enum UserStatusEnum {
   Online = 1,
   Offline = 2,
@@ -37,4 +42,8 @@ export interface IGetUsers {
 }
 export interface UsersListService {
   (args: { params: Partial<IUser> }): Response<IGetUsers>;
+}
+
+export interface AddInviteUserService {
+  (args: { payload: IUserInvitePayload }): Response;
 }

@@ -30,6 +30,9 @@ const ButtonWithLoading: FC<ButtonWithLoadingProps> = ({
       sx={{
         ...props.sx,
         height: FIXED_BUTTON_HEIGHT,
+        "&:hover": {
+          bgcolor: "blue.700",
+        },
         "&.Mui-disabled": {
           backgroundColor: disabledBg,
           color: (theme) => theme.palette.common.white,

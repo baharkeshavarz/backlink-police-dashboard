@@ -3,15 +3,13 @@
 import { FC, PropsWithChildren } from "react";
 import {
   ThemeOptions,
-  ThemeProvider,
   CssBaseline,
   GlobalStyles,
+  ThemeProvider,
 } from "@mui/material";
 import type { GlobalStylesProps } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import TanstackProvider from "./TanstackProvider";
-import ToastProvider from "./ToastProvider";
-import AppProvider from "./AppProvider";
 import RTLProvider from "./RTLProvider";
 import CustomLocalizationProvider from "./CustomLocalizationProvider";
 import ConfirmAlertProvider from "./ConfirmAlertProvider";
@@ -20,6 +18,7 @@ import type { Locale } from "@/navigation";
 import { Session } from "next-auth";
 import type { userAgent } from "next/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import AppProvider from "./AppProvider";
 import ToasterProvider from "./ToastProvider";
 
 export interface ClientProvidersProps {
@@ -44,11 +43,10 @@ const ClientProviders: FC<PropsWithChildren<ClientProvidersProps>> = ({
         <TanstackProvider>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
-              <ToastProvider />
+              <ToasterProvider richColors position="top-right" />
               <AppProvider userAgent={userAgent}>
                 <CssBaseline />
                 <GlobalStyles styles={globalStyles} />
-                <ToasterProvider richColors position="top-right" />
                 <RTLProvider locale={locale}>
                   <CustomLocalizationProvider locale={locale}>
                     <ConfirmAlertProvider>{children}</ConfirmAlertProvider>
