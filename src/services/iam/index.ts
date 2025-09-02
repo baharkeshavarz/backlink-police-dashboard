@@ -10,3 +10,7 @@ export const LoginIn: SignInService = ({ payload }) => {
 export const forgetPassword: ForgetPasswordService = ({ payload }) => {
   return axiosInstance.post(`${BASE_URL}/forgot-password`, payload);
 };
+
+export const AdminSignOut = () => {
+  return axiosInstance.post(`${BASE_URL}/sing-out`);
+};

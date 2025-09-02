@@ -7,18 +7,18 @@ export const routing = defineRouting({
   locales,
   localePrefix: "as-needed",
   defaultLocale,
-  pathnames: {
-    "/": "/",
-    "/sign-in": {
-      en: "/sign-in",
-      ar: "/sign-in",
-    },
-    "/dashboard": {
-      en: "/dashboard",
-      ar: "/dashboard",
-    },
-    "/pathnames": {
-      ar: "/pfadnamen",
-    },
-  },
+  // pathnames: {
+  //   "/": "/",
+  //   "/sign-in": {
+  //     en: "/sign-in",
+  //     ar: "/sign-in",
+  //   },
+  //   "/dashboard": {
+  //     en: "/dashboard",
+  //     ar: "/dashboard",
+  //   },
+  //   "/pathnames": {
+  //     ar: "/pfadnamen",
+  //   },
+  // },
 });

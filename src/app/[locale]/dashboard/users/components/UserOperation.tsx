@@ -12,7 +12,13 @@ const UserOperation = () => {
         <Button
           variant="contained"
           startIcon={<AddIcon sx={{ fontSize: 20 }} />}
-          sx={{ borderRadius: "8px", textTransform: "none" }}
+          sx={{
+            borderRadius: "8px",
+            textTransform: "none",
+            "&:hover": {
+              bgcolor: "blue.700",
+            },
+          }}
         >
           <Typography variant="subtitle2"> Add user</Typography>
         </Button>

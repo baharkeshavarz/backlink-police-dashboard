@@ -20,6 +20,7 @@ import type { Locale } from "@/navigation";
 import { Session } from "next-auth";
 import type { userAgent } from "next/server";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import ToasterProvider from "./ToastProvider";
 
 export interface ClientProvidersProps {
   theme: ThemeOptions;
@@ -47,6 +48,7 @@ const ClientProviders: FC<PropsWithChildren<ClientProvidersProps>> = ({
               <AppProvider userAgent={userAgent}>
                 <CssBaseline />
                 <GlobalStyles styles={globalStyles} />
+                <ToasterProvider richColors position="top-right" />
                 <RTLProvider locale={locale}>
                   <CustomLocalizationProvider locale={locale}>
                     <ConfirmAlertProvider>{children}</ConfirmAlertProvider>

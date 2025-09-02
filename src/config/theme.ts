@@ -74,19 +74,19 @@ const UncheckedIcon = createSvgIcon(
 const CheckedIcon = createSvgIcon(
   React.createElement(
     "svg",
-    { viewBox: "0 0 24 24", fill: "none" },
+    { viewBox: "0 0 24 24", fill: "#2747F0" },
     React.createElement("rect", {
       x: "3.5",
       y: "3.5",
       width: "16",
-      height: "20",
+      height: "16",
       rx: "4",
       stroke: "currentColor",
       strokeWidth: strokeVar,
     }),
     React.createElement("path", {
       d: "M7 12.5l3 3 7-7",
-      stroke: "currentColor",
+      stroke: "white",
       strokeWidth: strokeVar,
       strokeLinecap: "round",
       strokeLinejoin: "round",
@@ -98,7 +98,7 @@ const CheckedIcon = createSvgIcon(
 const IndeterminateIcon = createSvgIcon(
   React.createElement(
     "svg",
-    { viewBox: "0 0 24 24", fill: "none" },
+    { viewBox: "0 0 24 24", fill: "blue.600" },
     React.createElement("rect", {
       x: "3.5",
       y: "3.5",

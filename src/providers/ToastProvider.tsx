@@ -1,22 +1,25 @@
-'use client';
+"use client";
 
-import { Box } from '@mui/material';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from "@mui/material";
+import { Toaster as Sonner, ToasterProps } from "sonner";
 
-const ToastProvider = () => {
+const ToasterProvider = ({ ...props }: ToasterProps) => {
+  const theme = useTheme();
+
   return (
-    <Box
-      sx={{
-        '& .Toastify__toast': {
-          '--toastify-font-family': (theme) =>
-            `${theme.typography.fontFamily} !important`,
-        },
-      }}
-    >
-      <ToastContainer position="top-center" />
-    </Box>
+    <Sonner
+      theme={theme.palette.mode as ToasterProps["theme"]}
+      className="toaster group"
+      style={
+        {
+          "--normal-bg": "common.white",
+          "--normal-text": "common.black",
+          "--normal-border": "common.white",
+        } as React.CSSProperties
+      }
+      {...props}
+    />
   );
 };
 
-export default ToastProvider;
+export default ToasterProvider;

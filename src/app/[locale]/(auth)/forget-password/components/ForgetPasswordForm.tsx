@@ -13,7 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 

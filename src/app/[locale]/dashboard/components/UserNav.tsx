@@ -12,9 +12,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useRouter } from "@/navigation";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
+import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 
 const UserNav = () => {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -24,6 +28,15 @@ const UserNav = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const HandleLogout = async () => {
+    try {
+      await signOut();
+      router.push(DEFAULT_SIGNIN_PATH);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
   return (
     <Box display="flex" alignItems="center">
@@ -91,11 +104,14 @@ const UserNav = () => {
           </Link>
         </MenuItem>
         <MenuItem sx={{ py: 1, px: 0 }}>
-          <Link href="/sign-out">
-            <Typography variant="subtitle2" mx={2} color="red">
-              Sign out
-            </Typography>
-          </Link>
+          <Typography
+            variant="subtitle2"
+            mx={2}
+            color="red"
+            onClick={HandleLogout}
+          >
+            Sign out
+          </Typography>
         </MenuItem>
       </Menu>
     </Box>

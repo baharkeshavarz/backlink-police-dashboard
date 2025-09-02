@@ -1,6 +1,6 @@
 import { PUBLIC_GATEWAY_URL } from "@/config/app";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 export const config = {
   baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}${PUBLIC_GATEWAY_URL}`,

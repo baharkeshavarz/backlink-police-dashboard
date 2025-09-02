@@ -16,7 +16,7 @@ import { Box, Container, Grid, Stack, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import * as yup from "yup";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/navigation";
@@ -44,7 +44,6 @@ const LoginForm = () => {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<SignInPayload> = async (payload) => {
-    console.log(payload);
     setIsLoading(true);
     const result = await signIn("credentials", {
       ...payload,
@@ -55,6 +54,7 @@ const LoginForm = () => {
       toast.error(t("messages.authenticationError"));
       setIsLoading(false);
     } else {
+      toast.success("Successfully signed in!");
       router.push(DEFAULT_DASHBOARD_OVERVIEW_PATH);
     }
   };

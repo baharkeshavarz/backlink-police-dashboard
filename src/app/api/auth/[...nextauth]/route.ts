@@ -3,8 +3,8 @@
 import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { LoginIn } from "@/services/iam";
-import console from "console";
+import { AdminSignOut, LoginIn } from "@/services/iam";
+import { redirect } from "next/navigation";
 
 export const handler = NextAuth({
   session: {
@@ -60,6 +60,27 @@ export const handler = NextAuth({
         token.refreshToken = user?.refreshToken;
       }
       return token;
+    },
+  },
+  events: {
+    async signOut({ token }) {
+      // Call backend to revoke session
+      if (token?.accessToken) {
+        try {
+          // await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-out`, {
+          //   method: "POST",
+          //   headers: {
+          //     Authorization: `Bearer ${token.accessToken}`,
+          //     "Content-Type": "application/json",
+          //   },
+          // });
+
+          await AdminSignOut();
+          redirect(DEFAULT_SIGNIN_PATH);
+        } catch (error) {
+          console.error("Failed to revoke session on backend:", error);
+        }
+      }
     },
   },
 });

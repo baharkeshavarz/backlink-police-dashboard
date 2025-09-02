@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Locale } from 'next-intl';
-import { ReactNode, useTransition } from 'react';
-import { usePathname, useRouter } from '@/navigation';
-import { Select, SelectChangeEvent } from '@mui/material';
+import { Locale } from "next-intl";
+import { ReactNode, useTransition } from "react";
+import { usePathname, useRouter } from "@/navigation";
+import { Select, SelectChangeEvent } from "@mui/material";
 
 type Props = {
   children: ReactNode;
@@ -14,7 +14,6 @@ type Props = {
 export default function LocaleSwitcherSelect({
   children,
   defaultValue,
-  label,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -32,7 +31,7 @@ export default function LocaleSwitcherSelect({
       defaultValue={defaultValue}
       disabled={isPending}
       onChange={onSelectChange}
-      sx={{ bgcolor: 'white' }}
+      sx={{ bgcolor: "white" }}
     >
       {children}
     </Select>

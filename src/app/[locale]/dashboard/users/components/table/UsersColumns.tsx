@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Checkbox,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -99,15 +100,36 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
           alignItems="center"
           gap={1.5}
         >
-          <Button variant="outlined" startIcon={<RemoveRedEyeOutlined />}>
-            View Profile
-          </Button>
           <Button
-            variant="contained"
+            variant="outlined"
+            // startIcon={<RemoveRedEyeOutlined fontSize="small" />}
+            sx={{
+              borderColor: "blue.400",
+              color: "blue.600",
+              width: "128px",
+              height: "37px",
+            }}
+          >
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              gap={0.1}
+            >
+              <RemoveRedEyeOutlined sx={{ fontSize: "15px" }} />
+              <Typography variant="subtitle2">View Profile</Typography>
+            </Box>
+          </Button>
+          <IconButton
+            aria-label="edit"
             sx={{
               width: 39,
               height: 37,
-              p: 0,
+              bgcolor: "blue.600",
+              borderRadius: 1,
+              "&:hover": {
+                bgcolor: "blue.700",
+              },
             }}
           >
             <Image
@@ -116,7 +138,7 @@ export const UsersColumns: ColumnDef<Partial<IUser>>[] = [
               width={16}
               height={16}
             />
-          </Button>
+          </IconButton>
         </Box>
       );
     },
