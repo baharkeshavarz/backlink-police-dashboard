@@ -4,6 +4,7 @@ import { DEFAULT_MAX_WIDTH_696 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
 import EditUserForm from "./EditUserForm";
+import EditUserProfile from "./EditUserProfile";
 
 export type EditUserDialogProps = DialogProps & {
   userId: string;
@@ -24,7 +25,7 @@ const EditUserDialog: FC<EditUserDialogProps> = ({
       sx={{ width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_696, marginX: "auto" }}
       dialogButtons={[]}
     >
-      <EditUserForm userId={userId} onSuccess={onSuccess} />
+      <EditUserProfile userId={userId} onSuccess={onSuccess} />
     </Dialog>
   );
 };

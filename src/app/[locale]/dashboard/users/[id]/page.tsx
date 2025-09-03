@@ -4,6 +4,8 @@ import { Box, Grid } from "@mui/material";
 import ProfileCard from "./components/ProfileCard";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import UserDashboard from "./components/UserDashboard";
+import TransactionList from "../components/TransactionList";
+import UserActivation from "../components/UserActivation";
 
 const UserDetails = () => {
   return (
@@ -22,6 +24,12 @@ const UserDetails = () => {
           </Grid>
           <Grid size={{ xs: 12, sm: 9 }}>
             <UserDashboard />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <TransactionList />
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <UserActivation />
           </Grid>
         </Grid>
       </Box>

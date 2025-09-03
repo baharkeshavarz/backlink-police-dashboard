@@ -3,7 +3,13 @@
 import { GlobalStylesProps, ThemeOptions, createTheme } from "@mui/material";
 import Link from "next/link";
 import { grey } from "@mui/material/colors";
-import { bluePalette, grayPalette, orangePalette } from "./theme-color";
+import {
+  bluePalette,
+  grayPalette,
+  orangePalette,
+  greenPalette,
+  redPalette,
+} from "./theme-color";
 import { createSvgIcon } from "@mui/material/utils";
 
 declare module "@mui/material/styles" {
@@ -19,10 +25,14 @@ declare module "@mui/material/styles" {
   interface Palette {
     blue: typeof bluePalette;
     orange: typeof orangePalette;
+    green: typeof greenPalette;
+    red?: typeof redPalette;
   }
   interface PaletteOptions {
     blue?: typeof bluePalette;
     orange?: typeof orangePalette;
+    green?: typeof greenPalette;
+    red?: typeof redPalette;
   }
 }
 
@@ -139,6 +149,8 @@ const themeOptions: ThemeOptions = {
     grey: grayPalette,
     blue: bluePalette,
     orange: orangePalette,
+    green: greenPalette,
+    red: redPalette,
   },
   typography: {
     fontFamily: "Inter, sans-serif",

@@ -34,6 +34,7 @@ const ProfileCard = ({
         border: 0,
         borderRight: 1,
         borderRadius: 0,
+        borderColor: "grey.200",
         height: "100%",
       }}
     >
@@ -44,11 +45,11 @@ const ProfileCard = ({
             src={avatarUrl}
             sx={{ width: 80, height: 80, borderRadius: 1 }}
           />
-          <Typography variant="h3" fontWeight="700" color="grey.900">
+          <Typography variant="h3" fontWeight="400" color="grey.500">
             {name}
           </Typography>
-          <Stack direction="row">
-            <LocationOnIcon />
+          <Stack direction="row" display="flex" alignItems="center">
+            <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
             <Typography variant="subtitle2" color="grey.500">
               {country}
             </Typography>

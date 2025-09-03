@@ -40,3 +40,22 @@ export const orangePalette = {
   900: "#7c2d12", // adjusted to keep darker progression
   950: "#431407",
 };
+
+export const greenPalette = {
+  50: "#f0fdf4", // very light mint
+  100: "#dcfce7", // soft mint green
+  200: "#bbf7d0", // pale green
+  300: "#86efac", // light green
+  400: "#4ade80", // medium-light green
+  500: "#22c55e", // base green
+  600: "#16a34a", // medium green
+  700: "#15803d", // dark green
+  800: "#166534", // deeper forest green
+  900: "#14532d", // very deep green
+  950: "#052e16", // almost black-green
+};
+
+export const redPalette = {
+  100: "#FDE8E8",
+  800: "#9B1C1C",
+};

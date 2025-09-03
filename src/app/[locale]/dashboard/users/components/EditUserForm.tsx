@@ -15,13 +15,20 @@ import { HttpStatusCode } from "axios";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
-
+import Image from "next/image";
+import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
+import PencilIcon from "@/public/icons/pencil-icon.svg";
 type EditUserFormProps = {
   userId: string;
   onSuccess?: VoidFunction;
+  editType?: "EDIT" | "GENERAL";
 };
 
-const EditUserForm: FC<EditUserFormProps> = ({ userId, onSuccess }) => {
+const EditUserForm: FC<EditUserFormProps> = ({
+  userId,
+  onSuccess,
+  editType,
+}) => {
   const t = useTranslations();
 
   const { isFetching } = useQuery({
@@ -182,29 +189,72 @@ const EditUserForm: FC<EditUserFormProps> = ({ userId, onSuccess }) => {
       <Box component="form" onSubmit={handleSubmit(onSubmit, onInvalidSubmit)}>
         <Grid container spacing={1.5}>
           <FormBuilder fields={fields} />
-          <Grid size={{ xs: 12 }}>
-            <Box display="flex" alignItems="center" gap={2}>
-              <Button
-                variant="outlined"
-                size="medium"
-                sx={{ width: "179px", height: "41px" }}
-              >
-                <Typography variant="subtitle2">
-                  View Detailed Profile
-                </Typography>
-              </Button>
-              <ButtonWithLoading
-                isLoading={isFetching || isPending}
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="medium"
-                sx={{ width: "73px", height: "41px" }}
-              >
-                <Typography variant="subtitle2">Save</Typography>
-              </ButtonWithLoading>
-            </Box>
-          </Grid>
+          {editType === "EDIT" && (
+            <Grid size={{ xs: 12 }}>
+              <Box display="flex" alignItems="center" gap={2}>
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  sx={{ width: "179px", height: "41px" }}
+                >
+                  <Typography variant="subtitle2">
+                    View Detailed Profile
+                  </Typography>
+                </Button>
+                <ButtonWithLoading
+                  isLoading={isFetching || isPending}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  sx={{ width: "73px", height: "41px" }}
+                >
+                  <Typography variant="subtitle2">Save</Typography>
+                </ButtonWithLoading>
+              </Box>
+            </Grid>
+          )}
+
+          {editType === "GENERAL" && (
+            <Grid size={{ xs: 12 }}>
+              <Box display="flex" alignItems="center" gap={2}>
+                <ButtonWithLoading
+                  variant="outlined"
+                  isLoading={isFetching || isPending}
+                  startIcon={
+                    <Image
+                      alt="edit"
+                      src={`${DEFAULT_DASHBOARD_ICONS}pencil-alt.png`}
+                      width={16}
+                      height={16}
+                    />
+                  }
+                >
+                  <Typography variant="subtitle2">Edit</Typography>
+                </ButtonWithLoading>
+
+                <ButtonWithLoading
+                  type="submit"
+                  variant="text"
+                  color="primary"
+                  size="small"
+                  sx={{
+                    width: "92px",
+                    height: "41px",
+                    bgcolor: "grey.50",
+                    color: "grey.500",
+                    "&:hover": {
+                      bgcolor: "blue.400",
+                    },
+                  }}
+                >
+                  <Typography variant="subtitle2" color="grey.500">
+                    Save all
+                  </Typography>
+                </ButtonWithLoading>
+              </Box>
+            </Grid>
+          )}
         </Grid>
       </Box>
     </FormProvider>
