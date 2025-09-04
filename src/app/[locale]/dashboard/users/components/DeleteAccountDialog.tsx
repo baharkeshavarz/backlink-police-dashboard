@@ -4,7 +4,6 @@ import { DEFAULT_MAX_WIDTH_463 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
 import DeleteAccountForm from "./DeleteAccountForm";
-import { Paper } from "@mui/material";
 
 export type DeleteAccountDialogProps = DialogProps & {
   userId: string;

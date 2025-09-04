@@ -3,17 +3,15 @@
 import React from "react";
 import UsersTable from "./components/table/UsersTable";
 import useGetUsers from "./hooks/useGetUsers";
-import CustomSkeleton from "@/components/common/CustomSkeleton";
 import PageContainer from "../page";
+import UsersSkeleton from "./components/UsersSkeleton";
 
 const UsersPage = () => {
   const { data, isLoading } = useGetUsers();
 
   return (
     <PageContainer>
-      <CustomSkeleton isLoading={isLoading}>
-        <UsersTable data={data?.items || []} />
-      </CustomSkeleton>
+      {isLoading ? <UsersSkeleton /> : <UsersTable data={data?.items || []} />}
     </PageContainer>
   );
 };
