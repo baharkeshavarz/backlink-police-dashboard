@@ -1,86 +1,53 @@
 import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
-import { FormBuilder, Option } from "@/components/Fields";
+import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
-import { IDeactivateUserPayload } from "@/services/users/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
+import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { FC } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 
-type DeactivateAccountFormProps = {
+type DeleteAccountFormProps = {
   userId: string;
   onSuccess?: VoidFunction;
 };
-type DeactivateUserPayload = Omit<IDeactivateUserPayload, "userId">;
+type DeleteAccountPayload = { delete: string };
 
-const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
+const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
   userId,
   onSuccess,
 }) => {
   const t = useTranslations();
 
-  const labels: Record<keyof DeactivateUserPayload, string> = {
-    reason: "Specify the reason of deactivation:",
-    description: "description",
+  const labels = {
+    delete: "delete",
   };
 
-  const resolveSchema: yup.ObjectSchema<DeactivateUserPayload> = yup.object({
-    reason: yup.string().required().required().label(labels.reason),
-    description: yup.string().required().required().label(labels.description),
+  const resolveSchema: yup.ObjectSchema<DeleteAccountPayload> = yup.object({
+    delete: yup.string().required().required().label(labels.delete),
   });
 
-  const methods = useForm<DeactivateUserPayload>({
+  const methods = useForm<DeleteAccountPayload>({
     resolver: yupResolver(resolveSchema),
   });
 
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<DeactivateUserPayload> = async (payload) => {
+  const onSubmit: SubmitHandler<DeleteAccountPayload> = async (payload) => {
     console.log(payload);
   };
 
-  const reasonsOption: Option[] = [
-    {
-      id: 1,
-      label: "Invalid credit card",
-      value: "Invalid credit card",
-    },
-    {
-      id: 2,
-      label: "Unauthorized usage",
-      value: "Unauthorized usage",
-    },
-    {
-      id: 3,
-      label: "Other",
-      value: "Other",
-    },
-  ];
-
   const fields: FormBuilderProps["fields"] = {
-    reason: {
-      name: "reason",
-      label: labels.reason,
-      type: "RadioButtons",
-      options: reasonsOption,
-      ui: {
-        grid: {
-          size: { xs: 12 },
-        },
-      },
-    },
-    description: {
-      name: "description",
-      label: "",
+    delete: {
+      name: "delete",
+      label: "Type “DELETE” in the field below to confirm",
       type: "String",
       props: {
-        placeholder: "Specify the reason...",
-        multiline: true,
-        rows: 4,
+        placeholder: "DELETE",
       },
       ui: {
         grid: {
@@ -122,19 +89,23 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
           component="form"
           onSubmit={handleSubmit(onSubmit, onInvalidSubmit)}
         >
+          <Grid size={{ xs: 12 }}>
+            <Stack>
+              <Typography variant="h3" fontWeight={700} color="grey.900">
+                Deleting account will do the following:
+              </Typography>
+              <Typography variant="subtitle1" color="#F05252" my={2}>
+                Account deletion is final. There will be no way to restore this
+                account.
+              </Typography>
+            </Stack>
+          </Grid>
           <FormBuilder fields={fields} />
 
           <Grid size={{ xs: 12 }}>
-            <Box display="flex" justifyContent="flex-end">
-              <Typography fontSize="10px" fontWeight={500} color="grey.500">
-                0/50 Characters
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12 }}>
             <Box
               display="flex"
-              justifyContent="center"
+              justifyContent="space-between"
               alignItems="center"
               gap={1}
               mt={1}
@@ -143,21 +114,22 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
                 type="submit"
                 variant="contained"
                 color="primary"
-                sx={{ width: "197px", height: "44px" }}
+                sx={{ width: "134px", height: "41px" }}
               >
                 <Typography variant="subtitle2" fontWeight={500}>
-                  Discard
+                  Keep Account
                 </Typography>
               </ButtonWithLoadingText>
               <ButtonWithLoadingText
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 color="error"
-                sx={{ width: "197px", height: "44px" }}
+                startIcon={<Trash2 />}
+                sx={{ width: "228px", height: "41px" }}
               >
                 <Typography variant="subtitle2" fontWeight={500}>
-                  Deactivate Account
+                  Delete Account Anyway
                 </Typography>
               </ButtonWithLoadingText>
             </Box>
@@ -168,4 +140,4 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
   );
 };
 
-export default DeactivateAccountForm;
+export default DeleteAccountForm;

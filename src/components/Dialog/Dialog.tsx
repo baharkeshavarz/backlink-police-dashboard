@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material';
+import { Close } from "@mui/icons-material";
 import {
   DialogActions,
   Divider,
@@ -6,18 +6,16 @@ import {
   IconButton,
   SxProps,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 import MuiDialog, {
   type DialogProps as MuiDialogProps,
-} from '@mui/material/Dialog';
-import DialogContent, { DialogContentProps } from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import { FC } from 'react';
-import {
-  ButtonWithLoading,
-  type ButtonWithLoadingProps,
-} from '../ButtonWithLoading';
-import { DialogTransition } from '../DialogTransition';
+} from "@mui/material/Dialog";
+import DialogContent, { DialogContentProps } from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import { FC } from "react";
+import { ButtonWithLoading } from "../ButtonWithLoading";
+import { DialogTransition } from "../DialogTransition";
+import type { ButtonWithLoadingProps } from "../ButtonWithLoading/ButtonWithLoading";
 
 export interface DialogProps extends MuiDialogProps {
   dialogContentProps?: DialogContentProps;
@@ -47,15 +45,16 @@ const Dialog: FC<DialogProps> = ({
       {...props}
       slotProps={{
         ...props?.slotProps,
+        paper: { sx: { margin: 0, width: "100%" } },
       }}
     >
       {showDialogTitle && (
         <>
           <DialogTitle
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
               p: 2,
             }}
           >
@@ -65,7 +64,7 @@ const Dialog: FC<DialogProps> = ({
             <IconButton
               aria-label="close-dialog"
               onClick={() => {
-                props.onClose?.({}, 'escapeKeyDown');
+                props.onClose?.({}, "escapeKeyDown");
               }}
             >
               <Close sx={{ fontSize: 18 }} />
@@ -80,9 +79,9 @@ const Dialog: FC<DialogProps> = ({
       {dialogButtons && dialogButtons?.length > 0 && (
         <DialogActions
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Grid container spacing={0.2} sx={{ ...dialogActionSx }}>

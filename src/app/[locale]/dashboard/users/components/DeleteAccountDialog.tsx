@@ -3,14 +3,15 @@ import { DialogProps } from "@/components/Dialog/Dialog";
 import { DEFAULT_MAX_WIDTH_463 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
-import DeactivateAccountForm from "./DeactivateAccountForm";
+import DeleteAccountForm from "./DeleteAccountForm";
+import { Paper } from "@mui/material";
 
-export type DeactivateAccountDialogProps = DialogProps & {
+export type DeleteAccountDialogProps = DialogProps & {
   userId: string;
   onSuccess: VoidFunction;
 };
 
-const DeactivateAccountDialog: FC<DeactivateAccountDialogProps> = ({
+const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
   userId,
   onSuccess,
   ...props
@@ -19,14 +20,17 @@ const DeactivateAccountDialog: FC<DeactivateAccountDialogProps> = ({
   return (
     <Dialog
       {...props}
-      title="Deactivate Account for:"
-      maxWidth="md"
-      sx={{ width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_463, marginX: "auto" }}
+      title="Delete Account for:"
+      maxWidth="sm"
+      sx={{
+        width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_463,
+        marginX: "auto",
+      }}
       dialogButtons={[]}
     >
-      <DeactivateAccountForm userId={userId} onSuccess={onSuccess} />
+      <DeleteAccountForm userId={userId} onSuccess={onSuccess} />
     </Dialog>
   );
 };
 
-export default DeactivateAccountDialog;
+export default DeleteAccountDialog;

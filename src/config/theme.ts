@@ -220,7 +220,6 @@ const themeOptions: ThemeOptions = {
         disablePadding: true,
       },
     },
-
     MuiBottomNavigationAction: {
       defaultProps: {
         component: Link,

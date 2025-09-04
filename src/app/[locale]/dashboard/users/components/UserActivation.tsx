@@ -16,15 +16,20 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import DeactivateAccountDialog from "./DeactivateAccountDialog";
+import DeleteAccountDialog from "./DeleteAccountDialog";
 
 const UserActivation = () => {
   const [showDanger, setShowDanger] = useState(false);
-  const [openDeactivateDialog, setOpenDeactivateDialog] = useState(true);
+  const [openDeactivateDialog, setOpenDeactivateDialog] = useState(false);
+  const [openDeleteAccountDialog, setOpenDeleteAccountDialog] = useState(true);
 
   const handleDeactivateDialog = () => {
     setOpenDeactivateDialog((prev) => !prev);
   };
 
+  const handleDeleteAccountDialog = () => {
+    setOpenDeleteAccountDialog((prev) => !prev);
+  };
   return (
     <>
       <Box sx={{ m: 4 }}>
@@ -78,7 +83,7 @@ const UserActivation = () => {
                   variant="outlined"
                   color="error"
                   startIcon={<PowerSettingsNewIcon />}
-                  sx={{ width: "206px", height: "44px" }}
+                  sx={{ height: "44px" }}
                   onClick={handleDeactivateDialog}
                 >
                   Deactivate Account
@@ -106,6 +111,7 @@ const UserActivation = () => {
                   color="error"
                   startIcon={<Trash2 />}
                   sx={{ width: "206px", height: "44px" }}
+                  onClick={handleDeleteAccountDialog}
                 >
                   Delete Account
                 </ButtonWithLoading>
@@ -118,6 +124,13 @@ const UserActivation = () => {
         open={openDeactivateDialog}
         onClose={handleDeactivateDialog}
         onSuccess={handleDeactivateDialog}
+        userId={"userId"}
+      />
+
+      <DeleteAccountDialog
+        open={openDeleteAccountDialog}
+        onClose={handleDeleteAccountDialog}
+        onSuccess={handleDeleteAccountDialog}
         userId={"userId"}
       />
     </>
