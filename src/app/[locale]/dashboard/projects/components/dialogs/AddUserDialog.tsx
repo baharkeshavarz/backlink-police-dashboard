@@ -3,7 +3,7 @@ import { DialogProps } from "@/components/Dialog/Dialog";
 import { DEFAULT_MAX_WIDTH_415 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
-import AddUserForm from "./AddUserForm";
+import AddUserForm from "../AddUserForm";
 
 export type AddUserDialogProps = DialogProps & { onSuccess: VoidFunction };
 

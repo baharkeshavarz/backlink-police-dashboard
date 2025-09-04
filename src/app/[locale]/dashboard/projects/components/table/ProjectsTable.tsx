@@ -2,20 +2,20 @@
 
 import { DataTable } from "@/components/data-table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-import { IUser } from "@/services/users/types";
+import { IBacklinkProject } from "@/services/projects/types";
 import { Paper } from "@mui/material";
 import { FC, useState } from "react";
-import UsersSearch from "../../../components/UsersSearch";
 import EditUserDialog from "../dialogs/EditUserDialog";
-import UserOperation from "../UserOperations";
+import ProjectOperations from "../ProjectOperations";
+import ProjectsSearch from "../ProjectsSearch";
+import { ProjectsColumns } from "./ProjectsColumns";
 import UserListLastVisit from "./UserListLastVisit";
-import { UsersColumns } from "./UsersColumns";
 
-type UsersTableProps = {
-  data: IUser[];
+type ProjectsTableProps = {
+  data: IBacklinkProject[];
 };
 
-const UsersTable: FC<UsersTableProps> = ({ data }) => {
+const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
   const handleEditClick = (userId: string) => {
@@ -27,7 +27,7 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
     setOpenDialog((prev) => !prev);
   };
 
-  const columns = UsersColumns(handleEditClick);
+  const columns = ProjectsColumns(handleEditClick);
 
   const { table } = useDataTable({
     data: data,
@@ -48,8 +48,8 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
           mt: 8,
         }}
       >
-        <UsersSearch />
-        <UserOperation />
+        <ProjectsSearch />
+        <ProjectOperations />
       </Paper>
       <DataTable table={table} extraInfo={<UserListLastVisit />}></DataTable>
 
@@ -63,4 +63,4 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
   );
 };
 
-export default UsersTable;
+export default ProjectsTable;

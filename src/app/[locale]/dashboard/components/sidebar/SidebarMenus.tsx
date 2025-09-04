@@ -13,6 +13,7 @@ import Link from "next/link";
 import RoundedIcon from "@/components/common/RoundedIcon";
 import {
   DEFAULT_DASHBOARD_OVERVIEW_PATH,
+  DEFAULT_DASHBOARD_PROJECTS_PATH,
   DEFAULT_DASHBOARD_USERS_PATH,
 } from "@/constants/routes";
 
@@ -32,6 +33,11 @@ const SidebarMenus = () => {
       text: t("pages.dashboard.sidebar.menu.overview"),
       icon: `${DEFAULT_DASHBOARD_ICONS}/chart-pie.svg`,
       linkUrl: DEFAULT_DASHBOARD_OVERVIEW_PATH,
+    },
+    {
+      text: t("pages.dashboard.sidebar.menu.projects"),
+      icon: `${DEFAULT_DASHBOARD_ICONS}/shopping-bag.svg`,
+      linkUrl: DEFAULT_DASHBOARD_PROJECTS_PATH,
     },
     {
       text: t("pages.dashboard.sidebar.menu.users"),

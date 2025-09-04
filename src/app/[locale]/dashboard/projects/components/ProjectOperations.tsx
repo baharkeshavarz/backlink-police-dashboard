@@ -1,13 +1,12 @@
 "use client";
 
-import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
-import AddIcon from "@mui/icons-material/Add";
 import { Box, Button, Typography } from "@mui/material";
-import Image from "next/image";
-import AddUserDialog from "./AddUserDialog";
+import AddIcon from "@mui/icons-material/Add";
+import AddUserDialog from "./dialogs/AddUserDialog";
 import { useState } from "react";
+import { Funnel } from "lucide-react";
 
-const UserOperation = () => {
+const ProjectOperations = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleAddUserDialog = () => {
@@ -17,34 +16,34 @@ const UserOperation = () => {
     <>
       <Box display="flex" alignItems="center" gap={1}>
         <Button
+          variant="text"
+          startIcon={<Funnel color="#111928" />}
+          sx={{
+            borderRadius: "8px",
+            textTransform: "none",
+            "&:hover": {
+              bgcolor: "blue.400",
+            },
+          }}
+        >
+          <Typography variant="subtitle2" color="grey.800">
+            Filter
+          </Typography>
+        </Button>
+        <Button
           variant="contained"
           onClick={handleAddUserDialog}
           startIcon={<AddIcon sx={{ fontSize: 20 }} />}
           sx={{
             borderRadius: "8px",
             textTransform: "none",
+            bgcolor: "orange.900",
             "&:hover": {
               bgcolor: "blue.700",
             },
           }}
         >
-          <Typography variant="subtitle2"> Add user</Typography>
-        </Button>
-        <Button
-          variant="outlined"
-          startIcon={
-            <Image
-              alt=""
-              src={`${DEFAULT_DASHBOARD_ICONS}/document-download-icon.svg`}
-              width={20}
-              height={20}
-            />
-          }
-          sx={{ borderRadius: "8px", textTransform: "none" }}
-        >
-          <Typography variant="subtitle2" color="grey.800">
-            Export
-          </Typography>
+          <Typography variant="subtitle2"> Add link</Typography>
         </Button>
       </Box>
       <AddUserDialog
@@ -56,4 +55,4 @@ const UserOperation = () => {
   );
 };
 
-export default UserOperation;
+export default ProjectOperations;

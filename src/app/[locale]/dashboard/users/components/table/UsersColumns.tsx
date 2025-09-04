@@ -23,12 +23,9 @@ export const UsersColumns = (
     id: "id",
     accessorKey: "id",
     header: () => <Checkbox size="small" />,
+    size: 33,
     cell: ({ cell }) => {
-      return (
-        <Stack alignItems="flex-start">
-          <Checkbox />
-        </Stack>
-      );
+      return <Checkbox />;
     },
   },
   {

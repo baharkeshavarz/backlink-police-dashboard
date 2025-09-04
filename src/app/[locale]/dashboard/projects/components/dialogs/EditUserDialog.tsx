@@ -3,8 +3,7 @@ import { DialogProps } from "@/components/Dialog/Dialog";
 import { DEFAULT_MAX_WIDTH_696 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
-import EditUserForm from "./EditUserForm";
-import EditUserProfile from "./EditUserProfile";
+import EditUserProfile from "../../../users/components/EditUserProfile";
 
 export type EditUserDialogProps = DialogProps & {
   userId: string;

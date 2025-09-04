@@ -104,6 +104,7 @@
         "menu": {
           "overview": "Overview",
           "users": "Users",
+          "projects": "Projects",
           "messages": "Messages",
           "authentication": "Authentication",
           "docs": "Docs",

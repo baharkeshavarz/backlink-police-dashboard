@@ -3,7 +3,7 @@ import { DialogProps } from "@/components/Dialog/Dialog";
 import { DEFAULT_MAX_WIDTH_463 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
-import DeleteAccountForm from "./DeleteAccountForm";
+import DeleteAccountForm from "../DeleteAccountForm";
 
 export type DeleteAccountDialogProps = DialogProps & {
   userId: string;

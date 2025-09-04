@@ -16,9 +16,9 @@ export const grayPalette = {
 
 export const bluePalette = {
   50: "#f4f5ff",
-  100: "#7c2d12", // <- double-check, looks more like brown than blue 😅
-  200: "#9a3412",
-  300: "#c2410c",
+  // 100: "#7c2d12", // <- double-check, looks more like brown than blue 😅
+  // 200: "#9a3412",
+  // 300: "#c2410c",
   400: "#dce7fa",
   500: "#588ef3",
   600: "#2747f0",
@@ -37,7 +37,7 @@ export const orangePalette = {
   600: "#ea580c",
   700: "#c2410c",
   800: "#9a3412",
-  900: "#7c2d12", // adjusted to keep darker progression
+  900: "#ED762F",
   950: "#431407",
 };
 
