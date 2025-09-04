@@ -1,11 +1,12 @@
 "use client";
 
-import { greenPalette } from "@/config/theme-color";
 import {
   Box,
   Card,
   CardContent,
   Chip,
+  MenuItem,
+  Select,
   Stack,
   Table,
   TableBody,
@@ -15,6 +16,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 
 const transactions = [
   { id: 1, desc: " Bonnie Green", amount: 15, status: "Completed" },
@@ -64,6 +66,7 @@ const cellStyles = {
   body: { py: 1.5 },
 };
 const TransactionList = () => {
+  const [timeRange, setTimeRange] = useState("7");
   return (
     <Box sx={{ p: 4 }}>
       <Card
@@ -142,7 +145,7 @@ const TransactionList = () => {
                         sx={{
                           borderRadius: "6px",
                           fontWeight: 600,
-                          ...statusStyles(t.status, t.warning),
+                          ...statusStyles(t.status),
                         }}
                       />
                     </TableCell>
@@ -151,9 +154,35 @@ const TransactionList = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Typography variant="body2" color="text.secondary" mt={2}>
-            Last 7 days
-          </Typography>
+
+          <Box mt={2}>
+            <Select
+              size="small"
+              variant="standard"
+              value={timeRange}
+              sx={{
+                "&::before": {
+                  borderBottom: "none !important",
+                },
+                "&::after": {
+                  borderBottom: "none !important",
+                },
+                color: "grey.500",
+                fontSize: "14px",
+              }}
+              onChange={(e) => setTimeRange(e.target.value)}
+            >
+              <MenuItem value="7" sx={{ fontSize: "14px" }}>
+                Last 7 days
+              </MenuItem>
+              <MenuItem value="30" sx={{ fontSize: "14px" }}>
+                Last 30 days
+              </MenuItem>
+              <MenuItem value="90" sx={{ fontSize: "14px" }}>
+                Last 90 days
+              </MenuItem>
+            </Select>
+          </Box>
         </CardContent>
       </Card>
     </Box>

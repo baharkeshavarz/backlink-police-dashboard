@@ -1,16 +1,17 @@
 "use client";
 
-import DeleteIcon from "@mui/icons-material/Delete";
+import { ButtonWithLoading } from "@/components/ButtonWithLoading";
+import { Trash2, UserRoundX } from "lucide-react";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Collapse,
   Divider,
+  Stack,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
@@ -19,59 +20,88 @@ const UserActivation = () => {
   const [showDanger, setShowDanger] = useState(false);
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ m: 4 }}>
       {/* Danger Zone */}
-      <Card sx={{ borderRadius: 3, boxShadow: 3, border: "1px solid #f44336" }}>
-        <CardContent>
+      <Card
+        variant="outlined"
+        sx={{
+          borderColor: "grey.200",
+        }}
+      >
+        <CardContent sx={{ p: 0 }}>
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             onClick={() => setShowDanger(!showDanger)}
-            sx={{ cursor: "pointer" }}
+            sx={{
+              cursor: "pointer",
+              backgroundColor: "#FFEFEF",
+              height: 64,
+              borderBottom: "1px solid #E5E7EB",
+              px: 2,
+            }}
           >
-            <Typography variant="h6" color="error">
-              Danger Zone
-            </Typography>
-            {showDanger ? (
-              <ExpandLessIcon color="error" />
-            ) : (
-              <ExpandMoreIcon color="error" />
-            )}
+            <Stack direction="row" spacing={0.5}>
+              <UserRoundX color="#F05252" />
+              <Typography variant="body2" fontWeight="700" color="#F05252">
+                Danger Zone
+              </Typography>
+            </Stack>
+
+            {showDanger ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </Box>
           <Collapse in={showDanger}>
-            <Divider sx={{ my: 2 }} />
-            <Box mb={3}>
-              <Typography variant="subtitle1" gutterBottom>
-                Temporary Deactivation
-              </Typography>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                By taking this action, your account will be deactivated
-              </Typography>
-              <Button
+            <Box
+              my={3}
+              px={4}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Stack>
+                <Typography variant="h3" fontWeight="700">
+                  Temporary Deactivation
+                </Typography>
+                <Typography variant="subtitle2" color="grey.600" mt={1}>
+                  By taking this action, your account will be deactivated
+                </Typography>
+              </Stack>
+
+              <ButtonWithLoading
                 variant="outlined"
                 color="error"
                 startIcon={<PowerSettingsNewIcon />}
+                sx={{ width: "206px", height: "44px" }}
               >
                 Deactivate Account
-              </Button>
+              </ButtonWithLoading>
             </Box>
-
-            <Box>
-              <Typography variant="subtitle1" gutterBottom>
-                Permanently Delete Account
-              </Typography>
-              <Typography variant="body2" color="error" gutterBottom>
-                Account deletion is final. There will be no way to restore your
-                account.
-              </Typography>
-              <Button
+            <Divider />
+            <Box
+              my={3}
+              px={4}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Stack>
+                <Typography variant="h3" fontWeight="700">
+                  Permanently Delete Account
+                </Typography>
+                <Typography variant="subtitle2" color="#F05252" mt={1}>
+                  Account deletion is final. There will be no way to restore
+                  your account.
+                </Typography>
+              </Stack>
+              <ButtonWithLoading
                 variant="contained"
                 color="error"
-                startIcon={<DeleteIcon />}
+                startIcon={<Trash2 />}
+                sx={{ width: "206px", height: "44px" }}
               >
                 Delete Account
-              </Button>
+              </ButtonWithLoading>
             </Box>
           </Collapse>
         </CardContent>
