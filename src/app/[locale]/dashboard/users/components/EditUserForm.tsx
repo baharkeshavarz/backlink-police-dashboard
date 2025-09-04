@@ -17,7 +17,7 @@ import { useTranslations } from "next-intl";
 import { FC } from "react";
 import Image from "next/image";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
-import PencilIcon from "@/public/icons/pencil-icon.svg";
+
 type EditUserFormProps = {
   userId: string;
   onSuccess?: VoidFunction;

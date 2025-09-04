@@ -15,98 +15,112 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import DeactivateAccountDialog from "./DeactivateAccountDialog";
 
 const UserActivation = () => {
   const [showDanger, setShowDanger] = useState(false);
+  const [openDeactivateDialog, setOpenDeactivateDialog] = useState(true);
+
+  const handleDeactivateDialog = () => {
+    setOpenDeactivateDialog((prev) => !prev);
+  };
 
   return (
-    <Box sx={{ m: 4 }}>
-      {/* Danger Zone */}
-      <Card
-        variant="outlined"
-        sx={{
-          borderColor: "grey.200",
-        }}
-      >
-        <CardContent sx={{ p: 0 }}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            onClick={() => setShowDanger(!showDanger)}
-            sx={{
-              cursor: "pointer",
-              backgroundColor: "#FFEFEF",
-              height: 64,
-              borderBottom: "1px solid #E5E7EB",
-              px: 2,
-            }}
-          >
-            <Stack direction="row" spacing={0.5}>
-              <UserRoundX color="#F05252" />
-              <Typography variant="body2" fontWeight="700" color="#F05252">
-                Danger Zone
-              </Typography>
-            </Stack>
-
-            {showDanger ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </Box>
-          <Collapse in={showDanger}>
+    <>
+      <Box sx={{ m: 4 }}>
+        <Card
+          variant="outlined"
+          sx={{
+            borderColor: "grey.200",
+          }}
+        >
+          <CardContent sx={{ p: 0 }}>
             <Box
-              my={3}
-              px={4}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
+              onClick={() => setShowDanger(!showDanger)}
+              sx={{
+                cursor: "pointer",
+                backgroundColor: "#FFEFEF",
+                height: 64,
+                borderBottom: "1px solid #E5E7EB",
+                px: 2,
+              }}
             >
-              <Stack>
-                <Typography variant="h3" fontWeight="700">
-                  Temporary Deactivation
-                </Typography>
-                <Typography variant="subtitle2" color="grey.600" mt={1}>
-                  By taking this action, your account will be deactivated
+              <Stack direction="row" spacing={0.5}>
+                <UserRoundX color="#F05252" />
+                <Typography variant="body2" fontWeight="700" color="#F05252">
+                  Danger Zone
                 </Typography>
               </Stack>
 
-              <ButtonWithLoading
-                variant="outlined"
-                color="error"
-                startIcon={<PowerSettingsNewIcon />}
-                sx={{ width: "206px", height: "44px" }}
-              >
-                Deactivate Account
-              </ButtonWithLoading>
+              {showDanger ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </Box>
-            <Divider />
-            <Box
-              my={3}
-              px={4}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Stack>
-                <Typography variant="h3" fontWeight="700">
-                  Permanently Delete Account
-                </Typography>
-                <Typography variant="subtitle2" color="#F05252" mt={1}>
-                  Account deletion is final. There will be no way to restore
-                  your account.
-                </Typography>
-              </Stack>
-              <ButtonWithLoading
-                variant="contained"
-                color="error"
-                startIcon={<Trash2 />}
-                sx={{ width: "206px", height: "44px" }}
+            <Collapse in={showDanger}>
+              <Box
+                my={3}
+                px={4}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                Delete Account
-              </ButtonWithLoading>
-            </Box>
-          </Collapse>
-        </CardContent>
-      </Card>
-    </Box>
+                <Stack>
+                  <Typography variant="h3" fontWeight="700">
+                    Temporary Deactivation
+                  </Typography>
+                  <Typography variant="subtitle2" color="grey.600" mt={1}>
+                    By taking this action, your account will be deactivated
+                  </Typography>
+                </Stack>
+
+                <ButtonWithLoading
+                  variant="outlined"
+                  color="error"
+                  startIcon={<PowerSettingsNewIcon />}
+                  sx={{ width: "206px", height: "44px" }}
+                  onClick={handleDeactivateDialog}
+                >
+                  Deactivate Account
+                </ButtonWithLoading>
+              </Box>
+              <Divider />
+              <Box
+                my={3}
+                px={4}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Stack>
+                  <Typography variant="h3" fontWeight="700">
+                    Permanently Delete Account
+                  </Typography>
+                  <Typography variant="subtitle2" color="#F05252" mt={1}>
+                    Account deletion is final. There will be no way to restore
+                    your account.
+                  </Typography>
+                </Stack>
+                <ButtonWithLoading
+                  variant="contained"
+                  color="error"
+                  startIcon={<Trash2 />}
+                  sx={{ width: "206px", height: "44px" }}
+                >
+                  Delete Account
+                </ButtonWithLoading>
+              </Box>
+            </Collapse>
+          </CardContent>
+        </Card>
+      </Box>
+      <DeactivateAccountDialog
+        open={openDeactivateDialog}
+        onClose={handleDeactivateDialog}
+        onSuccess={handleDeactivateDialog}
+        userId={"userId"}
+      />
+    </>
   );
 };
 

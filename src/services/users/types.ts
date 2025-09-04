@@ -56,6 +56,12 @@ export interface IEditUserPayload {
   zip: string;
 }
 
+export interface IDeactivateUserPayload {
+  userId?: string;
+  reason: string;
+  description: string;
+}
+
 export interface UsersListService {
   (args: { params: Partial<IUser> }): Response<IGetUsers>;
 }
@@ -70,4 +76,8 @@ export interface GetUsertService {
 
 export interface UpdateUserService {
   (args: { payload: IEditUserPayload }): Response;
+}
+
+export interface DeActivateUserService {
+  (args: { payload: IDeactivateUserPayload }): Response<IUser>;
 }
