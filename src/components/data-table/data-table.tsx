@@ -13,6 +13,7 @@ import { DataTablePagination } from "@/components/data-table/data-table-paginati
 interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   table: TanstackTable<TData>;
   actionBar?: React.ReactNode;
+  extraInfo?: React.ReactNode;
   emptyState?: React.ReactNode;
   showBodyBorder?: boolean;
   showRowBorders?: boolean;
@@ -25,6 +26,7 @@ interface DataTableProps<TData> extends React.ComponentProps<"div"> {
 export function DataTable<TData>({
   table,
   actionBar,
+  extraInfo,
   emptyState,
   children,
   showRowBorders = true,
@@ -121,8 +123,9 @@ export function DataTable<TData>({
       </Box>
 
       {/* Footer: Pagination + Action bar */}
-      <Box display="flex" flexDirection="column" gap={2.5}>
+      <Box display="flex" justifyContent="space-between" gap={2.5}>
         <DataTablePagination table={table} />
+        {extraInfo}
         {actionBar &&
           table.getFilteredSelectedRowModel().rows.length > 0 &&
           actionBar}

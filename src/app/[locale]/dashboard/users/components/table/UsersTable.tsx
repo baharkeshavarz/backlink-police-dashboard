@@ -3,12 +3,13 @@
 import { DataTable } from "@/components/data-table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { IUser } from "@/services/users/types";
-import { UsersColumns } from "./UsersColumns";
-import UsersSearch from "../../../components/UsersSearch";
 import { Paper } from "@mui/material";
-import UserOperation from "../UserOperation";
 import { FC, useState } from "react";
+import UsersSearch from "../../../components/UsersSearch";
 import EditUserDialog from "../EditUserDialog";
+import UserOperation from "../UserOperation";
+import UserListLastVisit from "./UserListLastVisit";
+import { UsersColumns } from "./UsersColumns";
 
 type UsersTableProps = {
   data: IUser[];
@@ -50,7 +51,7 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
         <UsersSearch />
         <UserOperation />
       </Paper>
-      <DataTable table={table}></DataTable>
+      <DataTable table={table} extraInfo={<UserListLastVisit />}></DataTable>
 
       <EditUserDialog
         open={openDialog}
