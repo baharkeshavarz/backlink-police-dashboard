@@ -38,6 +38,21 @@ export interface IGetProjects {
   items: IBacklinkProject[];
 }
 
+export interface IAddProjectLinkPayload {
+  // anchorKeyWord: string;
+  backLinkUrl: string;
+  publisherUrl: string;
+  cost: number;
+  purchasedOn: string;
+  projectId: number;
+  setActivity: boolean;
+  userId: string;
+}
+
 export interface ProjectsListService {
   (args: { params: Partial<IBacklinkProject> }): Response<IGetProjects>;
+}
+
+export interface AddProjectLinkService {
+  (args: { payload: IAddProjectLinkPayload }): Response;
 }

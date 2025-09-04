@@ -9,7 +9,6 @@ import EditUserDialog from "../dialogs/EditUserDialog";
 import ProjectOperations from "../ProjectOperations";
 import ProjectsSearch from "../ProjectsSearch";
 import { ProjectsColumns } from "./ProjectsColumns";
-import UserListLastVisit from "./UserListLastVisit";
 
 type ProjectsTableProps = {
   data: IBacklinkProject[];
@@ -51,7 +50,7 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
         <ProjectsSearch />
         <ProjectOperations />
       </Paper>
-      <DataTable table={table} extraInfo={<UserListLastVisit />}></DataTable>
+      <DataTable table={table}></DataTable>
 
       <EditUserDialog
         open={openDialog}

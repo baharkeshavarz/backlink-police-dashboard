@@ -2,14 +2,14 @@
 
 import { Box, Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import AddUserDialog from "./dialogs/AddUserDialog";
 import { useState } from "react";
 import { Funnel } from "lucide-react";
+import AddLinkDialog from "./dialogs/AddLinkDialog";
 
 const ProjectOperations = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleAddUserDialog = () => {
+  const handleAddLinkDialog = () => {
     setOpenDialog(!openDialog);
   };
   return (
@@ -32,7 +32,7 @@ const ProjectOperations = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={handleAddUserDialog}
+          onClick={handleAddLinkDialog}
           startIcon={<AddIcon sx={{ fontSize: 20 }} />}
           sx={{
             borderRadius: "8px",
@@ -46,10 +46,10 @@ const ProjectOperations = () => {
           <Typography variant="subtitle2"> Add link</Typography>
         </Button>
       </Box>
-      <AddUserDialog
+      <AddLinkDialog
         open={openDialog}
-        onClose={handleAddUserDialog}
-        onSuccess={handleAddUserDialog}
+        onClose={handleAddLinkDialog}
+        onSuccess={handleAddLinkDialog}
       />
     </>
   );
