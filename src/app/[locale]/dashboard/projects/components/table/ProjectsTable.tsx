@@ -5,10 +5,10 @@ import { useDataTable } from "@/hooks/use-data-table";
 import { IBacklinkProject } from "@/services/projects/types";
 import { Paper } from "@mui/material";
 import { FC, useState } from "react";
-import EditUserDialog from "../dialogs/EditUserDialog";
 import ProjectOperations from "../ProjectOperations";
 import ProjectsSearch from "../ProjectsSearch";
 import { ProjectsColumns } from "./ProjectsColumns";
+import EditLinkDialog from "../dialogs/EditLinkDialog";
 
 type ProjectsTableProps = {
   data: IBacklinkProject[];
@@ -16,9 +16,10 @@ type ProjectsTableProps = {
 
 const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedUser, setSelectedUser] = useState("");
-  const handleEditClick = (userId: string) => {
-    setSelectedUser(userId);
+  const [selectedProject, setSelectedProject] = useState(0);
+
+  const handleEditClick = (projectId: number) => {
+    setSelectedProject(projectId);
     setOpenDialog(true);
   };
 
@@ -52,9 +53,9 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
       </Paper>
       <DataTable table={table}></DataTable>
 
-      <EditUserDialog
+      <EditLinkDialog
         open={openDialog}
-        userId={selectedUser}
+        projectId={selectedProject}
         onClose={handleEditUserDialog}
         onSuccess={handleEditUserDialog}
       />

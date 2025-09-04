@@ -3,15 +3,15 @@ import { DialogProps } from "@/components/Dialog/Dialog";
 import { DEFAULT_MAX_WIDTH_696 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
-import EditUserProfile from "../../../users/components/EditUserProfile";
+import EditLinkForm from "../EditLinkForm";
 
-export type EditUserDialogProps = DialogProps & {
-  userId: string;
+export type EditLinkDialogProps = DialogProps & {
+  projectId: number;
   onSuccess: VoidFunction;
 };
 
-const EditUserDialog: FC<EditUserDialogProps> = ({
-  userId,
+const EditLinkDialog: FC<EditLinkDialogProps> = ({
+  projectId,
   onSuccess,
   ...props
 }) => {
@@ -19,14 +19,14 @@ const EditUserDialog: FC<EditUserDialogProps> = ({
   return (
     <Dialog
       {...props}
-      title="Edit User"
+      title="Edit Link"
       maxWidth="md"
       sx={{ width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_696, marginX: "auto" }}
       dialogButtons={[]}
     >
-      <EditUserProfile userId={userId} onSuccess={onSuccess} />
+      <EditLinkForm projectId={projectId} onSuccess={onSuccess} />
     </Dialog>
   );
 };
 
-export default EditUserDialog;
+export default EditLinkDialog;

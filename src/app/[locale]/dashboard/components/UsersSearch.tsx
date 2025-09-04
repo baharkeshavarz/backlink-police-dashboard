@@ -5,7 +5,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, IconButton, TextField } from "@mui/material";
-import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 

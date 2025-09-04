@@ -39,7 +39,6 @@ export interface IGetProjects {
 }
 
 export interface IAddProjectLinkPayload {
-  // anchorKeyWord: string;
   backLinkUrl: string;
   publisherUrl: string;
   cost: number;
@@ -48,6 +47,13 @@ export interface IAddProjectLinkPayload {
   setActivity: boolean;
   userId: string;
 }
+export interface IUpdateProjectLinkPayload {
+  id: number;
+  backLinkUrl: string;
+  publisherUrl: string;
+  cost: number;
+  purchasedOn: string;
+}
 
 export interface ProjectsListService {
   (args: { params: Partial<IBacklinkProject> }): Response<IGetProjects>;
@@ -55,4 +61,12 @@ export interface ProjectsListService {
 
 export interface AddProjectLinkService {
   (args: { payload: IAddProjectLinkPayload }): Response;
+}
+
+export interface GetProjectLinkService {
+  (args: { id: number | string }): Response<IBacklinkProject>;
+}
+
+export interface UpdateProjectLinkService {
+  (args: { payload: IUpdateProjectLinkPayload }): Response;
 }

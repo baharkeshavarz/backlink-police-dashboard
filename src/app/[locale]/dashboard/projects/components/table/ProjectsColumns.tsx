@@ -1,13 +1,13 @@
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import { IBacklinkProject } from "@/services/projects/types";
-import { Box, Button, Checkbox, IconButton, Stack } from "@mui/material";
+import { Box, Button, Checkbox, IconButton } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 
 export const ProjectsColumns = (
-  handleEditClick: (userId: string) => void
+  handleEditClick: (projectId: number) => void
 ): ColumnDef<Partial<IBacklinkProject>>[] => [
   {
     id: "id",
@@ -130,7 +130,7 @@ export const ProjectsColumns = (
     accessorKey: "",
     header: "Edit",
     cell: ({ cell }) => {
-      const userId = cell.row.original.id!;
+      const projectId = cell.row.original.id!;
       return (
         <IconButton
           aria-label="edit"
@@ -143,7 +143,7 @@ export const ProjectsColumns = (
               bgcolor: "blue.700",
             },
           }}
-          onClick={() => handleEditClick(userId)}
+          onClick={() => handleEditClick(projectId)}
         >
           <Image
             alt="edit"
