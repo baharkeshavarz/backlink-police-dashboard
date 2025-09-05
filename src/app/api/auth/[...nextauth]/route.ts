@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { AdminSignOut, LoginIn } from "@/services/iam";
+import { AdminSignOut, GetMeWithToken, LoginIn } from "@/services/iam";
 import { redirect } from "next/navigation";
 
 export const handler = NextAuth({
   session: {
-    maxAge: 1 * 24 * 60 * 60,
+    strategy: "jwt",
   },
   pages: {
     signIn: DEFAULT_SIGNIN_PATH,
@@ -38,16 +37,22 @@ export const handler = NextAuth({
           });
 
           if (response?.data?.accessToken) {
-            return {
-              ...response?.data,
-              accessToken: response?.data?.accessToken!,
-              refreshToken: response?.data?.refreshToken!,
-            };
+            const user = await GetMeWithToken(response?.data?.accessToken);
+            if (user?.data) {
+              return {
+                id: user?.data?.publicId,
+                name: `${user?.data?.firstName} ${user?.data?.lastName}`,
+                email: user?.data?.email,
+                image: user?.data?.imageUrl,
+                ...response?.data,
+              };
+            } else {
+              return null;
+            }
           } else {
             return null;
           }
         } catch (err) {
-          console.error("Login error:", err);
           return null;
         }
       },
@@ -67,14 +72,6 @@ export const handler = NextAuth({
       // Call backend to revoke session
       if (token?.accessToken) {
         try {
-          // await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-out`, {
-          //   method: "POST",
-          //   headers: {
-          //     Authorization: `Bearer ${token.accessToken}`,
-          //     "Content-Type": "application/json",
-          //   },
-          // });
-
           await AdminSignOut();
           redirect(DEFAULT_SIGNIN_PATH);
         } catch (error) {

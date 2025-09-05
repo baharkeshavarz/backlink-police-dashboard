@@ -56,6 +56,8 @@ export const greenPalette = {
 };
 
 export const redPalette = {
+  50: "#fdf0f0",
   100: "#FDE8E8",
+  500: "#E65946",
   800: "#9B1C1C",
 };

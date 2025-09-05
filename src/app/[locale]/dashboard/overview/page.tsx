@@ -13,7 +13,7 @@ const DashboardPage = () => {
       <Box sx={{ pt: 10, px: 2, bgcolor: "#f4f5ff", height: "100%" }}>
         <UsersSearch />
         <UserProfile />
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid size={{ xs: 12, sm: 3 }}>
             <StatCard
               title="Active users (Weekly)"

@@ -13,11 +13,16 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "@/navigation";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { signOut } from "next-auth/react";
 import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
+import { IAuthenticatedUser } from "@/services/users/types";
 
-const UserNav = () => {
+interface UserNavProps {
+  user: IAuthenticatedUser;
+}
+
+const UserNav: FC<UserNavProps> = ({ user }) => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -49,7 +54,7 @@ const UserNav = () => {
         <Box position="relative" display="inline-flex">
           <Avatar
             alt=""
-            src={`${DEFAULT_DASHBOARD_ICONS}/user-icon.png`}
+            src={user?.image || `${DEFAULT_DASHBOARD_ICONS}/user-icon.png`}
             sx={{ width: 32, height: 32, border: 2, borderColor: "white" }}
           />
         </Box>
@@ -80,11 +85,16 @@ const UserNav = () => {
       >
         <MenuItem sx={{ py: 1, px: 0 }}>
           <Stack width="100%">
-            <Typography variant="subtitle2" mx={2} color="grey.700">
-              Admin
+            <Typography
+              variant="subtitle2"
+              mx={2}
+              fontWeight="700"
+              color="grey.700"
+            >
+              {user?.name}
             </Typography>
             <Typography variant="subtitle2" mx={2} color="grey.700">
-              @test@admin.com
+              {user?.email}
             </Typography>
             <Divider sx={{ my: 1 }} />
           </Stack>
@@ -103,11 +113,22 @@ const UserNav = () => {
             </Typography>
           </Link>
         </MenuItem>
-        <MenuItem sx={{ py: 1, px: 0 }}>
+        <MenuItem
+          sx={{
+            py: 1,
+            px: 0,
+            "&:hover": {
+              backgroundColor: "red.50",
+              "& .MuiTypography-root": {
+                color: "red.500",
+              },
+            },
+          }}
+        >
           <Typography
             variant="subtitle2"
             mx={2}
-            color="red"
+            color="red.500"
             onClick={HandleLogout}
           >
             Sign out

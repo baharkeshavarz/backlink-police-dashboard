@@ -30,10 +30,13 @@ const UserProfile = () => {
       >
         <Box
           component="img"
-          src={`${DEFAULT_DASHBOARD_ICONS}/profile-icon.png`}
+          src={
+            session?.user?.image ||
+            `${DEFAULT_DASHBOARD_ICONS}/profile-icon.png`
+          }
           sx={{
-            width: 89,
-            height: 80,
+            width: session?.user?.image ? 100 : 89,
+            height: session?.user?.image ? 95 : 80,
           }}
         />
       </Box>

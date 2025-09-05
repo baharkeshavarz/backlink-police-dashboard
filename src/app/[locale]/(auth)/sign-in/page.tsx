@@ -21,6 +21,7 @@ import * as yup from "yup";
 import { signIn } from "next-auth/react";
 import { useRouter } from "@/navigation";
 import { useState } from "react";
+import { HttpStatusCode } from "axios";
 
 const LoginForm = () => {
   const t = useTranslations();
@@ -50,12 +51,12 @@ const LoginForm = () => {
       redirect: false,
     });
 
-    if (!result) {
+    if (result?.status === HttpStatusCode.Ok) {
+      toast.success("Successfully Signed in!");
+      router.push(DEFAULT_DASHBOARD_OVERVIEW_PATH);
+    } else {
       toast.error(t("messages.authenticationError"));
       setIsLoading(false);
-    } else {
-      toast.success("Successfully signed in!");
-      router.push(DEFAULT_DASHBOARD_OVERVIEW_PATH);
     }
   };
 

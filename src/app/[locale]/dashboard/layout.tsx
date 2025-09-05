@@ -1,7 +1,10 @@
+import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import { languages, Locale } from "@/navigation";
-import { Session } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { Inter } from "next/font/google";
+import { redirect } from "next/navigation";
 import { PropsWithChildren, ReactNode } from "react";
+
 const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
@@ -15,16 +18,11 @@ export default async function LocaleLayout({
 }: PropsWithChildren<LocaleLayoutParams>) {
   const { locale } = await params;
 
-  // const router = useRouter();
-  // useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     router.replace({
-  //       pathname: DEFAULT_SIGNIN_PATH,
-  //       query: { callbackUrl: window.location.pathname },
-  //     });
-  //   },
-  // });
+  const session = await getServerSession();
+  if (!session) {
+    redirect(DEFAULT_SIGNIN_PATH);
+  }
+
   return (
     <html lang={locale} dir={languages?.[locale]?.direction}>
       <body className={inter.className}>{children}</body>

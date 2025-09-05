@@ -64,7 +64,7 @@ export const UsersColumns = (
     accessorKey: "organization",
     header: "company".toUpperCase(),
     cell: ({ cell }) => {
-      const value = cell.row.original.organization || "N/A";
+      const value = cell.row.original.organization || "-";
       return <Box>{value}</Box>;
     },
   },
@@ -75,7 +75,7 @@ export const UsersColumns = (
     cell: ({ cell }) => {
       const value = cell.row.original.lastSession
         ? new Date(cell.row.original.lastSession).toLocaleDateString()
-        : "N/A";
+        : "-";
 
       return <Box>{value}</Box>;
     },

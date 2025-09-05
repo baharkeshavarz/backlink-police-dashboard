@@ -6,7 +6,7 @@ const UserListLastVisit = () => {
   return (
     <Box display="flex" alignItems="center" gap={0.5} px={2}>
       <Typography variant="subtitle2" color="grey.500">
-        Last account activity: 2 hours ago
+        Last account activity:
       </Typography>
       <Typography variant="subtitle2" color="grey.900">
         2 hours ago

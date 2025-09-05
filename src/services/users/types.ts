@@ -1,5 +1,11 @@
 import { Response } from "../types/common";
 
+export interface IAuthenticatedUser {
+  name: string | null;
+  email: string | null;
+  image: string | null;
+}
+
 export interface IUser {
   id: string;
   createDate: string;
