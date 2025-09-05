@@ -19,12 +19,12 @@ export const handler = NextAuth({
       credentials: {
         email: { label: "Email", type: "text" },
         password: { type: "password" },
+        deviceId: { type: "text" },
+        rememberMe: { label: "Remember Me", type: "boolean" },
       },
       async authorize(credentials, _) {
         try {
-          const email = credentials?.email as string | undefined;
-          const password = credentials?.password as string | undefined;
-
+          const { email, password, deviceId, rememberMe } = credentials || {};
           if (!email || !password) return null;
 
           const response = await LoginIn({
@@ -32,18 +32,21 @@ export const handler = NextAuth({
               email,
               password,
               loginProvider: "credentials",
-              deviceId: "chrome", //TODO
+              deviceId,
             },
           });
 
           if (response?.data?.accessToken) {
             const user = await GetMeWithToken(response?.data?.accessToken);
             if (user?.data) {
+              const maxAge =
+                rememberMe === "true" ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
               return {
-                id: user?.data?.publicId,
+                id: user?.data?.email,
                 name: `${user?.data?.firstName} ${user?.data?.lastName}`,
                 email: user?.data?.email,
                 image: user?.data?.imageUrl,
+                maxAge, // in seconds
                 ...response?.data,
               };
             } else {
@@ -59,10 +62,24 @@ export const handler = NextAuth({
     }),
   ],
   callbacks: {
+    // async session({ session, token }) {
+    //   console.log("session in jwt token", token);
+    //   console.log("session in jwt session", session);
+
+    //   if (token) {
+    //     session.user.id = token.sub as string;
+    //     session.expires = new Date(
+    //       Date.now() + user.maxAge * 1000
+    //     ).toISOString();
+    //     return session;
+    //   }
+    //   return session;
+    // },
     async jwt({ token, user }) {
       if (user) {
         token.accessToken = user?.accessToken;
         token.refreshToken = user?.refreshToken;
+        // token.maxAge = user?.maxAge;
       }
       return token;
     },

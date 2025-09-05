@@ -1,7 +1,6 @@
 "use client";
 
 import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
-import { customCheckboxSx } from "@/components/common/SharedStyles";
 import Title from "@/components/common/Title";
 import { CustomCheckbox, FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
@@ -22,20 +21,25 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "@/navigation";
 import { useState } from "react";
 import { HttpStatusCode } from "axios";
+import { getOrCreateDeviceId } from "@/providers/SessionProvider";
 
 const LoginForm = () => {
   const t = useTranslations();
+  const deviceId = getOrCreateDeviceId();
+
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const labels: Record<keyof SignInPayload, string> = {
     email: t("common.fields.email"),
     password: t("common.fields.password"),
+    rememberMe: t("common.fields.rememberMe"),
   };
 
   const resolveSchema: yup.ObjectSchema<SignInPayload> = yup.object({
-    email: yup.string().required().required().label(labels.email),
-    password: yup.string().required().required().label(labels.password),
+    email: yup.string().required().label(labels.email),
+    password: yup.string().required().label(labels.password),
+    rememberMe: yup.boolean().label(labels.rememberMe),
   });
 
   const methods = useForm<SignInPayload>({
@@ -48,6 +52,8 @@ const LoginForm = () => {
     setIsLoading(true);
     const result = await signIn("credentials", {
       ...payload,
+      deviceId,
+      rememberMe: payload.rememberMe ? "true" : "false",
       redirect: false,
     });
 
@@ -126,7 +132,6 @@ const LoginForm = () => {
                       label={t("pages.signIn.rememberMe")}
                       disableRipple
                       sx={{
-                        ...customCheckboxSx,
                         color: "grey.500",
                       }}
                     />

@@ -3,6 +3,7 @@ import { Response } from "../types/common";
 export interface SignInPayload {
   email: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 export interface AuthPayload {
