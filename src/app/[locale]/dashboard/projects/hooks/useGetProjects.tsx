@@ -1,6 +1,7 @@
 import { getProjects } from "@/services/projects";
 import { useQuery } from "@tanstack/react-query";
 
+//TODO: Replace with real API call
 const fakeData = {
   items: [
     {
@@ -821,10 +822,9 @@ const useGetProjects = () => {
   const query = useQuery({
     queryKey: ["GET_PROJECTS_LIST"],
     queryFn: async () => {
-      // const { data } = await getProjects({ params: {} });
-      // return data;
-
-      return fakeData;
+      const { data } = await getProjects({ params: {} });
+      return data;
+      //  return fakeData;
     },
     gcTime: 0,
   });
