@@ -5,22 +5,15 @@ import {
   ProjectLinkScanEnum,
   ProjectLinkStatusEnum,
 } from "@/services/projects/types";
-import {
-  Box,
-  Button,
-  Checkbox,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, IconButton, Tooltip, Typography } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
-import { RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 import { Link } from "@/navigation";
 import ProjectLinkStatus from "../ProjectLinkStatus";
 import ProjectLinkFollowStatus from "../ProjectLinkFollowStatus";
 import ProjectLinkScanStatus from "../ProjectLinkScanStatus";
+import { RescanButton } from "../RescanButton";
 
 export const ProjectsColumns = (
   handleEditClick: (projectId: number) => void
@@ -190,19 +183,8 @@ export const ProjectsColumns = (
     accessorKey: "",
     header: "Re-Scan",
     cell: ({ cell }) => {
-      const projectId = cell.row.original.id!;
-      return (
-        <Button
-          variant="text"
-          sx={{
-            "&:hover": {
-              bgcolor: "blue.50",
-            },
-          }}
-        >
-          <RefreshCcw color="#111928" width="58px" height="18px" />
-        </Button>
-      );
+      const projectLinkId = cell.row.original.projectId!;
+      return <RescanButton projectLinkId={projectLinkId} />;
     },
   },
   {

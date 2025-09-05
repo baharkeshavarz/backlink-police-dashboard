@@ -4,6 +4,7 @@ import {
   AddProjectLinkService,
   UpdateProjectLinkService,
   GetProjectLinkService,
+  RescanProjectLinkService,
 } from "./types";
 
 const BASE_URL = "/admin/project-link";
@@ -24,4 +25,10 @@ export const getProjectLink: GetProjectLinkService = ({ id }) => {
 
 export const updateProjectLink: UpdateProjectLinkService = ({ payload }) => {
   return axiosInstance.put(`${BASE_URL}`, payload);
+};
+
+export const rescanProjectLink: RescanProjectLinkService = ({
+  projectLinkId,
+}) => {
+  return axiosInstance.post(`${BASE_URL}/${projectLinkId}/rescan`);
 };

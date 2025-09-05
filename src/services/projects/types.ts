@@ -84,3 +84,7 @@ export interface GetProjectLinkService {
 export interface UpdateProjectLinkService {
   (args: { payload: IUpdateProjectLinkPayload }): Response;
 }
+
+export interface RescanProjectLinkService {
+  (args: { projectLinkId: number | string }): Response;
+}
