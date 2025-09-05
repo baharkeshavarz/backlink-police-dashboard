@@ -46,7 +46,6 @@ const ResetPassword = () => {
 
   const onSubmit: SubmitHandler<ResetPasswordPayload> = async (payload) => {
     // await mutateAsync({ payload });
-    // router.push(DEFAULT_DASHBOARD_CHAT_PATH + `/${SAMPLE_CHAT_ID}`);
   };
 
   const fields: FormBuilderProps["fields"] = {

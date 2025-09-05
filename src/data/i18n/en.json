@@ -69,6 +69,7 @@
     "somethingWentWrong": "Sorry! Something went wrong!",
     "terms": "I accept the <terms>Terms and Conditions</terms>",
     "authenticationError": "Authentication failed!",
+    "passwordResetRequested": "Email sent successfully!",
     "toast": {
       "defaultError": "Encountered an error!",
       "copied": "Copied!"

@@ -17,7 +17,7 @@ export const GetMeWithToken = (refreshedToken: string) => {
 };
 
 export const forgetPassword: ForgetPasswordService = ({ payload }) => {
-  return axiosInstance.post(`${BASE_URL}/forgot-password`, payload);
+  return axiosInstance.post(`${BASE_URL}/reset-password/request`, payload);
 };
 
 export const AdminSignOut = () => {
