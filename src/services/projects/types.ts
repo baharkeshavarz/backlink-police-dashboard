@@ -38,6 +38,20 @@ export interface IGetProjects {
   items: IBacklinkProject[];
 }
 
+export enum ProjectLinkStatusEnum {
+  Active = "Active",
+  InActive = "InActive",
+}
+
+export enum ProjectLinkFollowEnum {
+  NoFollow = "NoFollow",
+  DoFollow = "DoFollow",
+}
+export enum ProjectLinkScanEnum {
+  Scanned = "Scanned",
+  NotScanned = "NotScanned",
+}
+
 export interface IAddProjectLinkPayload {
   backLinkUrl: string;
   publisherUrl: string;

@@ -1,10 +1,26 @@
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
-import { IBacklinkProject } from "@/services/projects/types";
-import { Box, Button, Checkbox, IconButton } from "@mui/material";
+import {
+  IBacklinkProject,
+  ProjectLinkFollowEnum,
+  ProjectLinkScanEnum,
+  ProjectLinkStatusEnum,
+} from "@/services/projects/types";
+import {
+  Box,
+  Button,
+  Checkbox,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
+import { Link } from "@/navigation";
+import ProjectLinkStatus from "../ProjectLinkStatus";
+import ProjectLinkFollowStatus from "../ProjectLinkFollowStatus";
+import ProjectLinkScanStatus from "../ProjectLinkScanStatus";
 
 export const ProjectsColumns = (
   handleEditClick: (projectId: number) => void
@@ -26,8 +42,31 @@ export const ProjectsColumns = (
     accessorKey: "publisherUrl",
     header: "Destination URL",
     cell: ({ cell }) => {
-      const value = cell.row.original.publisherUrl || "N/A";
-      return <Box>{value}</Box>;
+      const url = cell.row.original.publisherUrl || "";
+      const displayUrl =
+        url && url.length > 16 ? url.slice(0, 16) + "..." : url;
+      if (!url) return "-";
+      return (
+        <Link href={url} target="_blank">
+          <Tooltip title={url}>
+            <Typography
+              variant="subtitle2"
+              color="blue.600"
+              fontWeight={400}
+              sx={{
+                display: "inline-block",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              {displayUrl}
+            </Typography>
+          </Tooltip>
+        </Link>
+      );
     },
   },
   {
@@ -36,7 +75,11 @@ export const ProjectsColumns = (
     header: "Anchor Keyword",
     cell: ({ cell }) => {
       const value = cell.row.original.anchorKeyWord;
-      return <Box>{value}</Box>;
+      return (
+        <Typography variant="caption" fontWeight={500}>
+          {value}
+        </Typography>
+      );
     },
   },
   {
@@ -44,8 +87,31 @@ export const ProjectsColumns = (
     accessorKey: "backLinkUrl",
     header: "BackLink URL",
     cell: ({ cell }) => {
-      const value = cell.row.original.backLinkUrl;
-      return <Box>{value}</Box>;
+      const url = cell.row.original.backLinkUrl || "";
+      const displayUrl =
+        url && url.length > 16 ? url.slice(0, 16) + "..." : url;
+      if (!url) return "-";
+      return (
+        <Link href={url} target="_blank">
+          <Tooltip title={url}>
+            <Typography
+              variant="subtitle2"
+              color="blue.600"
+              fontWeight={400}
+              sx={{
+                display: "inline-block",
+                textDecoration: "none",
+                "&:hover": {
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              {displayUrl}
+            </Typography>
+          </Tooltip>
+        </Link>
+      );
     },
   },
   {
@@ -53,8 +119,8 @@ export const ProjectsColumns = (
     accessorKey: "urlStatus",
     header: "Link Status",
     cell: ({ cell }) => {
-      const value = cell.row.original.urlStatus?.name;
-      return <Box>{value}</Box>;
+      const value = cell.row.original.urlStatus?.name as ProjectLinkStatusEnum;
+      return value ? <ProjectLinkStatus status={value} /> : "-";
     },
   },
   {
@@ -62,8 +128,9 @@ export const ProjectsColumns = (
     accessorKey: "followStatus",
     header: "Follow Status",
     cell: ({ cell }) => {
-      const value = cell.row.original.followStatus?.name;
-      return <Box>{value}</Box>;
+      const value = cell.row.original.followStatus
+        ?.name as ProjectLinkFollowEnum;
+      return value ? <ProjectLinkFollowStatus status={value} /> : "-";
     },
   },
   {
@@ -72,16 +139,24 @@ export const ProjectsColumns = (
     header: "Cost",
     cell: ({ cell }) => {
       const value = `${cell.row.original.cost}$`;
-      return <Box>{value}</Box>;
+      return (
+        <Typography variant="caption" fontWeight={500}>
+          {value}
+        </Typography>
+      );
     },
   },
   {
     id: "purchasedOn",
     accessorKey: "purchasedOn",
-    header: "PurchasedOn",
+    header: "Purchased On",
     cell: ({ cell }) => {
       const value = cell.row.original.purchasedOn;
-      return <Box>{value}</Box>;
+      return (
+        <Typography variant="caption" fontWeight={500}>
+          {value}
+        </Typography>
+      );
     },
   },
   {
@@ -89,20 +164,25 @@ export const ProjectsColumns = (
     accessorKey: "lastScan",
     header: "Scan Status",
     cell: ({ cell }) => {
-      const value = cell.row.original.lastScan?.name;
-      return <Box>{value}</Box>;
+      const value = cell.row.original.lastScan?.name as ProjectLinkScanEnum;
+      return value ? <ProjectLinkScanStatus status={value} /> : "-";
     },
   },
   {
     id: "lastScanDate",
     accessorKey: "lastScanDate",
     header: "Last Scan",
+    size: 80,
     cell: ({ cell }) => {
-      const value = cell.row.original.lastScanDate;
-      if (!value) return <>-</>;
-      const dateObj = new Date(value);
-      const displayValue = formatDistanceToNow(dateObj, { addSuffix: true });
-      return <Box>{displayValue}</Box>;
+      const data = cell.row.original.lastScanDate;
+      if (!data) return <>-</>;
+      const dateObj = new Date(data);
+      const value = formatDistanceToNow(dateObj, { addSuffix: true });
+      return (
+        <Typography variant="caption" fontWeight={500}>
+          {value}
+        </Typography>
+      );
     },
   },
   {
@@ -110,7 +190,7 @@ export const ProjectsColumns = (
     accessorKey: "",
     header: "Re-Scan",
     cell: ({ cell }) => {
-      const userId = cell.row.original.id!;
+      const projectId = cell.row.original.id!;
       return (
         <Button
           variant="text"
