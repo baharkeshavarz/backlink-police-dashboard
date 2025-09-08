@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 interface StatCardProps {
   title: string;
-  value: string;
+  value: number;
   diff: string;
   diffPositive?: boolean;
   icon: React.ReactNode;

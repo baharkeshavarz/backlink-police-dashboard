@@ -2,7 +2,7 @@
 
 import React from "react";
 import UsersTable from "./components/table/UsersTable";
-import useGetUsers from "./hooks/useGetUsers";
+import useGetUsers from "./hooks/useAdminStatistics";
 import PageContainer from "../page";
 import UsersSkeleton from "./components/UsersSkeleton";
 
