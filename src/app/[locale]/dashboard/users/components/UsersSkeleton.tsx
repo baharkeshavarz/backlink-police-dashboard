@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import UserItemSkeleton from "./UserItemSkeleton";
 
-const ROWS = 5;
+const ROWS = 8;
 
 const UsersSkeleton = () => {
   return (

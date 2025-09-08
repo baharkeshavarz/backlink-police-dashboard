@@ -35,6 +35,9 @@ export const UsersColumns = (
     cell: ({ cell }) => {
       const fullName = `${cell.row.original.firstName} ${cell.row.original.lastName}`;
       const email = cell.row.original.email;
+      const profileImageUrl =
+        cell.row.original.externalProfileImageUrl ||
+        `${DEFAULT_DASHBOARD_ICONS}/profile-icon.png`;
       return (
         <Box
           display="flex"
@@ -43,8 +46,8 @@ export const UsersColumns = (
           gap={1}
         >
           <Avatar
-            alt=""
-            src={`${DEFAULT_DASHBOARD_ICONS}/user-test.jpg`}
+            alt={fullName}
+            src={profileImageUrl}
             sx={{ width: 48, height: 48 }}
           />
           <Stack>
@@ -85,8 +88,8 @@ export const UsersColumns = (
     accessorKey: "status",
     header: "status".toUpperCase(),
     cell: ({ cell }) => {
-      const status = Math.random() < 0.5 ? 1 : 2; //TODO
-      return <UserStatus status={status} />;
+      const status = cell.row.original.isOnboarded || false;
+      return <UserStatus status={+status} />;
     },
   },
   {

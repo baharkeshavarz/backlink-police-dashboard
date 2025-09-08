@@ -13,13 +13,11 @@ import {
   TableRow,
 } from "@mui/material";
 
-const ROWS = 5;
-
 const UserItemSkeleton = () => {
   return (
     <Table>
       <TableBody>
-        {Array.from({ length: ROWS }).map((_, index) => (
+        {Array.from({ length: 1 }).map((_, index) => (
           <TableRow key={index}>
             <TableCell padding="checkbox">
               <Checkbox size="small" disabled />

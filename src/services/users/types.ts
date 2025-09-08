@@ -41,7 +41,7 @@ export interface IUserInvitePayload {
 
 export enum UserStatusEnum {
   Online = 1,
-  Offline = 2,
+  Offline = 0,
 }
 export interface IGetUsers {
   items: IUser[];

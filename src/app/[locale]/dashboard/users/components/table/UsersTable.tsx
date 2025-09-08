@@ -18,6 +18,7 @@ type UsersTableProps = {
 const UsersTable: FC<UsersTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
+
   const handleEditClick = (userId: string) => {
     setSelectedUser(userId);
     setOpenDialog(true);

@@ -5,13 +5,20 @@ import UsersTable from "./components/table/UsersTable";
 import PageContainer from "../page";
 import UsersSkeleton from "./components/UsersSkeleton";
 import useGetUsers from "../overview/hooks/useGetUsers";
+import { Box } from "@mui/material";
 
 const UsersPage = () => {
   const { data, isLoading } = useGetUsers();
 
   return (
     <PageContainer>
-      {isLoading ? <UsersSkeleton /> : <UsersTable data={data?.items || []} />}
+      <Box mt={6}>
+        {isLoading ? (
+          <UsersSkeleton />
+        ) : (
+          <UsersTable data={data?.items || []} />
+        )}
+      </Box>
     </PageContainer>
   );
 };

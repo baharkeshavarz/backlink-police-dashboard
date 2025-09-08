@@ -10,7 +10,6 @@ import Sidebar from "./components/sidebar/Sidebar";
 
 const PageContainer = ({ children }: PropsWithChildren) => {
   const t = useTranslations();
-
   return (
     <Box
       sx={{
