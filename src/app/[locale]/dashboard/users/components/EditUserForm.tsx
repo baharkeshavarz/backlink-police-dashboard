@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl";
 import { FC } from "react";
 import Image from "next/image";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
+import useGetCountries from "@/hooks/useGetCountries";
 
 type EditUserFormProps = {
   userId: string;
@@ -30,6 +31,7 @@ const EditUserForm: FC<EditUserFormProps> = ({
   editType,
 }) => {
   const t = useTranslations();
+  const { data: countries } = useGetCountries();
 
   const { isFetching } = useQuery({
     enabled: !!userId,
@@ -125,7 +127,8 @@ const EditUserForm: FC<EditUserFormProps> = ({
     countryId: {
       name: "countryId",
       label: labels.countryId,
-      type: "Number",
+      type: "SearchableSelective",
+      options: countries || [],
       ui: { grid: { size: { xs: 6 } } },
     },
     city: {

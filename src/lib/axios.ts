@@ -1,5 +1,6 @@
 import { PUBLIC_GATEWAY_URL } from "@/config/app";
 import axios from "axios";
+import { signOut } from "next-auth/react";
 import { toast } from "sonner";
 
 export const config = {
@@ -43,13 +44,13 @@ axiosInstance.interceptors.response.use(
     if (status === 403) {
     } else if (status === 401) {
       try {
-        throw Error("Not support refresh token at now!");
+        throw Error("Not supported refresh token at now!");
       } catch (err) {
-        // const message = "Authentication Failed. Please login again";
-        // toast.error(message, {
-        //   toastId: message,
-        // });
-        // auth.logout();
+        const message = "Authentication Failed. Please login again";
+        toast.error(message, {
+          id: message,
+        });
+        await signOut();
       }
     } else if (expectedErrors) {
       const detail = error?.response?.data;

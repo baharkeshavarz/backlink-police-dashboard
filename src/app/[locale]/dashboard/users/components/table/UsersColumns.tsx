@@ -33,10 +33,10 @@ export const UsersColumns = (
     accessorKey: "name",
     header: "name".toUpperCase(),
     cell: ({ cell }) => {
-      const fullName = `${cell.row.original.firstName} ${cell.row.original.lastName}`;
-      const email = cell.row.original.email;
+      const fullName = `${cell.row.original?.firstName || ""} ${cell.row.original?.lastName || ""}`;
+      const email = cell.row.original?.email || "";
       const profileImageUrl =
-        cell.row.original.externalProfileImageUrl ||
+        cell.row.original?.externalProfileImageUrl ||
         `${DEFAULT_DASHBOARD_ICONS}/profile-icon.png`;
       return (
         <Box
@@ -52,10 +52,10 @@ export const UsersColumns = (
           />
           <Stack>
             <Typography variant="subtitle1" fontWeight="600">
-              {fullName}
+              {fullName || "-"}
             </Typography>
             <Typography variant="subtitle2" color="grey.600" fontWeight="400">
-              {email}
+              {email || "-"}
             </Typography>
           </Stack>
         </Box>
