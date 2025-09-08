@@ -9,6 +9,9 @@ import ProjectOperations from "../ProjectOperations";
 import ProjectsSearch from "../ProjectsSearch";
 import { ProjectsColumns } from "./ProjectsColumns";
 import EditLinkDialog from "../dialogs/EditLinkDialog";
+import { useQueryClient } from "@tanstack/react-query";
+import { GET_PROJECTS_LIST } from "../../hooks/useGetProjects";
+import { queryClient } from "@/providers/TanstackProvider";
 
 type ProjectsTableProps = {
   data: IBacklinkProject[];
@@ -17,6 +20,7 @@ type ProjectsTableProps = {
 const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedProject, setSelectedProject] = useState(0);
+  const queryClient = useQueryClient();
 
   const handleEditClick = (projectId: number) => {
     setSelectedProject(projectId);
@@ -25,6 +29,10 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
 
   const handleEditUserDialog = () => {
     setOpenDialog((prev) => !prev);
+  };
+
+  const onSuccessOperation = () => {
+    queryClient.invalidateQueries({ queryKey: [GET_PROJECTS_LIST] });
   };
 
   const columns = ProjectsColumns(handleEditClick);
@@ -57,7 +65,7 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
         open={openDialog}
         projectId={selectedProject}
         onClose={handleEditUserDialog}
-        onSuccess={handleEditUserDialog}
+        onSuccess={onSuccessOperation}
       />
     </>
   );

@@ -26,14 +26,19 @@ import * as yup from "yup";
 type EditLinkFormProps = {
   projectId: number;
   onSuccess?: VoidFunction;
+  onClose?: VoidFunction;
 };
 
 type AddProjectLinkPayload = Omit<
   IAddProjectLinkPayload,
-  "userId" | "projectId" | "setActivity"
+  "userId" | "projectId" | "setActivity" | "anchorKeyWord"
 >;
 
-const EditLinkForm: FC<EditLinkFormProps> = ({ projectId, onSuccess }) => {
+const EditLinkForm: FC<EditLinkFormProps> = ({
+  projectId,
+  onSuccess,
+  onClose,
+}) => {
   const t = useTranslations();
 
   const { isFetching } = useQuery({
@@ -82,6 +87,7 @@ const EditLinkForm: FC<EditLinkFormProps> = ({ projectId, onSuccess }) => {
     if (status === HttpStatusCode.Ok) {
       toast.success(data as string);
       onSuccess?.();
+      onClose?.();
     } else {
       toast.error(t("messages.somethingWentWrong"));
     }

@@ -28,13 +28,15 @@ type AddProjectLinkPayload = Omit<
 const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   const t = useTranslations();
   const labels: Record<keyof AddProjectLinkPayload, string> = {
-    publisherUrl: "Destination URL",
+    anchorKeyWord: "Anchor Keyword",
+    publisherUrl: "Publisher URL",
     backLinkUrl: "Backlink URL",
     cost: "Cost",
     purchasedOn: "Purchased On",
   };
 
   const resolveSchema: yup.ObjectSchema<AddProjectLinkPayload> = yup.object({
+    anchorKeyWord: yup.string().required().label(labels.anchorKeyWord),
     backLinkUrl: yup.string().required().label(labels.backLinkUrl),
     publisherUrl: yup.string().required().label(labels.publisherUrl),
     cost: yup.number().required().typeError(`${labels.cost} must be a number`),
@@ -54,8 +56,7 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   const onSubmit: SubmitHandler<AddProjectLinkPayload> = async (payload) => {
     const linkPayload: IAddProjectLinkPayload = {
       ...payload,
-      userId: "",
-      projectId: 0,
+      userId: "01992b04-a71d-7dd6-8c07-f78fe56c0510", //TODO: get user id from context
       setActivity: true,
     };
     const { data, status } = await mutateAsync({ payload: linkPayload });
@@ -68,6 +69,19 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   };
 
   const fields: FormBuilderProps["fields"] = {
+    anchorKeyWord: {
+      name: "anchorKeyWord",
+      label: labels.anchorKeyWord,
+      type: "String",
+      props: {
+        placeholder: "AnchorKe yWord",
+      },
+      ui: {
+        grid: {
+          size: { xs: 12 },
+        },
+      },
+    },
     publisherUrl: {
       name: "publisherUrl",
       label: labels.publisherUrl,

@@ -131,7 +131,7 @@ export const ProjectsColumns = (
     accessorKey: "cost",
     header: "Cost",
     cell: ({ cell }) => {
-      const value = `${cell.row.original.cost}$`;
+      const value = `$${cell.row.original.cost}`;
       return (
         <Typography variant="caption" fontWeight={500}>
           {value}

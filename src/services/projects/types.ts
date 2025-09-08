@@ -53,11 +53,12 @@ export enum ProjectLinkScanEnum {
 }
 
 export interface IAddProjectLinkPayload {
+  anchorKeyWord: string;
   backLinkUrl: string;
   publisherUrl: string;
   cost: number;
   purchasedOn: string;
-  projectId: number;
+  // projectId: number;
   setActivity: boolean;
   userId: string;
 }

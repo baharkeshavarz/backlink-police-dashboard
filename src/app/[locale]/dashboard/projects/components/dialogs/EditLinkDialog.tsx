@@ -1,6 +1,6 @@
 import { Dialog } from "@/components/Dialog";
 import { DialogProps } from "@/components/Dialog/Dialog";
-import { DEFAULT_MAX_WIDTH_696 } from "@/constants/general";
+import { DEFAULT_MAX_WIDTH_463 } from "@/constants/general";
 import { FC } from "react";
 import { useAppContext } from "@/hooks/useAppContext";
 import EditLinkForm from "../EditLinkForm";
@@ -8,11 +8,13 @@ import EditLinkForm from "../EditLinkForm";
 export type EditLinkDialogProps = DialogProps & {
   projectId: number;
   onSuccess: VoidFunction;
+  onClose: VoidFunction;
 };
 
 const EditLinkDialog: FC<EditLinkDialogProps> = ({
   projectId,
   onSuccess,
+  onClose,
   ...props
 }) => {
   const { isMobile } = useAppContext();
@@ -21,10 +23,15 @@ const EditLinkDialog: FC<EditLinkDialogProps> = ({
       {...props}
       title="Edit Link"
       maxWidth="md"
-      sx={{ width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_696, marginX: "auto" }}
+      sx={{ width: isMobile ? "100%" : DEFAULT_MAX_WIDTH_463, marginX: "auto" }}
       dialogButtons={[]}
+      onClose={onClose}
     >
-      <EditLinkForm projectId={projectId} onSuccess={onSuccess} />
+      <EditLinkForm
+        projectId={projectId}
+        onSuccess={onSuccess}
+        onClose={onClose}
+      />
     </Dialog>
   );
 };
