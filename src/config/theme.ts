@@ -284,6 +284,13 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: grey[50],
+        },
+      },
+    },
   },
   breakpoints: {
     values: {

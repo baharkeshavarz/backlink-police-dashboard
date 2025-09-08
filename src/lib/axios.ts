@@ -52,7 +52,6 @@ axiosInstance.interceptors.response.use(
         // auth.logout();
       }
     } else if (expectedErrors) {
-      console.log(error);
       const detail = error?.response?.data;
       if (detail) {
         toast.error(detail, {

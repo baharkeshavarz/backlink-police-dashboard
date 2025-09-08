@@ -2,9 +2,9 @@
 
 import React from "react";
 import UsersTable from "./components/table/UsersTable";
-import useGetUsers from "./hooks/useAdminStatistics";
 import PageContainer from "../page";
 import UsersSkeleton from "./components/UsersSkeleton";
+import useGetUsers from "../overview/hooks/useGetUsers";
 
 const UsersPage = () => {
   const { data, isLoading } = useGetUsers();
