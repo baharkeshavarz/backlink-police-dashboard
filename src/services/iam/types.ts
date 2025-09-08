@@ -1,4 +1,4 @@
-import { Response } from "../types/common";
+import { Basic, Response } from "../types/common";
 
 export interface SignInPayload {
   email: string;
@@ -48,5 +48,5 @@ export interface ForgetPasswordService {
 }
 
 export interface ResetPasswordService {
-  (args: { payload: Omit<ResetPasswordPayload, "email"> }): Response;
+  (args: { payload: Omit<ResetPasswordPayload, "email"> }): Response<Basic>;
 }

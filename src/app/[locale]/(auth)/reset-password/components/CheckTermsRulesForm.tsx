@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonWithLoading } from "@/components/ButtonWithLoading";
+import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
 import { useAppContext } from "@/hooks/useAppContext";
 import { Link, Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -66,16 +66,18 @@ const CheckTermsRulesForm = () => {
         )}
       </Box>
 
-      {/* Use as a real submit button */}
-      <ButtonWithLoading
-        variant="contained"
-        type="submit"
+      <ButtonWithLoadingText
         isLoading={isSubmitting}
+        type="submit"
+        fullWidth
+        variant="contained"
+        color="primary"
+        size="large"
       >
         <Typography variant="subtitle2">
           {t("pages.resetPassword.resetButton")}
         </Typography>
-      </ButtonWithLoading>
+      </ButtonWithLoadingText>
     </Stack>
   );
 };

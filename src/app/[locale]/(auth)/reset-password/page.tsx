@@ -12,14 +12,17 @@ import { useTranslations } from "next-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { resetPassword } from "@/services/iam";
-import { useSearchParams } from "next/navigation";
 import CheckTermsRulesForm from "./components/CheckTermsRulesForm";
+import { toast } from "sonner";
+import { useSearchParams, useRouter } from "next/navigation";
+import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
   const token = searchParams.get("token") || "";
   const t = useTranslations();
+  const router = useRouter();
 
   const labels: Record<keyof ResetPasswordPayload, string> = {
     email: t("common.fields.email"),
@@ -56,18 +59,18 @@ const ResetPassword = () => {
     },
   });
 
-  const {
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = methods;
+  const { handleSubmit } = methods;
 
   const { mutateAsync } = useMutation({
     mutationFn: resetPassword,
   });
 
   const onSubmit: SubmitHandler<ResetPasswordPayload> = async (payload) => {
-    await mutateAsync({ payload });
+    const { data } = await mutateAsync({ payload });
+    if (data?.success) {
+      router.push(DEFAULT_SIGNIN_PATH);
+      toast.success("Password reset successfully");
+    }
   };
 
   const fields: FormBuilderProps["fields"] = {
