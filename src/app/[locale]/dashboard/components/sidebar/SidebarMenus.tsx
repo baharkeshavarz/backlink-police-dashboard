@@ -16,10 +16,11 @@ import {
   DEFAULT_DASHBOARD_PROJECTS_PATH,
   DEFAULT_DASHBOARD_USERS_PATH,
 } from "@/constants/routes";
+import { Icons } from "@/components/common/icons";
 
 interface ISideBarMenu {
   text: string;
-  icon: string;
+  icon: string | React.ReactNode;
   callFunc?: VoidFunction;
   linkUrl?: string;
   badgeCount?: number;
@@ -36,7 +37,7 @@ const SidebarMenus = () => {
     },
     {
       text: t("pages.dashboard.sidebar.menu.projects"),
-      icon: `${DEFAULT_DASHBOARD_ICONS}/shopping-bag.svg`,
+      icon: <Icons.TbUnlink size={24} />,
       linkUrl: DEFAULT_DASHBOARD_PROJECTS_PATH,
     },
     {
@@ -92,7 +93,11 @@ const SidebarMenus = () => {
                   color: "grey.900",
                 }}
               >
-                <Image alt={text} src={icon} width={24} height={24} />
+                {typeof icon === "string" ? (
+                  <Image alt={text} src={icon} width={24} height={24} />
+                ) : (
+                  <>{icon}</>
+                )}
               </ListItemIcon>
               <Box
                 display="flex"

@@ -1,5 +1,5 @@
-import { Card, CardContent, Typography, Stack, Box } from "@mui/material";
 import { Icons } from "@/components/common/icons";
+import { Box, Typography } from "@mui/material";
 
 interface StatCardProps {
   title: string;
