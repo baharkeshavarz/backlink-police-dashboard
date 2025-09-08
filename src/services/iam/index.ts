@@ -1,5 +1,9 @@
 import { axiosInstance } from "../../lib/axios";
-import { ForgetPasswordService, SignInService } from "./types";
+import {
+  ForgetPasswordService,
+  ResetPasswordService,
+  SignInService,
+} from "./types";
 
 const BASE_URL = "/auth";
 
@@ -18,6 +22,10 @@ export const GetMeWithToken = (refreshedToken: string) => {
 
 export const forgetPassword: ForgetPasswordService = ({ payload }) => {
   return axiosInstance.post(`${BASE_URL}/reset-password/request`, payload);
+};
+
+export const resetPassword: ResetPasswordService = ({ payload }) => {
+  return axiosInstance.post(`${BASE_URL}/reset-password`, payload);
 };
 
 export const AdminSignOut = () => {

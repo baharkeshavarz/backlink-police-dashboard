@@ -16,7 +16,9 @@ export interface AuthPayload {
 export interface ResetPasswordPayload {
   email: string;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
+  terms: boolean;
+  token: string;
 }
 
 export interface AuthResponsePayload {
@@ -43,4 +45,8 @@ export interface ForgetPasswordPayload {
 }
 export interface ForgetPasswordService {
   (args: { payload: ForgetPasswordPayload }): Response;
+}
+
+export interface ResetPasswordService {
+  (args: { payload: Omit<ResetPasswordPayload, "email"> }): Response;
 }

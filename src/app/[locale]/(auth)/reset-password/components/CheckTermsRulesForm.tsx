@@ -8,49 +8,34 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useTranslations } from "next-intl";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
-type FormValues = {
-  acceptClubRule: boolean;
-};
-
-const CheckClubRulesForm = ({
-  onSubmitFunc = () => {},
-}: {
-  onSubmitFunc?: () => void;
-}) => {
+const CheckTermsRulesForm = () => {
   const t = useTranslations();
   const { isMobile } = useAppContext();
+  const form = useFormContext();
 
   const {
     control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      acceptClubRule: false,
-    },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    if (data.acceptClubRule) {
-      onSubmitFunc();
-    }
-  };
-
-  const handleStart = () => {};
+    formState: { errors, isSubmitting },
+  } = form;
 
   return (
     <Stack spacing={1}>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+      <Box sx={{ mt: 1 }}>
         <Controller
-          name="acceptClubRule"
+          name="terms"
           control={control}
           rules={{ required: "You must accept the Terms of Service" }}
           render={({ field }) => (
             <FormControlLabel
               control={
-                <Checkbox {...field} checked={!!field.value} color="primary" />
+                <Checkbox
+                  {...field}
+                  checked={!!field.value}
+                  color="primary"
+                  onChange={(e) => field.onChange(e.target.checked)}
+                />
               }
               label={
                 <Typography
@@ -74,11 +59,19 @@ const CheckClubRulesForm = ({
             />
           )}
         />
-        {errors?.acceptClubRule && (
-          <FormHelperText error>{errors.acceptClubRule.message}</FormHelperText>
+        {errors?.terms && (
+          <FormHelperText error>
+            {errors?.terms?.message?.toString()}
+          </FormHelperText>
         )}
       </Box>
-      <ButtonWithLoading variant="contained" onClick={handleStart}>
+
+      {/* Use as a real submit button */}
+      <ButtonWithLoading
+        variant="contained"
+        type="submit"
+        isLoading={isSubmitting}
+      >
         <Typography variant="subtitle2">
           {t("pages.resetPassword.resetButton")}
         </Typography>
@@ -87,4 +80,4 @@ const CheckClubRulesForm = ({
   );
 };
 
-export default CheckClubRulesForm;
+export default CheckTermsRulesForm;

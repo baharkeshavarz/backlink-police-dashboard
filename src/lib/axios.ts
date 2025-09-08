@@ -36,41 +36,33 @@ axiosInstance.interceptors.response.use(
     return Promise.resolve(next);
   },
   async (error) => {
-    const status = error?.response?.status;
-    // const expectedErrors = status >= 400 && status <= 500;
+    const expectedErrors =
+      error.response.status >= 400 && error.response.status < 500;
 
-    if (status === 401) {
-      // try {
-      // if (!auth.refreshToken) {
-      //   throw Error('Refresh token is not exist!');
-      // }
-      // if (!refreshingFunc) {
-      //   refreshingFunc = loginByRefreshToken({
-      //     payload: { refreshToken: auth.refreshToken },
-      //   });
-      // }
-      //   const response = await refreshingFunc;
-      //   if (!response.data.succeed) {
-      //     throw Error('Refresh token is not valid!');
-      //   }
-      //   try {
-      //     auth.login(response.data.value);
-      //     return await axios.request(error.config);
-      //   } catch (innerError) {
-      //     if (isUnauthorizedError(innerError)) {
-      //       throw innerError;
-      //     }
-      //   }
-      // } catch (err) {
-      //   await auth.logout();
-      // } finally {
-      //   refreshingFunc = undefined;
-      // }
-      // } else if (expectedErrors) {
-      //   const message = error.response.data?.message;
-      //   !!message && toast.error(message);
-      // }
-      //  return Promise.reject(error);
+    const status = error?.response?.status;
+    if (status === 403) {
+    } else if (status === 401) {
+      try {
+        throw Error("Not support refresh token at now!");
+      } catch (err) {
+        // const message = "Authentication Failed. Please login again";
+        // toast.error(message, {
+        //   toastId: message,
+        // });
+        // auth.logout();
+      }
+    } else if (expectedErrors) {
+      console.log(error);
+      const detail = error?.response?.data;
+      if (detail) {
+        toast.error(detail, {
+          id: detail,
+        });
+      }
+    } else if (error?.response?.status === 500) {
+      throw new Error("Internal Server Error");
     }
+
+    return Promise.reject(error);
   }
 );

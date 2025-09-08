@@ -11,41 +11,63 @@ import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import CheckClubRulesForm from "./components/CheckRulesForm";
-import { LoginIn } from "@/services/iam";
+import { resetPassword } from "@/services/iam";
+import { useSearchParams } from "next/navigation";
+import CheckTermsRulesForm from "./components/CheckTermsRulesForm";
 
 const ResetPassword = () => {
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") || "";
+  const token = searchParams.get("token") || "";
   const t = useTranslations();
 
   const labels: Record<keyof ResetPasswordPayload, string> = {
     email: t("common.fields.email"),
     password: t("common.fields.password"),
-    confirmPassword: t("common.fields.confirmPassword"),
+    passwordConfirm: t("common.fields.passwordConfirm"),
+    terms: t("common.fields.terms"),
+    token: t("common.fields.token"),
   };
 
   const resolveSchema: yup.ObjectSchema<ResetPasswordPayload> = yup.object({
     email: yup.string().nullable().required().label(labels.email),
     password: yup.string().nullable().required().label(labels.password),
-    confirmPassword: yup
+    terms: yup
+      .boolean()
+      .required()
+      .oneOf([true], "You must accept the Terms of Service"),
+    token: yup.string().required(),
+    passwordConfirm: yup
       .string()
       .nullable()
       .required()
-      .oneOf([yup.ref("password")], "passwordMustMatch")
-      .label(labels.confirmPassword),
+      .oneOf([yup.ref("password")], "Password Must Match!")
+      .label(labels.passwordConfirm),
   });
 
   const methods = useForm<ResetPasswordPayload>({
     resolver: yupResolver(resolveSchema),
+    defaultValues: {
+      email: email || "",
+      password: "",
+      passwordConfirm: "",
+      terms: false,
+      token: token || "",
+    },
   });
 
-  const { handleSubmit } = methods;
+  const {
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = methods;
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: LoginIn,
+  const { mutateAsync } = useMutation({
+    mutationFn: resetPassword,
   });
 
   const onSubmit: SubmitHandler<ResetPasswordPayload> = async (payload) => {
-    // await mutateAsync({ payload });
+    await mutateAsync({ payload });
   };
 
   const fields: FormBuilderProps["fields"] = {
@@ -76,10 +98,10 @@ const ResetPassword = () => {
         },
       },
     },
-    confirmPassword: {
+    passwordConfirm: {
       type: "String",
-      name: "confirmPassword",
-      label: labels.confirmPassword,
+      name: "passwordConfirm",
+      label: labels.passwordConfirm,
       props: {
         type: "password",
         placeholder: t("common.fields.passwordPlaceholder"),
@@ -120,7 +142,7 @@ const ResetPassword = () => {
             >
               <FormBuilder fields={fields} />
               <Grid size={{ xs: 12 }}>
-                <CheckClubRulesForm />
+                <CheckTermsRulesForm />
               </Grid>
             </Grid>
           </Box>

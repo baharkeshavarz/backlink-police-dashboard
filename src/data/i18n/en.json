@@ -33,7 +33,7 @@
       "password": "Password",
       "rememberMe": "rememberMe",
       "language": "Language",
-      "confirmPassword": "Confirm Password",
+      "passwordConfirm": "Confirm Password",
       "namePlaceholder": "ex. John",
       "emailPlaceholder": "admin@owdt.com",
       "passwordPlaceholder": "..........",
@@ -42,10 +42,8 @@
       "female": "Female",
       "male": "Male",
       "age": "Age",
-      "occupation": "Occupation",
       "tone": "Tone",
       "gender": "Gender",
-      "personality": "Personality",
       "tons": {
         "happy": "Happy",
         "sad": "Sad",
@@ -54,13 +52,14 @@
       "cardholderName": "Cardholder Name",
       "cardholderNameLable": "First & last name",
       "cardNumber": "Card Number",
-      "cvv": "CVV",
       "expirationDate": "Expiration Date",
       "address": "Street Adress",
       "country": "Country",
       "province": "State/Province",
       "city": "City",
-      "postalCode": "Postal Code"
+      "postalCode": "Postal Code",
+      "terms": "Terms",
+      "token": "Token"
     }
   },
   "messages": {
