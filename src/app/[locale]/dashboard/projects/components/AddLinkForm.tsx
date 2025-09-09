@@ -1,7 +1,7 @@
 "use client";
 
 import { ButtonWithLoading } from "@/components/ButtonWithLoading";
-import { FormBuilder } from "@/components/Fields";
+import { FormBuilder, Option } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { FC } from "react";
 import { IAddProjectLinkPayload } from "@/services/projects/types";
 import { addProjectLink } from "@/services/projects";
+import useGetUsers from "../../overview/hooks/useGetUsers";
 
 type AddLinkFormProps = {
   onSuccess: VoidFunction;
@@ -22,12 +23,26 @@ type AddLinkFormProps = {
 
 type AddProjectLinkPayload = Omit<
   IAddProjectLinkPayload,
-  "userId" | "projectId" | "setActivity"
+  "projectId" | "setActivity"
 >;
 
 const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   const t = useTranslations();
+  const { data: users } = useGetUsers();
+  const usersOptions =
+    users &&
+    users?.items?.map((item) => {
+      return {
+        id: item.id,
+        label: item?.firstName
+          ? `${item?.firstName} ${item?.lastName}`
+          : item?.email,
+        value: item.id,
+      } as Option;
+    });
+
   const labels: Record<keyof AddProjectLinkPayload, string> = {
+    userId: "User",
     anchorKeyWord: "Anchor Keyword",
     publisherUrl: "Publisher URL",
     backLinkUrl: "Backlink URL",
@@ -36,7 +51,8 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   };
 
   const resolveSchema: yup.ObjectSchema<AddProjectLinkPayload> = yup.object({
-    anchorKeyWord: yup.string().required().label(labels.anchorKeyWord),
+    userId: yup.string().required().label(labels.anchorKeyWord),
+    anchorKeyWord: yup.string().required().label(labels.userId),
     backLinkUrl: yup.string().required().label(labels.backLinkUrl),
     publisherUrl: yup.string().required().label(labels.publisherUrl),
     cost: yup.number().required().typeError(`${labels.cost} must be a number`),
@@ -56,7 +72,6 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   const onSubmit: SubmitHandler<AddProjectLinkPayload> = async (payload) => {
     const linkPayload: IAddProjectLinkPayload = {
       ...payload,
-      userId: "01992b04-a71d-7dd6-8c07-f78fe56c0510", //TODO: get user id from context
       setActivity: true,
     };
     const { data, status } = await mutateAsync({ payload: linkPayload });
@@ -69,6 +84,13 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   };
 
   const fields: FormBuilderProps["fields"] = {
+    userId: {
+      name: "userId",
+      label: labels.userId,
+      type: "SearchableSelective",
+      options: usersOptions || [],
+      ui: { grid: { size: { xs: 12 } } },
+    },
     anchorKeyWord: {
       name: "anchorKeyWord",
       label: labels.anchorKeyWord,

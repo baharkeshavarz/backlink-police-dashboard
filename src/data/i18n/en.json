@@ -24,7 +24,7 @@
       "back": "Back"
     },
     "links": {
-      "resetPassword": "Lost password?"
+      "resetPassword": "Forgot your password?"
     },
     "fields": {
       "name": "Name",

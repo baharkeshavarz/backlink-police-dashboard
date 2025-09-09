@@ -1,3 +1,4 @@
+import { IBacklinkProject } from "../projects/types";
 import { Response } from "../types/common";
 
 export interface ILocation {
@@ -9,6 +10,16 @@ export interface ILocation {
   latestEditDate: string | null;
 }
 
+export interface IGetLocations {
+  items: ILocation[];
+}
+
+export interface IGetLocationFilter {
+  OnlyRoots: boolean;
+  StartPage: number;
+  EndPage: number;
+}
+
 export interface GetLocationsService {
-  (): Response<ILocation[]>;
+  (args: { params: IGetLocationFilter }): Response<IGetLocations>;
 }

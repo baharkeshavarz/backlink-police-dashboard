@@ -4,10 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetCountries = () => {
   const query = useQuery({
-    queryKey: ["GET_COUNTRIES_LIST"],
+    queryKey: ["GET_ALL_COUNTRIES_LIST"],
     queryFn: async () => {
-      const { data } = await getCountries();
-      return data?.map((item) => {
+      const { data } = await getCountries({
+        params: {
+          OnlyRoots: Boolean(true),
+          StartPage: 1,
+          EndPage: 2,
+        },
+      });
+
+      return data?.items?.map((item) => {
         return {
           id: item.id,
           label: item.title,
@@ -16,6 +23,7 @@ const useGetCountries = () => {
       });
     },
     gcTime: 0,
+    staleTime: 0,
   });
 
   return query;
