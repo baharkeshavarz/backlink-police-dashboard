@@ -5,13 +5,15 @@ import { useQuery } from "@tanstack/react-query";
 export const GET_PROJECTS_LIST = "GET_PROJECTS_LIST";
 
 type GetProjectsProps = {
-  filters?: ProjectFiltersList;
+  filters?: Partial<ProjectFiltersList>;
 };
 
 const useGetProjects = ({ filters }: GetProjectsProps) => {
   const query = useQuery({
-    queryKey: [GET_PROJECTS_LIST],
+    queryKey: [GET_PROJECTS_LIST, filters],
     queryFn: async () => {
+      console.log(filters);
+
       const { data } = await getProjects({
         params: {
           ...filters,

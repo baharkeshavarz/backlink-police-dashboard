@@ -75,10 +75,10 @@ export interface ProjectFiltersList {
   sortType?: number;
   fromDate?: string;
   toDate?: string;
-  page?: number;
+  page: number | undefined;
   pageCount?: number;
   userId?: string;
-  size?: number;
+  size: number;
 }
 
 export interface ProjectsListService {

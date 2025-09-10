@@ -2,22 +2,23 @@
 
 import { DataTable } from "@/components/data-table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-import { IBacklinkProject } from "@/services/projects/types";
 import { Paper } from "@mui/material";
-import { FC, useState } from "react";
+import { useState } from "react";
 import ProjectOperations from "../ProjectOperations";
 import ProjectsSearch from "../ProjectsSearch";
 import { ProjectsColumns } from "./ProjectsColumns";
 import EditLinkDialog from "../dialogs/EditLinkDialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { GET_PROJECTS_LIST } from "../../hooks/useGetProjects";
-import { queryClient } from "@/providers/TanstackProvider";
+import useGetProjects, { GET_PROJECTS_LIST } from "../../hooks/useGetProjects";
+import useProjectFilters from "../../hooks/useProjectFilters";
+import ProjectsSkeleton from "../ProjectsSkeleton";
 
-type ProjectsTableProps = {
-  data: IBacklinkProject[];
-};
+const ProjectsTable = () => {
+  const filters = useProjectFilters();
+  const { data, isLoading } = useGetProjects({
+    filters,
+  });
 
-const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedProject, setSelectedProject] = useState(0);
   const queryClient = useQueryClient();
@@ -38,9 +39,9 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
   const columns = ProjectsColumns(handleEditClick);
 
   const { table } = useDataTable({
-    data: data,
+    data: data?.items || [],
     columns: columns,
-    pageCount: data.length,
+    pageCount: data?.items?.length || 0,
     shallow: false,
   });
 
@@ -59,8 +60,7 @@ const ProjectsTable: FC<ProjectsTableProps> = ({ data }) => {
         <ProjectsSearch />
         <ProjectOperations />
       </Paper>
-      <DataTable table={table}></DataTable>
-
+      {isLoading ? <ProjectsSkeleton /> : <DataTable table={table}></DataTable>}
       <EditLinkDialog
         open={openDialog}
         projectId={selectedProject}
