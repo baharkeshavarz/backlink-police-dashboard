@@ -132,7 +132,7 @@ export function ImageUploader({
         >
           <input {...getInputProps({ onBlur })} />
           <Stack alignItems="center" spacing={1.25} textAlign="center">
-            <CloudUploadIcon color="action" sx={{ fontSize: 32 }} />
+            <CloudUploadIcon color="action" sx={{ fontSize: 40 }} />
             <Typography variant="subtitle2">
               Click to upload{" "}
               <Typography

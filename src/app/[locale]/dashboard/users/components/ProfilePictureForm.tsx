@@ -27,8 +27,6 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
 
   const handleDialogSave = async () => {
     if (tempFile) {
-      setFile(tempFile);
-      setTempFile(null);
       const formData = new FormData();
       formData.append("Avatar", tempFile);
 
@@ -37,6 +35,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
       });
 
       if (status === HttpStatusCode.Ok) {
+        setFile(tempFile);
         toast.success(data as string);
         onSuccess?.();
         onClose?.();
@@ -55,7 +54,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
         }}
       >
         <ImageUploader
-          value={tempFile}
+          value={tempFile || file}
           onChange={setTempFile}
           displayPreview={true}
           size={30 * 1024 * 1024}
@@ -73,8 +72,9 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
           <ButtonWithLoading
             type="submit"
             variant="contained"
-            size="small"
             isLoading={isPending}
+            size="medium"
+            sx={{ width: "73px", height: "41px" }}
           >
             <Typography variant="subtitle2" color="white">
               Save

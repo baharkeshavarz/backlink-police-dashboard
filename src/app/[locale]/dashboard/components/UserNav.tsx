@@ -100,14 +100,14 @@ const UserNav: FC<UserNavProps> = ({ user }) => {
           </Stack>
         </MenuItem>
         <MenuItem sx={{ py: 1, px: 0 }}>
-          <Link href="/profile">
+          <Link href="#">
             <Typography variant="subtitle2" mx={2} color="grey.700">
               Your Profile
             </Typography>
           </Link>
         </MenuItem>
         <MenuItem sx={{ py: 1, px: 0 }}>
-          <Link href="/settings">
+          <Link href="#">
             <Typography variant="subtitle2" mx={2} color="grey.700">
               Settings
             </Typography>
