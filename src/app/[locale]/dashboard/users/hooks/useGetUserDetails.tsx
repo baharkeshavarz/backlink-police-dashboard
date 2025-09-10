@@ -5,10 +5,12 @@ type GetUserDetailsProps = {
   userId: string;
 };
 
+export const GET_USER_DETAILS = "GET_USER_DETAILS";
+
 const useGetUserDetails = ({ userId }: GetUserDetailsProps) => {
   const query = useQuery({
     enabled: !!userId,
-    queryKey: ["GET_USER_DETAILS", userId],
+    queryKey: [GET_USER_DETAILS, userId],
     queryFn: async () => {
       const { data } = await getUser({ id: userId });
 

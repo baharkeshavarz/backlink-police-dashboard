@@ -27,7 +27,7 @@ const LatestLinkList = () => {
       sx={{ borderRadius: 1, border: 0, bgcolor: "white", m: 2 }}
     >
       <CardContent>
-        <Box display="flex" alignItems="center" mb={2}>
+        <Box display="flex" alignItems="center" mb={1}>
           <Typography variant="body2" fontWeight="800" color="grey.900" mb={2}>
             Latest Backlinks
           </Typography>
@@ -45,6 +45,12 @@ const LatestLinkList = () => {
             </Fragment>
           );
         })}
+
+        {latestProjects?.items?.length === 0 && (
+          <Typography variant="subtitle2" color="grey.400">
+            No Backlinks Found.
+          </Typography>
+        )}
         <Box
           display="flex"
           justifyContent="space-between"

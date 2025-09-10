@@ -63,26 +63,25 @@ const EditUserForm: FC<EditUserFormProps> = ({
     zip: "Zip/Postal code",
   };
 
-  const resolveSchema: yup.ObjectSchema<Partial<IEditUserPayload>> = yup.object(
-    {
-      firstName: yup.string().required().label(labels.firstName),
-      lastName: yup.string().required().label(labels.lastName),
-      address: yup.string().required().label(labels.address),
-      birthDate: yup.mixed().nullable().label(labels.birthDate),
-      city: yup.string().required().label(labels.city),
-      countryId: yup.number().required().label(labels.countryId),
-      email: yup.string().required().label(labels.email),
-      organization: yup.string().required().label(labels.organization),
-      phoneNumber: yup
-        .string()
-        .required()
-        .matches(/^\+?\d+$/, "Invalid phone number")
-        .label(labels.phoneNumber),
-      role: yup.string().required().label(labels.role),
-      zip: yup.string().required().label(labels.zip),
-      department: yup.string().required().label(labels.department),
-    }
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const resolveSchema: yup.ObjectSchema<any> = yup.object({
+    firstName: yup.string().required().label(labels.firstName),
+    lastName: yup.string().required().label(labels.lastName),
+    address: yup.string().required().label(labels.address),
+    birthDate: yup.mixed().nullable().label(labels.birthDate),
+    city: yup.string().required().label(labels.city),
+    countryId: yup.number().required().label(labels.countryId),
+    email: yup.string().required().label(labels.email),
+    organization: yup.string().required().label(labels.organization),
+    phoneNumber: yup
+      .string()
+      .required()
+      .matches(/^\+?\d+$/, "Invalid phone number")
+      .label(labels.phoneNumber),
+    role: yup.string().required().label(labels.role),
+    zip: yup.string().required().label(labels.zip),
+    department: yup.string().required().label(labels.department),
+  });
 
   const form = useForm<Partial<IEditUserPayload>>({
     resolver: yupResolver(resolveSchema),
@@ -226,6 +225,7 @@ const EditUserForm: FC<EditUserFormProps> = ({
                 <ButtonWithLoading
                   variant="outlined"
                   isLoading={isFetching || isPending}
+                  type="submit"
                   startIcon={
                     <Image
                       alt="edit"
@@ -237,7 +237,6 @@ const EditUserForm: FC<EditUserFormProps> = ({
                 >
                   <Typography variant="subtitle2">Edit</Typography>
                 </ButtonWithLoading>
-
                 <ButtonWithLoading
                   type="submit"
                   variant="text"
