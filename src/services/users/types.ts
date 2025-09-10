@@ -85,5 +85,5 @@ export interface UpdateUserService {
 }
 
 export interface DeActivateUserService {
-  (args: { payload: IDeactivateUserPayload }): Response<IUser>;
+  (args: { params: IDeactivateUserPayload }): Response<IUser>;
 }

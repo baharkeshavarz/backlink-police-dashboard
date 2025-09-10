@@ -17,8 +17,12 @@ import {
 import { useState } from "react";
 import DeactivateAccountDialog from "./dialogs/DeactivateAccountDialog";
 import DeleteAccountDialog from "./dialogs/DeleteAccountDialog";
+import { useParams } from "next/navigation";
 
 const UserActivation = () => {
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId ? params.userId : "";
+
   const [showDanger, setShowDanger] = useState(false);
   const [openDeactivateDialog, setOpenDeactivateDialog] = useState(false);
   const [openDeleteAccountDialog, setOpenDeleteAccountDialog] = useState(false);
@@ -30,6 +34,15 @@ const UserActivation = () => {
   const handleDeleteAccountDialog = () => {
     setOpenDeleteAccountDialog((prev) => !prev);
   };
+
+  const handleOnSuccessDeactivate = () => {
+    setOpenDeactivateDialog(false);
+  };
+
+  const handleOnSuccessDelete = () => {
+    setOpenDeleteAccountDialog(false);
+  };
+
   return (
     <>
       <Box sx={{ m: 4 }}>
@@ -83,7 +96,12 @@ const UserActivation = () => {
                   variant="outlined"
                   color="error"
                   startIcon={<PowerSettingsNewIcon />}
-                  sx={{ height: "44px" }}
+                  sx={{
+                    height: "44px",
+                    "&:hover": {
+                      bgcolor: "blue.100",
+                    },
+                  }}
                   onClick={handleDeactivateDialog}
                 >
                   Deactivate Account
@@ -123,15 +141,15 @@ const UserActivation = () => {
       <DeactivateAccountDialog
         open={openDeactivateDialog}
         onClose={handleDeactivateDialog}
-        onSuccess={handleDeactivateDialog}
-        userId={"userId"}
+        onSuccess={handleOnSuccessDeactivate}
+        userId={userId}
       />
 
       <DeleteAccountDialog
         open={openDeleteAccountDialog}
         onClose={handleDeleteAccountDialog}
-        onSuccess={handleDeleteAccountDialog}
-        userId={"userId"}
+        onSuccess={handleOnSuccessDelete}
+        userId={userId}
       />
     </>
   );

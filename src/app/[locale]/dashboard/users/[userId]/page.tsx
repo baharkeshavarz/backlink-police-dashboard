@@ -15,7 +15,6 @@ import useGetLocationDetails from "../../locations/hooks/useGetLocationDetails";
 const UserDetails = () => {
   const params = useParams<{ userId: string }>();
   const userId = params.userId ? params.userId : "";
-
   const { data } = useGetUserDetails({ userId });
 
   const { data: location } = useGetLocationDetails({

@@ -29,6 +29,6 @@ export const updateUser: UpdateUserService = ({ params }) => {
   });
 };
 
-export const deActivateUser: DeActivateUserService = ({ payload }) => {
-  return axiosInstance.post(`${BASE_URL}/DeActivate`, payload);
+export const deActivateUser: DeActivateUserService = ({ params }) => {
+  return axiosInstance.post(`${BASE_URL}/DeActivate`, null, { params });
 };

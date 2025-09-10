@@ -15,10 +15,14 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import DeactivateAccountDialog from "./dialogs/DeactivateAccountDialog";
-import DeleteAccountDialog from "./dialogs/DeleteAccountDialog";
+import DeactivateAccountDialog from "../../users/components/dialogs/DeactivateAccountDialog";
+import { useParams } from "next/navigation";
+import DeleteAccountDialog from "../../users/components/dialogs/DeleteAccountDialog";
 
 const UserActivation = () => {
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId ? params.userId : "";
+
   const [showDanger, setShowDanger] = useState(false);
   const [openDeactivateDialog, setOpenDeactivateDialog] = useState(false);
   const [openDeleteAccountDialog, setOpenDeleteAccountDialog] = useState(false);
@@ -124,14 +128,13 @@ const UserActivation = () => {
         open={openDeactivateDialog}
         onClose={handleDeactivateDialog}
         onSuccess={handleDeactivateDialog}
-        userId={"userId"}
+        userId={userId}
       />
-
       <DeleteAccountDialog
         open={openDeleteAccountDialog}
         onClose={handleDeleteAccountDialog}
         onSuccess={handleDeleteAccountDialog}
-        userId={"userId"}
+        userId={userId}
       />
     </>
   );

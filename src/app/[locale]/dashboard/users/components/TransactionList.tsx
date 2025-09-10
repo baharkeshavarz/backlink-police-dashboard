@@ -137,9 +137,13 @@ const TransactionList = () => {
                   ))}
 
                 {orders?.items?.length === 0 && (
-                  <Typography variant="subtitle2" color="grey.400" py={3}>
-                    No Transactions Found.
-                  </Typography>
+                  <TableRow>
+                    <TableCell>
+                      <Typography variant="subtitle2" color="grey.400" py={3}>
+                        No Transactions Found.
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
                 )}
               </TableBody>
             </Table>
