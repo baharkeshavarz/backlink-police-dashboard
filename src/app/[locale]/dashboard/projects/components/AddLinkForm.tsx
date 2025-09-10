@@ -28,7 +28,7 @@ type AddProjectLinkPayload = Omit<
 
 const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   const t = useTranslations();
-  const { data: users } = useGetUsers();
+  const { data: users } = useGetUsers({});
   const usersOptions =
     users &&
     users?.items?.map((item) => {

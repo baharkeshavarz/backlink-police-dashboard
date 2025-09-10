@@ -9,6 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useState } from "react";
+import ProfilePictureDialog from "../../components/dialogs/ProfilePictureDialog";
+import { useQueryClient } from "@tanstack/react-query";
+import { GET_LOCATION_DETAILS } from "../../../locations/hooks/useGetLocationDetails";
 
 type ProfileCardProps = {
   name: string;
@@ -27,70 +31,90 @@ const ProfileCard = ({
   phone,
   avatarUrl,
 }: ProfileCardProps) => {
+  const queryClient = useQueryClient();
+  const [openProfilePictureDialog, setOpenProfilePictureDialog] =
+    useState(false);
+
+  const handleProfilePictureDialog = () => {
+    setOpenProfilePictureDialog((prev) => !prev);
+  };
+
+  const onSuccessOperation = () => {
+    queryClient.invalidateQueries({ queryKey: [GET_LOCATION_DETAILS] });
+  };
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        border: 0,
-        borderRight: 1,
-        borderRadius: 0,
-        borderColor: "grey.200",
-        height: "100%",
-      }}
-    >
-      <CardContent>
-        <Stack spacing={2}>
-          <Avatar
-            alt=""
-            src={avatarUrl}
-            sx={{ width: 80, height: 80, borderRadius: 1 }}
-          />
-          {name && (
-            <Typography variant="h3" fontWeight="400" color="grey.500">
-              {name}
-            </Typography>
-          )}
-          {country && (
-            <Stack direction="row" display="flex" alignItems="center">
-              <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
-              <Typography variant="subtitle2" color="grey.500">
-                {country}
+    <>
+      <Card
+        variant="outlined"
+        sx={{
+          border: 0,
+          borderRight: 1,
+          borderRadius: 0,
+          borderColor: "grey.200",
+          height: "100%",
+        }}
+      >
+        <CardContent>
+          <Stack spacing={2}>
+            <Avatar
+              alt=""
+              src={avatarUrl}
+              sx={{ width: 80, height: 80, borderRadius: 1, cursor: "pointer" }}
+              onClick={handleProfilePictureDialog}
+            />
+            {name && (
+              <Typography variant="h3" fontWeight="400" color="grey.500">
+                {name}
               </Typography>
-            </Stack>
+            )}
+            {country && (
+              <Stack direction="row" display="flex" alignItems="center">
+                <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
+                <Typography variant="subtitle2" color="grey.500">
+                  {country}
+                </Typography>
+              </Stack>
+            )}
+          </Stack>
+          <Box mt={2}>
+            <Typography variant="subtitle2" color="grey.500">
+              Email Address
+            </Typography>
+            <Typography variant="subtitle2" color="grey.900">
+              {email}
+            </Typography>
+          </Box>
+
+          {address && (
+            <Box mt={1.5}>
+              <Typography variant="subtitle2" color="grey.500">
+                Company Address
+              </Typography>
+              <Typography variant="subtitle2" color="grey.900">
+                {address}
+              </Typography>
+            </Box>
           )}
-        </Stack>
-        <Box mt={2}>
-          <Typography variant="subtitle2" color="grey.500">
-            Email Address
-          </Typography>
-          <Typography variant="subtitle2" color="grey.900">
-            {email}
-          </Typography>
-        </Box>
 
-        {address && (
-          <Box mt={1.5}>
-            <Typography variant="subtitle2" color="grey.500">
-              Company Address
-            </Typography>
-            <Typography variant="subtitle2" color="grey.900">
-              {address}
-            </Typography>
-          </Box>
-        )}
+          {phone && (
+            <Box mt={1.5}>
+              <Typography variant="subtitle2" color="grey.500">
+                Phone Number
+              </Typography>
+              <Typography variant="subtitle2" color="grey.900">
+                {phone}
+              </Typography>
+            </Box>
+          )}
+        </CardContent>
+      </Card>
 
-        {phone && (
-          <Box mt={1.5}>
-            <Typography variant="subtitle2" color="grey.500">
-              Phone Number
-            </Typography>
-            <Typography variant="subtitle2" color="grey.900">
-              {phone}
-            </Typography>
-          </Box>
-        )}
-      </CardContent>
-    </Card>
+      <ProfilePictureDialog
+        open={openProfilePictureDialog}
+        onClose={handleProfilePictureDialog}
+        onSuccess={onSuccessOperation}
+      />
+    </>
   );
 };
 
