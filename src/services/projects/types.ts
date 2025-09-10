@@ -1,4 +1,6 @@
+import { toDate } from "date-fns";
 import { Response } from "../types/common";
+import { BaseFiltersList } from "../common/types";
 
 export interface IBacklinkProject {
   projectName: string;
@@ -70,19 +72,8 @@ export interface IUpdateProjectLinkPayload {
   purchasedOn: string;
 }
 
-export interface ProjectFiltersList {
-  baseSortEntityType?: number;
-  sortType?: number;
-  fromDate?: string;
-  toDate?: string;
-  page: number | undefined;
-  pageCount?: number;
-  userId?: string;
-  size: number;
-}
-
 export interface ProjectsListService {
-  (args: { params: Partial<ProjectFiltersList> }): Response<IGetProjects>;
+  (args: { params: Partial<BaseFiltersList> }): Response<IGetProjects>;
 }
 
 export interface AddProjectLinkService {

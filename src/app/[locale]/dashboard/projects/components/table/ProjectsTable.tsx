@@ -10,11 +10,11 @@ import { ProjectsColumns } from "./ProjectsColumns";
 import EditLinkDialog from "../dialogs/EditLinkDialog";
 import { useQueryClient } from "@tanstack/react-query";
 import useGetProjects, { GET_PROJECTS_LIST } from "../../hooks/useGetProjects";
-import useProjectFilters from "../../hooks/useProjectFilters";
 import ProjectsSkeleton from "../ProjectsSkeleton";
+import useBaseFilters from "../../../hooks/useBaseFilters";
 
 const ProjectsTable = () => {
-  const filters = useProjectFilters();
+  const filters = useBaseFilters();
   const { data, isLoading } = useGetProjects({
     filters,
   });

@@ -2,20 +2,23 @@
 
 import { DataTable } from "@/components/data-table/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
-import { IUser } from "@/services/users/types";
 import { Paper } from "@mui/material";
-import { FC, useState } from "react";
+import { useState } from "react";
 import UsersSearch from "../../../components/UsersSearch";
 import EditUserDialog from "../dialogs/EditUserDialog";
 import UserOperation from "../UserOperations";
 import UserListLastVisit from "./UserListLastVisit";
 import { UsersColumns } from "./UsersColumns";
+import UsersSkeleton from "../UsersSkeleton";
+import useGetUsers from "../../hooks/useGetUsers";
+import useBaseFilters from "../../../hooks/useBaseFilters";
 
-type UsersTableProps = {
-  data: IUser[];
-};
+const UsersTable = () => {
+  const filters = useBaseFilters();
+  const { data, isLoading } = useGetUsers({
+    filters,
+  });
 
-const UsersTable: FC<UsersTableProps> = ({ data }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
 
@@ -31,9 +34,9 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
   const columns = UsersColumns(handleEditClick);
 
   const { table } = useDataTable({
-    data: data,
+    data: data?.items || [],
     columns: columns,
-    pageCount: data.length,
+    pageCount: data?.items?.length || 0,
     shallow: false,
   });
 
@@ -52,8 +55,11 @@ const UsersTable: FC<UsersTableProps> = ({ data }) => {
         <UsersSearch />
         <UserOperation />
       </Paper>
-      <DataTable table={table} extraInfo={<UserListLastVisit />}></DataTable>
-
+      {isLoading ? (
+        <UsersSkeleton />
+      ) : (
+        <DataTable table={table} extraInfo={<UserListLastVisit />}></DataTable>
+      )}
       <EditUserDialog
         open={openDialog}
         userId={selectedUser}

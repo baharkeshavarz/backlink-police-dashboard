@@ -1,3 +1,4 @@
+import { BaseFiltersList } from "../common/types";
 import { Response } from "../types/common";
 
 export interface IAuthenticatedUser {
@@ -73,7 +74,7 @@ export interface IDeletePayload {
 }
 
 export interface UsersListService {
-  (args: { params: Partial<IUser> }): Response<IGetUsers>;
+  (args: { params: Partial<BaseFiltersList> }): Response<IGetUsers>;
 }
 
 export interface AddInviteUserService {

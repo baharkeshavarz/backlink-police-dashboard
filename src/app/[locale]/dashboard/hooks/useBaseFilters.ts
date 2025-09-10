@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
 import { parseDateRange } from "@/lib/filter-utils";
-import { ProjectFiltersList } from "@/services/projects/types";
+import { BaseFiltersList } from "@/services/common/types";
 
 const queryParsers = {
   page: parseAsInteger.withDefault(1),
@@ -20,15 +20,14 @@ const queryParsers = {
   lastScan: parseAsString,
 } as const;
 
-export default function useProjectFilters(): Partial<ProjectFiltersList> {
+export default function useBaseFilters(): Partial<BaseFiltersList> {
   const [values] = useQueryStates(queryParsers);
 
   return useMemo(() => {
     const purchasedRange = parseDateRange(values.purchasedOn ?? undefined);
-    const lastScanRange = parseDateRange(values.lastScan ?? undefined);
 
     // Only return fields expected by the projects service type
-    const result: Partial<ProjectFiltersList> = {
+    const result: Partial<BaseFiltersList> = {
       page: values.page ?? undefined,
       size: values.size ?? undefined,
       fromDate: purchasedRange.start
