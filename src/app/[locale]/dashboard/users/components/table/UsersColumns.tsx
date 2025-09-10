@@ -36,7 +36,7 @@ export const UsersColumns = (
       const fullName = `${cell.row.original?.firstName || ""} ${cell.row.original?.lastName || ""}`;
       const email = cell.row.original?.email || "";
       const profileImageUrl =
-        cell.row.original?.externalProfileImageUrl ||
+        cell.row.original?.imageUrl ||
         `${DEFAULT_DASHBOARD_ICONS}/profile-icon.png`;
       return (
         <Box

@@ -23,8 +23,10 @@ export const getUser: GetUsertService = ({ id }) => {
   return axiosInstance.get(`${BASE_URL}/${id}`);
 };
 
-export const updaateUser: UpdateUserService = ({ payload }) => {
-  return axiosInstance.put(`${BASE_URL}`, payload);
+export const updateUser: UpdateUserService = ({ params }) => {
+  return axiosInstance.put(`${BASE_URL}`, null, {
+    params,
+  });
 };
 
 export const deActivateUser: DeActivateUserService = ({ payload }) => {

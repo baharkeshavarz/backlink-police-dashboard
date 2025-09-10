@@ -55,7 +55,7 @@ export interface IEditUserPayload {
   address: string;
   email: string;
   phoneNumber: string;
-  birthDate: string;
+  birthDate?: unknown;
   organization: string;
   role: string;
   department: string;
@@ -81,7 +81,7 @@ export interface GetUsertService {
 }
 
 export interface UpdateUserService {
-  (args: { payload: IEditUserPayload }): Response;
+  (args: { params: Partial<IEditUserPayload> }): Response;
 }
 
 export interface DeActivateUserService {

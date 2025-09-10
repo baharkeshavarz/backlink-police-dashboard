@@ -7,9 +7,11 @@ import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import Link from "next/link";
+
 import * as yup from "yup";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getUser, updaateUser } from "@/services/users";
+import { getUser, updateUser } from "@/services/users";
 import { IEditUserPayload } from "@/services/users/types";
 import { HttpStatusCode } from "axios";
 import { toast } from "sonner";
@@ -18,6 +20,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import useGetCountries from "@/hooks/useGetCountries";
+import { DEFAULT_DASHBOARD_USERS_PATH } from "@/constants/routes";
 
 type EditUserFormProps = {
   userId: string;
@@ -42,6 +45,7 @@ const EditUserForm: FC<EditUserFormProps> = ({
       form.reset({ ...data });
       return data;
     },
+    gcTime: 0,
   });
 
   const labels: Record<keyof IEditUserPayload, string> = {
@@ -59,22 +63,28 @@ const EditUserForm: FC<EditUserFormProps> = ({
     zip: "Zip/Postal code",
   };
 
-  const resolveSchema: yup.ObjectSchema<IEditUserPayload> = yup.object({
-    firstName: yup.string().required().label(labels.firstName),
-    lastName: yup.string().required().label(labels.lastName),
-    address: yup.string().required().label(labels.address),
-    birthDate: yup.string().required().label(labels.birthDate),
-    city: yup.string().required().label(labels.city),
-    countryId: yup.number().required().label(labels.countryId),
-    email: yup.string().required().label(labels.email),
-    organization: yup.string().required().label(labels.organization),
-    phoneNumber: yup.string().required().label(labels.phoneNumber),
-    role: yup.string().required().label(labels.role),
-    zip: yup.string().required().label(labels.zip),
-    department: yup.string().required().label(labels.department),
-  });
+  const resolveSchema: yup.ObjectSchema<Partial<IEditUserPayload>> = yup.object(
+    {
+      firstName: yup.string().required().label(labels.firstName),
+      lastName: yup.string().required().label(labels.lastName),
+      address: yup.string().required().label(labels.address),
+      birthDate: yup.mixed().nullable().label(labels.birthDate),
+      city: yup.string().required().label(labels.city),
+      countryId: yup.number().required().label(labels.countryId),
+      email: yup.string().required().label(labels.email),
+      organization: yup.string().required().label(labels.organization),
+      phoneNumber: yup
+        .string()
+        .required()
+        .matches(/^\+?\d+$/, "Invalid phone number")
+        .label(labels.phoneNumber),
+      role: yup.string().required().label(labels.role),
+      zip: yup.string().required().label(labels.zip),
+      department: yup.string().required().label(labels.department),
+    }
+  );
 
-  const form = useForm<IEditUserPayload>({
+  const form = useForm<Partial<IEditUserPayload>>({
     resolver: yupResolver(resolveSchema),
     defaultValues: {},
   });
@@ -82,27 +92,17 @@ const EditUserForm: FC<EditUserFormProps> = ({
   const { handleSubmit } = form;
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: updaateUser,
+    mutationFn: updateUser,
   });
 
-  const onSubmit: SubmitHandler<IEditUserPayload> = async (payload) => {
-    const formData: IEditUserPayload & { id: string } = {
+  const onSubmit: SubmitHandler<Partial<IEditUserPayload>> = async (
+    payload
+  ) => {
+    const formData: Partial<IEditUserPayload> & { id: string } = {
       id: userId,
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-      address: payload?.address || "",
-      birthDate: payload?.birthDate || "",
-      city: payload?.city || "",
-      countryId: payload.countryId,
-      department: payload?.department || "",
-      email: payload.email,
-      organization: payload?.organization || "",
-      phoneNumber: payload?.phoneNumber || "",
-      role: payload?.role || "",
-      zip: payload?.zip || "",
+      ...payload,
     };
-    console.log(formData);
-    const { data, status } = await mutateAsync({ payload: formData });
+    const { data, status } = await mutateAsync({ params: formData });
     if (status === HttpStatusCode.Ok) {
       toast.success(data as string);
       onSuccess?.();
@@ -149,6 +149,12 @@ const EditUserForm: FC<EditUserFormProps> = ({
       type: "String",
       ui: { grid: { size: { xs: 6 } } },
     },
+    zip: {
+      name: "zip",
+      label: labels.zip,
+      type: "String",
+      ui: { grid: { size: { xs: 6 } } },
+    },
     phoneNumber: {
       name: "phoneNumber",
       label: labels.phoneNumber,
@@ -179,12 +185,6 @@ const EditUserForm: FC<EditUserFormProps> = ({
       type: "String",
       ui: { grid: { size: { xs: 6 } } },
     },
-    zip: {
-      name: "zip",
-      label: labels.zip,
-      type: "String",
-      ui: { grid: { size: { xs: 6 } } },
-    },
   };
 
   return (
@@ -198,6 +198,8 @@ const EditUserForm: FC<EditUserFormProps> = ({
                 <Button
                   variant="outlined"
                   size="medium"
+                  component={Link}
+                  href={`${DEFAULT_DASHBOARD_USERS_PATH}/${userId}`}
                   sx={{ width: "179px", height: "41px" }}
                 >
                   <Typography variant="subtitle2">
