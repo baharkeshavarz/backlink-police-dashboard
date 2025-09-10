@@ -45,17 +45,20 @@ const ProfileCard = ({
             src={avatarUrl}
             sx={{ width: 80, height: 80, borderRadius: 1 }}
           />
-          <Typography variant="h3" fontWeight="400" color="grey.500">
-            {name}
-          </Typography>
-          <Stack direction="row" display="flex" alignItems="center">
-            <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
-            <Typography variant="subtitle2" color="grey.500">
-              {country}
+          {name && (
+            <Typography variant="h3" fontWeight="400" color="grey.500">
+              {name}
             </Typography>
-          </Stack>
+          )}
+          {country && (
+            <Stack direction="row" display="flex" alignItems="center">
+              <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
+              <Typography variant="subtitle2" color="grey.500">
+                {country}
+              </Typography>
+            </Stack>
+          )}
         </Stack>
-
         <Box mt={2}>
           <Typography variant="subtitle2" color="grey.500">
             Email Address
@@ -65,23 +68,27 @@ const ProfileCard = ({
           </Typography>
         </Box>
 
-        <Box mt={1.5}>
-          <Typography variant="subtitle2" color="grey.500">
-            Company Address
-          </Typography>
-          <Typography variant="subtitle2" color="grey.900">
-            {address}
-          </Typography>
-        </Box>
+        {address && (
+          <Box mt={1.5}>
+            <Typography variant="subtitle2" color="grey.500">
+              Company Address
+            </Typography>
+            <Typography variant="subtitle2" color="grey.900">
+              {address}
+            </Typography>
+          </Box>
+        )}
 
-        <Box mt={1.5}>
-          <Typography variant="subtitle2" color="grey.500">
-            Phone Number
-          </Typography>
-          <Typography variant="subtitle2" color="grey.900">
-            {phone}
-          </Typography>
-        </Box>
+        {phone && (
+          <Box mt={1.5}>
+            <Typography variant="subtitle2" color="grey.500">
+              Phone Number
+            </Typography>
+            <Typography variant="subtitle2" color="grey.900">
+              {phone}
+            </Typography>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );

@@ -1,34 +1,44 @@
 import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
 import { FormBuilder } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import { Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { FC } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
+import UserProfileCard from "./UserProfileCard";
+import { useMutation } from "@tanstack/react-query";
+import { deleteUser } from "@/services/users";
+import { HttpStatusCode } from "axios";
+import { toast } from "sonner";
+import { useRouter } from "@/navigation";
+import { DEFAULT_DASHBOARD_USERS_PATH } from "@/constants/routes";
 
 type DeleteAccountFormProps = {
   userId: string;
   onSuccess?: VoidFunction;
+  onClose: VoidFunction;
 };
 type DeleteAccountPayload = { delete: string };
 
 const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
   userId,
   onSuccess,
+  onClose,
 }) => {
-  const t = useTranslations();
-
+  const router = useRouter();
   const labels = {
     delete: "delete",
   };
 
   const resolveSchema: yup.ObjectSchema<DeleteAccountPayload> = yup.object({
-    delete: yup.string().required().required().label(labels.delete),
+    delete: yup
+      .string()
+      .oneOf(["DELETE"], "You must type 'DELETE' to confirm")
+      .required()
+      .label(labels.delete),
   });
 
   const methods = useForm<DeleteAccountPayload>({
@@ -37,8 +47,18 @@ const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
 
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<DeleteAccountPayload> = async (payload) => {
-    console.log(payload);
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: deleteUser,
+  });
+
+  const onSubmit: SubmitHandler<DeleteAccountPayload> = async () => {
+    const { data, status } = await mutateAsync({ params: { id: userId } });
+    console.log(data);
+    if (status === HttpStatusCode.Ok) {
+      toast.success("data");
+      onSuccess?.();
+      router.push(DEFAULT_DASHBOARD_USERS_PATH);
+    }
   };
 
   const fields: FormBuilderProps["fields"] = {
@@ -59,29 +79,7 @@ const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
 
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="flex-start"
-        alignItems="center"
-        gap={2}
-        width="100%"
-        mb={5}
-      >
-        <Avatar
-          alt=""
-          src={`${DEFAULT_DASHBOARD_ICONS}/user-icon.png`}
-          sx={{ width: 48, height: 48 }}
-        />
-        <Stack>
-          <Typography variant="subtitle1" fontWeight="600">
-            Kyle Mani
-          </Typography>
-          <Typography variant="subtitle2" fontWeight="400" color="grey.600">
-            Kyle@owdt.com
-          </Typography>
-        </Stack>
-      </Box>
-
+      <UserProfileCard userId={userId} />
       <FormProvider {...methods}>
         <Grid
           container
@@ -115,12 +113,14 @@ const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
                 variant="contained"
                 color="primary"
                 sx={{ width: "134px", height: "41px" }}
+                onClick={() => onClose()}
               >
                 <Typography variant="subtitle2" fontWeight={500}>
                   Keep Account
                 </Typography>
               </ButtonWithLoadingText>
               <ButtonWithLoadingText
+                disabled={isPending}
                 type="submit"
                 fullWidth
                 variant="outlined"

@@ -68,6 +68,10 @@ export interface IDeactivateUserPayload {
   description: string;
 }
 
+export interface IDeletePayload {
+  id: string;
+}
+
 export interface UsersListService {
   (args: { params: Partial<IUser> }): Response<IGetUsers>;
 }
@@ -85,5 +89,9 @@ export interface UpdateUserService {
 }
 
 export interface DeActivateUserService {
-  (args: { params: IDeactivateUserPayload }): Response<IUser>;
+  (args: { params: IDeactivateUserPayload }): Response;
+}
+
+export interface DeleteUserService {
+  (args: { params: IDeletePayload }): Response;
 }

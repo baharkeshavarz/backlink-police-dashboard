@@ -8,16 +8,19 @@ import DeleteAccountForm from "../DeleteAccountForm";
 export type DeleteAccountDialogProps = DialogProps & {
   userId: string;
   onSuccess: VoidFunction;
+  onClose: VoidFunction;
 };
 
 const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
   userId,
   onSuccess,
+  onClose,
   ...props
 }) => {
   const { isMobile } = useAppContext();
   return (
     <Dialog
+      onClose={onClose}
       {...props}
       title="Delete Account for:"
       maxWidth="sm"
@@ -27,7 +30,11 @@ const DeleteAccountDialog: FC<DeleteAccountDialogProps> = ({
       }}
       dialogButtons={[]}
     >
-      <DeleteAccountForm userId={userId} onSuccess={onSuccess} />
+      <DeleteAccountForm
+        userId={userId}
+        onSuccess={onSuccess}
+        onClose={onClose}
+      />
     </Dialog>
   );
 };

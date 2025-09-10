@@ -144,7 +144,6 @@ const UserActivation = () => {
         onSuccess={handleOnSuccessDeactivate}
         userId={userId}
       />
-
       <DeleteAccountDialog
         open={openDeleteAccountDialog}
         onClose={handleDeleteAccountDialog}

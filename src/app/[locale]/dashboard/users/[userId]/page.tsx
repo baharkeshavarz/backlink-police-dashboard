@@ -28,13 +28,13 @@ const UserDetails = () => {
           <Grid size={{ xs: 12, sm: 3 }}>
             <ProfileCard
               name={
-                data?.firstName ? `${data?.firstName} ${data?.lastName}` : "-"
+                data?.firstName ? `${data?.firstName} ${data?.lastName}` : ""
               }
-              country={location?.title ?? "-"}
-              email={data?.email ?? "-"}
-              address={data?.address ?? "-"}
+              country={location?.title ?? ""}
+              email={data?.email ?? ""}
+              address={data?.address ?? ""}
               phone={
-                data?.phoneNumber ? `+ ${data?.zip} ${data?.phoneNumber}` : "-"
+                data?.phoneNumber ? `+ ${data?.zip} ${data?.phoneNumber}` : ""
               }
               avatarUrl={
                 data?.imageUrl || `${DEFAULT_DASHBOARD_ICONS}/user-icon.png`

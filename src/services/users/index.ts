@@ -2,6 +2,7 @@ import { axiosInstance } from "../../lib/axios";
 import {
   AddInviteUserService,
   DeActivateUserService,
+  DeleteUserService,
   GetUsertService,
   UpdateUserService,
   UsersListService,
@@ -31,4 +32,8 @@ export const updateUser: UpdateUserService = ({ params }) => {
 
 export const deActivateUser: DeActivateUserService = ({ params }) => {
   return axiosInstance.post(`${BASE_URL}/DeActivate`, null, { params });
+};
+
+export const deleteUser: DeleteUserService = ({ params }) => {
+  return axiosInstance.delete(`${BASE_URL}`, { params });
 };

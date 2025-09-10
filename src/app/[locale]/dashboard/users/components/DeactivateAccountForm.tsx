@@ -1,30 +1,33 @@
 import { ButtonWithLoadingText } from "@/components/ButtonWithLoading";
 import { FormBuilder, Option } from "@/components/Fields";
 import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
-import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import { deActivateUser } from "@/services/users";
 import { IDeactivateUserPayload } from "@/services/users/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Avatar, Box, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { HttpStatusCode } from "axios";
 import { FC } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
-import useGetUserDetails from "../hooks/useGetUserDetails";
+import UserProfileCard from "./UserProfileCard";
+import { useRouter } from "@/navigation";
+import { DEFAULT_DASHBOARD_USERS_PATH } from "@/constants/routes";
 
 type DeactivateAccountFormProps = {
   userId: string;
   onSuccess?: VoidFunction;
+  onClose: VoidFunction;
 };
 type DeactivateUserPayload = Omit<IDeactivateUserPayload, "userId">;
 
 const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
   userId,
   onSuccess,
+  onClose,
 }) => {
-  const { data: userProfile } = useGetUserDetails({ userId });
+  const router = useRouter();
 
   const labels: Record<keyof DeactivateUserPayload, string> = {
     reason: "Specify the reason of deactivation:",
@@ -51,6 +54,7 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
     const { status } = await mutateAsync({ params: newPaylod });
     if (status === HttpStatusCode.Ok) {
       onSuccess?.();
+      router.push(DEFAULT_DASHBOARD_USERS_PATH);
     }
   };
 
@@ -103,31 +107,7 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
 
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="flex-start"
-        alignItems="center"
-        gap={2}
-        width="100%"
-        mb={5}
-      >
-        <Avatar
-          alt=""
-          src={
-            userProfile?.imageUrl || `${DEFAULT_DASHBOARD_ICONS}/user-icon.png`
-          }
-          sx={{ width: 48, height: 48 }}
-        />
-        <Stack>
-          <Typography variant="subtitle1" fontWeight="600">
-            {userProfile?.firstName} {userProfile?.lastName}
-          </Typography>
-          <Typography variant="subtitle2" fontWeight="400" color="grey.600">
-            {userProfile?.email}
-          </Typography>
-        </Stack>
-      </Box>
-
+      <UserProfileCard userId={userId} />
       <FormProvider {...methods}>
         <Grid
           container
@@ -157,6 +137,7 @@ const DeactivateAccountForm: FC<DeactivateAccountFormProps> = ({
                 variant="contained"
                 color="primary"
                 sx={{ width: "197px", height: "44px" }}
+                onClick={() => onClose()}
               >
                 <Typography variant="subtitle2" fontWeight={500}>
                   Discard
