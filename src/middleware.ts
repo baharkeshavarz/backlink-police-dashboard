@@ -29,10 +29,22 @@ async function middleware(request: NextRequestWithAuth) {
       request.headers.set("Authorization", `Bearer ${token?.accessToken}`);
     }
 
-    const destinationUrl = `${process.env.NEXT_PUBLIC_API_URL}${pathname.replace(PUBLIC_GATEWAY_URL, "")}`;
-    return NextResponse.rewrite(new URL(destinationUrl), {
-      headers: request.headers,
-    });
+    const basePath = pathname.replace(PUBLIC_GATEWAY_URL, "");
+
+    try {
+      const destinationUrl = new URL(basePath, process.env.NEXT_PUBLIC_API_URL);
+
+      request.nextUrl.searchParams.forEach((value, key) => {
+        destinationUrl.searchParams.set(key, value);
+      });
+
+      return NextResponse.rewrite(destinationUrl, {
+        headers: request.headers,
+      });
+    } catch (error) {
+      console.error("Failed to construct destination URL:", error);
+      return NextResponse.next();
+    }
   }
 
   const intlResponse = await intlMiddleware(request);

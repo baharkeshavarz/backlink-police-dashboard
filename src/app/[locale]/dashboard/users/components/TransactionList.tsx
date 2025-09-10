@@ -1,5 +1,6 @@
 "use client";
 
+import useGetOrders from "@/hooks/useGetOrders";
 import {
   Box,
   Card,
@@ -16,41 +17,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 
-const transactions = [
-  { id: 1, desc: " Bonnie Green", amount: 15, status: "Completed" },
-  {
-    id: 2,
-    desc: "Payment refund to #00910",
-    amount: -25,
-    status: "Completed",
-    warning: true,
-  },
-  {
-    id: 3,
-    desc: "Payment failed from #tt087651",
-    amount: 5,
-    status: "Cancelled",
-  },
-  { id: 4, desc: " Lana Byrd", amount: 15, status: "In progress" },
-  { id: 5, desc: " Jese Leos", amount: 5, status: "Completed" },
-  {
-    id: 6,
-    desc: " THEMSBERG LLC",
-    amount: 15,
-    status: "Completed",
-  },
-];
-
-const statusStyles = (status: string) => {
-  if (status === "Completed") {
+const statusStyles = (status: number) => {
+  if (status === 0) {
     return { bgcolor: "green.100", color: "green.900" };
   }
-  if (status === "Cancelled") {
+  if (status === 1) {
     return { bgcolor: "red.100", color: "red.800" };
   }
-  if (status === "In progress") {
+  if (status === 2) {
     return { bgcolor: "blue.400", color: "blue.700" };
   }
   return { bgcolor: "grey.200", color: "grey.800" };
@@ -67,6 +44,12 @@ const cellStyles = {
 };
 const TransactionList = () => {
   const [timeRange, setTimeRange] = useState("7");
+  const params = useParams();
+  const userId = params.userId ? params.userId : "";
+  const { data: orders } = useGetOrders({
+    filter: { userId: userId as string },
+  });
+
   return (
     <Box sx={{ p: 4 }}>
       <Card
@@ -119,38 +102,45 @@ const TransactionList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {transactions.map((t) => (
-                  <TableRow key={t.id}>
-                    <TableCell>
-                      <Stack direction="row" spacing={0.5}>
-                        <Typography variant="subtitle2">
-                          Payment from
-                        </Typography>
+                {orders?.items &&
+                  orders?.items?.map((t) => (
+                    <TableRow key={t.id}>
+                      <TableCell>
+                        <Stack direction="row" spacing={0.5}>
+                          <Typography variant="subtitle2">
+                            {t.projectName}
+                          </Typography>
+                          <Typography variant="subtitle2" fontWeight={600}>
+                            ({t.subscriptionPlanName})
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell>
                         <Typography variant="subtitle2" fontWeight={600}>
-                          {t.desc}
+                          {t.payedPrice < 0
+                            ? `-$${Math.abs(t.payedPrice)}`
+                            : `$${t.payedPrice}`}
                         </Typography>
-                      </Stack>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" fontWeight={600}>
-                        {t.amount < 0
-                          ? `-$${Math.abs(t.amount)}`
-                          : `$${t.amount}`}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={t.status}
-                        size="medium"
-                        sx={{
-                          borderRadius: "6px",
-                          fontWeight: 600,
-                          ...statusStyles(t.status),
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      </TableCell>
+                      <TableCell>
+                        <Chip
+                          label={t.status.name}
+                          size="medium"
+                          sx={{
+                            borderRadius: "6px",
+                            fontWeight: 600,
+                            ...statusStyles(t.status.value),
+                          }}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+
+                {orders?.items?.length === 0 && (
+                  <Typography variant="subtitle2" color="grey.500" py={3}>
+                    No Transactions Found.
+                  </Typography>
+                )}
               </TableBody>
             </Table>
           </TableContainer>
