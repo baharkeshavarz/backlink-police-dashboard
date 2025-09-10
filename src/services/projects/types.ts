@@ -38,6 +38,7 @@ export interface IBacklinkProject {
 
 export interface IGetProjects {
   items: IBacklinkProject[];
+  totalCount?: number;
 }
 
 export enum ProjectLinkStatusEnum {

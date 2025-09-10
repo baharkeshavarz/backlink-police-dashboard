@@ -46,6 +46,28 @@ export enum UserStatusEnum {
 }
 export interface IGetUsers {
   items: IUser[];
+  sortProperty: string;
+  projectId: number | null;
+  userId: string;
+  backlinkId: string;
+  onlyPaidProjectLinks: boolean;
+  baseSortEntityType: number;
+  sortType: number;
+  search: string;
+  fromDate: string;
+  toDate: string;
+  sort: string;
+  page: number;
+  pageCount: number;
+  totalCount: number;
+  noFilterTotalCount: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+  startPage: number;
+  endPage: number;
+  size: number;
+  skipEntity: number;
+  howManyShowPageAfterAndBefore: number;
 }
 
 export interface IEditUserPayload {

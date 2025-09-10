@@ -38,11 +38,13 @@ const ProjectsTable = () => {
 
   const columns = ProjectsColumns(handleEditClick);
 
+  const totalCount = data?.totalCount ?? data?.items?.length ?? 0;
   const { table } = useDataTable({
     data: data?.items || [],
     columns: columns,
-    pageCount: data?.items?.length || 0,
+    pageCount: Math.ceil(totalCount / (filters?.size || 10)),
     shallow: false,
+    meta: { totalCount },
   });
 
   return (

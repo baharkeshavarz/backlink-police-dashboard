@@ -12,13 +12,28 @@ interface DataTablePaginationProps<TData> extends React.ComponentProps<"div"> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
-  const currentPage = table.getState().pagination.pageIndex + 1;
-  const totalPages = table.getPageCount();
+  const pageIndex = table.getState().pagination.pageIndex;
+  const pageSize = table.getState().pagination.pageSize;
+  const totalFromMeta = (
+    table.options.meta as { totalCount?: number } | undefined
+  )?.totalCount;
+  const totalRows =
+    typeof totalFromMeta === "number"
+      ? totalFromMeta
+      : table.getPrePaginationRowModel().rows.length;
+  const currentPageCount = table.getRowModel().rows.length;
+
+  const from = totalRows === 0 ? 0 : pageIndex * pageSize + 1;
+  const to =
+    totalRows === 0
+      ? 0
+      : Math.min(pageIndex * pageSize + currentPageCount, totalRows);
 
   return (
     <Box display="flex" alignItems="center" ml={2}>
       {/* Navigation Buttons */}
       <Box display="flex" alignItems="center">
+        {/* Pagination controls */}
         <IconButton
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
@@ -52,18 +67,21 @@ export function DataTablePagination<TData>({
           Show{" "}
         </Typography>
         <Typography component="span" color="black">
-          {currentPage} -
+          {from}
         </Typography>
-
+        <Typography component="span" color="grey.500">
+          {" "}
+          -{" "}
+        </Typography>
         <Typography component="span" color="black">
-          {totalPages}
+          {to}
         </Typography>
         <Typography component="span" color="grey.500">
           {" "}
           of{" "}
         </Typography>
         <Typography component="span" color="black">
-          {totalPages}
+          {totalRows}
         </Typography>
       </Box>
     </Box>
