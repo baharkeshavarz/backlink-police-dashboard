@@ -9,9 +9,18 @@ import {
   Box,
 } from "@mui/material";
 import React, { Fragment, useState } from "react";
+import useGetProjects from "../../../projects/hooks/useGetProjects";
+import { useParams } from "next/navigation";
 
 const LatestLinkList = () => {
   const [timeRange, setTimeRange] = useState("7");
+  const params = useParams();
+  const userId = params.userId ? params.userId : "";
+
+  const { data: latestProjects } = useGetProjects({
+    filters: { userId: userId as string, sortType: 1, size: 5 },
+  });
+
   return (
     <Card
       variant="outlined"
@@ -23,14 +32,19 @@ const LatestLinkList = () => {
             Latest Backlinks
           </Typography>
         </Box>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Fragment key={i}>
-            <Typography variant="subtitle2" sx={{ color: "blue.600", mb: 1 }}>
-              www.Our-Client.com
-            </Typography>
-            <Divider sx={{ my: 1 }} />
-          </Fragment>
-        ))}
+        {latestProjects?.items?.map((link, i) => {
+          const url = link?.backLinkUrl || "";
+          const displayUrl =
+            url && url.length > 24 ? url.slice(0, 24) + "..." : url;
+          return (
+            <Fragment key={i}>
+              <Typography variant="subtitle2" sx={{ color: "blue.600", mb: 1 }}>
+                {displayUrl}
+              </Typography>
+              <Divider sx={{ my: 1 }} />
+            </Fragment>
+          );
+        })}
         <Box
           display="flex"
           justifyContent="space-between"

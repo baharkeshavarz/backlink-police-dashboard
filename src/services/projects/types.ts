@@ -70,8 +70,19 @@ export interface IUpdateProjectLinkPayload {
   purchasedOn: string;
 }
 
+export interface ProjectFiltersList {
+  baseSortEntityType?: number;
+  sortType?: number;
+  fromDate?: string;
+  toDate?: string;
+  page?: number;
+  pageCount?: number;
+  userId?: string;
+  size?: number;
+}
+
 export interface ProjectsListService {
-  (args: { params: Partial<IBacklinkProject> }): Response<IGetProjects>;
+  (args: { params: Partial<ProjectFiltersList> }): Response<IGetProjects>;
 }
 
 export interface AddProjectLinkService {

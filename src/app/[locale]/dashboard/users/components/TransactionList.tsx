@@ -47,7 +47,7 @@ const TransactionList = () => {
   const params = useParams();
   const userId = params.userId ? params.userId : "";
   const { data: orders } = useGetOrders({
-    filter: { userId: userId as string },
+    filters: { userId: userId as string },
   });
 
   return (

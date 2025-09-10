@@ -7,7 +7,7 @@ import useGetProjects from "./hooks/useGetProjects";
 import ProjectsTable from "./components/table/ProjectsTable";
 
 const UsersPage = () => {
-  const { data, isLoading } = useGetProjects();
+  const { data, isLoading } = useGetProjects({});
 
   return (
     <PageContainer>

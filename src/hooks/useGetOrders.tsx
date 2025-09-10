@@ -3,16 +3,16 @@ import { OrderFiltersList } from "@/services/order/types";
 import { useQuery } from "@tanstack/react-query";
 
 type GetOrdersProps = {
-  filter?: OrderFiltersList;
+  filters?: OrderFiltersList;
 };
 
-const useGetOrders = ({ filter }: GetOrdersProps) => {
+const useGetOrders = ({ filters }: GetOrdersProps) => {
   const query = useQuery({
-    queryKey: ["GET_USER_ORDERS_LIST", filter],
+    queryKey: ["GET_USER_ORDERS_LIST", filters],
     queryFn: async () => {
       const { data } = await getOrders({
         params: {
-          ...filter,
+          ...filters,
         },
       });
 
