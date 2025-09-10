@@ -69,7 +69,7 @@ const DeleteAccountForm: FC<DeleteAccountFormProps> = ({
       >
         <Avatar
           alt=""
-          src={`${DEFAULT_DASHBOARD_ICONS}/user-test.jpg`}
+          src={`${DEFAULT_DASHBOARD_ICONS}/user-icon.png`}
           sx={{ width: 48, height: 48 }}
         />
         <Stack>

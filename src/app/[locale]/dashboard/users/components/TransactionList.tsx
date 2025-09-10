@@ -1,6 +1,6 @@
 "use client";
 
-import useGetOrders from "@/hooks/useGetOrders";
+import useGetOrders from "@/app/[locale]/dashboard/orders/hooks/useGetOrders";
 import {
   Box,
   Card,
@@ -44,10 +44,10 @@ const cellStyles = {
 };
 const TransactionList = () => {
   const [timeRange, setTimeRange] = useState("7");
-  const params = useParams();
+  const params = useParams<{ userId: string }>();
   const userId = params.userId ? params.userId : "";
   const { data: orders } = useGetOrders({
-    filters: { userId: userId as string },
+    filters: { userId },
   });
 
   return (

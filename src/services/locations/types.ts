@@ -1,4 +1,3 @@
-import { IBacklinkProject } from "../projects/types";
 import { Response } from "../types/common";
 
 export interface ILocation {
@@ -22,4 +21,8 @@ export interface IGetLocationFilter {
 
 export interface GetLocationsService {
   (args: { params: IGetLocationFilter }): Response<IGetLocations>;
+}
+
+export interface GetLocationService {
+  (args: { id: number | string }): Response<ILocation>;
 }

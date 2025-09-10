@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import PageContainer from "../../page";
 import { Box, Grid } from "@mui/material";
@@ -6,20 +8,38 @@ import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 import UserDashboard from "./components/UserDashboard";
 import TransactionList from "../components/TransactionList";
 import UserActivation from "../components/UserActivation";
+import useGetUserDetails from "../hooks/useGetUserDetails";
+import { useParams } from "next/navigation";
+import useGetLocationDetails from "../../locations/hooks/useGetLocationDetails";
 
 const UserDetails = () => {
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId ? params.userId : "";
+
+  const { data } = useGetUserDetails({ userId });
+
+  const { data: location } = useGetLocationDetails({
+    locationId: Number(data?.countryId) ?? "",
+  });
+
   return (
     <PageContainer>
       <Box height="100%" bgcolor="grey.50" mt={8}>
         <Grid container spacing={1}>
           <Grid size={{ xs: 12, sm: 3 }}>
             <ProfileCard
-              name="Kyle Mani"
-              country="United States of America"
-              email="kyle@cwct.com"
-              address="92 Miles Drive, Newark, NJ 07103, California, United States of America"
-              phone="+00 123 456 789 / +12 345 678"
-              avatarUrl={`${DEFAULT_DASHBOARD_ICONS}/user-test.jpg`}
+              name={
+                data?.firstName ? `${data?.firstName} ${data?.lastName}` : "-"
+              }
+              country={location?.title ?? "-"}
+              email={data?.email ?? "-"}
+              address={data?.address ?? "-"}
+              phone={
+                data?.phoneNumber ? `+ ${data?.zip} ${data?.phoneNumber}` : "-"
+              }
+              avatarUrl={
+                data?.imageUrl || `${DEFAULT_DASHBOARD_ICONS}/user-icon.png`
+              }
             />
           </Grid>
           <Grid size={{ xs: 12, sm: 9 }}>

@@ -12,7 +12,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 type ProfileCardProps = {
   name: string;
-  country: string;
+  country: string | number;
   email: string;
   address: string;
   phone: string;

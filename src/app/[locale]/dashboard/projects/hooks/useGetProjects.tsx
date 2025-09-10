@@ -7,6 +7,7 @@ export const GET_PROJECTS_LIST = "GET_PROJECTS_LIST";
 type GetProjectsProps = {
   filters?: ProjectFiltersList;
 };
+
 const useGetProjects = ({ filters }: GetProjectsProps) => {
   const query = useQuery({
     queryKey: [GET_PROJECTS_LIST],

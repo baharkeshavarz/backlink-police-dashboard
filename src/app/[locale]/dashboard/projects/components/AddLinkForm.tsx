@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 import { FC } from "react";
 import { IAddProjectLinkPayload } from "@/services/projects/types";
 import { addProjectLink } from "@/services/projects";
-import useGetUsers from "../../overview/hooks/useGetUsers";
+import useGetUsers from "../../users/hooks/useGetUsers";
 
 type AddLinkFormProps = {
   onSuccess: VoidFunction;

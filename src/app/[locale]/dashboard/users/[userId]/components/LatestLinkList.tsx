@@ -14,11 +14,11 @@ import { useParams } from "next/navigation";
 
 const LatestLinkList = () => {
   const [timeRange, setTimeRange] = useState("7");
-  const params = useParams();
+  const params = useParams<{ userId: string }>();
   const userId = params.userId ? params.userId : "";
 
   const { data: latestProjects } = useGetProjects({
-    filters: { userId: userId as string, sortType: 1, size: 5 },
+    filters: { userId, sortType: 1, size: 5 },
   });
 
   return (
