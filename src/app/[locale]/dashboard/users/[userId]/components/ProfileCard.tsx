@@ -18,6 +18,7 @@ import useGetUserDetails, {
 import { useParams } from "next/navigation";
 import useGetLocationDetails from "../../../locations/hooks/useGetLocationDetails";
 import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
+import ProfileCardSkeleton from "./ProfileCardSkeleton";
 
 const ProfileCard = () => {
   const queryClient = useQueryClient();
@@ -25,7 +26,7 @@ const ProfileCard = () => {
     useState(false);
   const params = useParams<{ userId: string }>();
   const userId = params.userId ? params.userId : "";
-  const { data } = useGetUserDetails({ userId });
+  const { data, isFetching } = useGetUserDetails({ userId });
 
   const { data: location } = useGetLocationDetails({
     locationId: Number(data?.countryId) ?? "",
@@ -49,70 +50,91 @@ const ProfileCard = () => {
 
   return (
     <>
-      <Card
-        variant="outlined"
-        sx={{
-          border: 0,
-          borderRight: 1,
-          borderRadius: 0,
-          borderColor: "grey.200",
-          height: "100%",
-        }}
-      >
-        <CardContent>
-          <Stack spacing={2}>
-            <Avatar
-              alt=""
-              src={avatarUrl}
-              sx={{ width: 80, height: 80, borderRadius: 1, cursor: "pointer" }}
-              onClick={handleProfilePictureDialog}
-            />
-            {name && (
-              <Typography variant="h3" fontWeight="400" color="grey.500">
-                {name}
-              </Typography>
-            )}
-            {country && (
-              <Stack direction="row" display="flex" alignItems="center">
-                <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
-                <Typography variant="subtitle2" color="grey.500">
-                  {country}
+      {isFetching ? (
+        <ProfileCardSkeleton />
+      ) : (
+        <Card
+          variant="outlined"
+          sx={{
+            border: 0,
+            borderRight: 1,
+            borderRadius: 0,
+            borderColor: "grey.200",
+            height: "100%",
+          }}
+        >
+          <CardContent>
+            <Stack spacing={2}>
+              <Avatar
+                alt=""
+                src={avatarUrl}
+                sx={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 1,
+                  cursor: "pointer",
+                }}
+                onClick={handleProfilePictureDialog}
+              />
+              {name && (
+                <Typography variant="h3" fontWeight="400" color="grey.500">
+                  {name}
                 </Typography>
-              </Stack>
+              )}
+              {country && (
+                <Stack direction="row" display="flex" alignItems="center">
+                  <LocationOnIcon sx={{ width: "11px", height: "13px" }} />
+                  <Typography variant="subtitle2" color="grey.500">
+                    {country}
+                  </Typography>
+                </Stack>
+              )}
+            </Stack>
+            <Box mt={2}>
+              <Typography variant="subtitle2" color="grey.500">
+                Email Address
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                color="grey.900"
+                sx={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+              >
+                {email}
+              </Typography>
+            </Box>
+
+            {address && (
+              <Box mt={1.5}>
+                <Typography variant="subtitle2" color="grey.500">
+                  Company Address
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  color="grey.900"
+                  sx={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+                >
+                  {address}
+                </Typography>
+              </Box>
             )}
-          </Stack>
-          <Box mt={2}>
-            <Typography variant="subtitle2" color="grey.500">
-              Email Address
-            </Typography>
-            <Typography variant="subtitle2" color="grey.900">
-              {email}
-            </Typography>
-          </Box>
 
-          {address && (
-            <Box mt={1.5}>
-              <Typography variant="subtitle2" color="grey.500">
-                Company Address
-              </Typography>
-              <Typography variant="subtitle2" color="grey.900">
-                {address}
-              </Typography>
-            </Box>
-          )}
-
-          {phone && (
-            <Box mt={1.5}>
-              <Typography variant="subtitle2" color="grey.500">
-                Phone Number
-              </Typography>
-              <Typography variant="subtitle2" color="grey.900">
-                {phone}
-              </Typography>
-            </Box>
-          )}
-        </CardContent>
-      </Card>
+            {phone && (
+              <Box mt={1.5}>
+                <Typography variant="subtitle2" color="grey.500">
+                  Phone Number
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+                  color="grey.900"
+                  sx={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+                >
+                  {phone}
+                </Typography>
+              </Box>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <ProfilePictureDialog
         open={openProfilePictureDialog}
