@@ -12,7 +12,7 @@ const DashboardPage = () => {
   const { data, isPending } = useAdminStatistics();
   return (
     <PageContainer>
-      <Box sx={{ pt: 10, px: 2, bgcolor: "#f4f5ff", height: "100%" }}>
+      <Box sx={{ pt: 3, px: 2, bgcolor: "#f4f5ff", height: "100%" }}>
         <UsersSearch />
         <UserProfile />
         {isPending ? (

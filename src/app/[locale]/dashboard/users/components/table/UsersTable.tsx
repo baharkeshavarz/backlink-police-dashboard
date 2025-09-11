@@ -51,7 +51,7 @@ const UsersTable = () => {
           alignItems: "center",
           justifyContent: "space-between",
           p: 2,
-          mt: 8,
+          mt: 2,
         }}
       >
         <UsersSearch />

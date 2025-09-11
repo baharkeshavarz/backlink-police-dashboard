@@ -36,6 +36,7 @@ const PageContainer = ({ children }: PropsWithChildren) => {
               overflowY: "auto",
               bgcolor: "white",
               minHeight: 400,
+              mt: 6,
             }}
           >
             {children}

@@ -5,12 +5,14 @@ import {
   Divider,
   Select,
   MenuItem,
-  Button,
   Box,
+  Button,
 } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import useGetProjects from "../../../projects/hooks/useGetProjects";
 import { useParams } from "next/navigation";
+import { DEFAULT_DASHBOARD_USERS_PATH } from "@/constants/routes";
+import Link from "next/link";
 
 const LatestLinkList = () => {
   const [timeRange, setTimeRange] = useState("7");
@@ -85,17 +87,19 @@ const LatestLinkList = () => {
           </Select>
 
           <Button variant="text" size="medium">
-            <Typography
-              variant="subtitle2"
-              sx={{
-                color: "blue.600",
-                fontWeight: "600",
-                cursor: "pointer",
-                textTransform: "uppercase",
-              }}
-            >
-              View Details
-            </Typography>
+            <Link href={`${DEFAULT_DASHBOARD_USERS_PATH}/${userId}/projects`}>
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  color: "blue.600",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  textTransform: "uppercase",
+                }}
+              >
+                View Details
+              </Typography>
+            </Link>
           </Button>
         </Box>
       </CardContent>

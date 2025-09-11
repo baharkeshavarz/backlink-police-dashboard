@@ -12,28 +12,32 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useState } from "react";
 import ProfilePictureDialog from "../../components/dialogs/ProfilePictureDialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { GET_USER_DETAILS } from "../../hooks/useGetUserDetails";
+import useGetUserDetails, {
+  GET_USER_DETAILS,
+} from "../../hooks/useGetUserDetails";
+import { useParams } from "next/navigation";
+import useGetLocationDetails from "../../../locations/hooks/useGetLocationDetails";
+import { DEFAULT_DASHBOARD_ICONS } from "@/constants/general";
 
-type ProfileCardProps = {
-  name: string;
-  country: string | number;
-  email: string;
-  address: string;
-  phone: string;
-  avatarUrl?: string;
-};
-
-const ProfileCard = ({
-  name,
-  country,
-  email,
-  address,
-  phone,
-  avatarUrl,
-}: ProfileCardProps) => {
+const ProfileCard = () => {
   const queryClient = useQueryClient();
   const [openProfilePictureDialog, setOpenProfilePictureDialog] =
     useState(false);
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId ? params.userId : "";
+  const { data } = useGetUserDetails({ userId });
+
+  const { data: location } = useGetLocationDetails({
+    locationId: Number(data?.countryId) ?? "",
+  });
+
+  const name = data?.firstName ? `${data?.firstName} ${data?.lastName}` : "";
+  const country = location?.title ?? "";
+  const email = data?.email ?? "";
+  const address = data?.address ?? "";
+  const phone = data?.phoneNumber ? `+ ${data?.zip} ${data?.phoneNumber}` : "";
+  const avatarUrl =
+    data?.imageUrl || `${DEFAULT_DASHBOARD_ICONS}/user-icon.png`;
 
   const handleProfilePictureDialog = () => {
     setOpenProfilePictureDialog((prev) => !prev);
@@ -42,6 +46,7 @@ const ProfileCard = ({
   const onSuccessOperation = () => {
     queryClient.invalidateQueries({ queryKey: [GET_USER_DETAILS] });
   };
+
   return (
     <>
       <Card
