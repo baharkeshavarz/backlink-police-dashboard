@@ -30,9 +30,26 @@ const ButtonWithLoading: FC<ButtonWithLoadingProps> = ({
       sx={{
         ...props.sx,
         height: FIXED_BUTTON_HEIGHT,
-        "&:hover": {
-          bgcolor: "blue.700",
-        },
+        ...(props.variant === "outlined" && props.color === "error"
+          ? {
+              "&:hover": {
+                bgcolor: "transparent",
+                borderColor: (theme) => theme.palette.error.main,
+                color: (theme) => theme.palette.error.main,
+              },
+            }
+          : {
+              "&:hover": {
+                bgcolor: (theme) => {
+                  const colorKey =
+                    (props.color as keyof typeof theme.palette) || "primary";
+                  const paletteColor = theme.palette[colorKey] as unknown as
+                    | { dark?: string }
+                    | undefined;
+                  return (paletteColor && paletteColor.dark) || "blue.700";
+                },
+              },
+            }),
         "&.Mui-disabled": {
           backgroundColor: disabledBg,
           color: (theme) => theme.palette.common.white,
