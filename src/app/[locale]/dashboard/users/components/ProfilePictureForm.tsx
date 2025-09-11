@@ -1,15 +1,15 @@
 import { ButtonWithLoading } from "@/components/ButtonWithLoading";
 import { ImageUploader } from "@/components/ImageUploader/ImageUploader";
-import {
-  deleteUserProfileAvatar,
-  updateUserProfileAvatar,
-} from "@/services/profile";
+import { deleteUserProfileAvatar } from "@/services/profile";
+import { updateUserAvatar } from "@/services/users";
 import { Box, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { HttpStatusCode } from "axios";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import useGetUserDetails from "../hooks/useGetUserDetails";
 
 type ProfilePictureFormProps = {
   onClose: VoidFunction;
@@ -21,24 +21,25 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
   onSuccess,
 }) => {
   const t = useTranslations();
+  const params = useParams<{ userId: string }>();
+  const userId = params.userId ? params.userId : "";
+  const { data: userProfile } = useGetUserDetails({ userId });
+
   const [file, setFile] = useState<File | null>(null);
   const [tempFile, setTempFile] = useState<File | null>(null);
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: updateUserProfileAvatar,
-  });
-
-  const { mutateAsync: deleteMutation, isPending: isDeleting } = useMutation({
-    mutationFn: deleteUserProfileAvatar,
+    mutationFn: updateUserAvatar,
   });
 
   const handleDialogSave = async () => {
     if (tempFile) {
       const formData = new FormData();
-      formData.append("Avatar", tempFile);
+      formData.append("AvatarFile", tempFile);
 
       const { data, status } = await mutateAsync({
         payload: formData,
+        params: { ...userProfile },
       });
 
       if (status === HttpStatusCode.Ok) {
@@ -53,7 +54,9 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
   };
 
   const deleteAvatarHandler = async () => {
-    const { data, status } = await deleteMutation();
+    const { data, status } = await mutateAsync({
+      params: { ...userProfile },
+    });
     if (status === HttpStatusCode.Ok) {
       setFile(null);
       toast.success(data as string);
@@ -84,7 +87,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
             variant="outlined"
             color="error"
             type="submit"
-            disabled={isDeleting}
+            disabled={isPending}
             onClick={deleteAvatarHandler}
           >
             <Typography variant="subtitle2">Delete Image</Typography>
@@ -92,7 +95,7 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
           <ButtonWithLoading
             type="submit"
             variant="contained"
-            isLoading={isPending}
+            disabled={isPending}
             size="medium"
             sx={{ width: "73px", height: "41px" }}
           >

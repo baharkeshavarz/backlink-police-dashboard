@@ -71,6 +71,7 @@ export interface IGetUsers {
 }
 
 export interface IEditUserPayload {
+  id?: string;
   firstName: string;
   lastName: string;
   countryId: number;
@@ -103,7 +104,7 @@ export interface AddInviteUserService {
   (args: { payload: IUserInvitePayload }): Response;
 }
 
-export interface GetUsertService {
+export interface GetUserService {
   (args: { id: number | string }): Response<IUser>;
 }
 
@@ -117,4 +118,8 @@ export interface DeActivateUserService {
 
 export interface DeleteUserService {
   (args: { params: IDeletePayload }): Response;
+}
+
+export interface UpdateUserAvatarService {
+  (args: { payload?: FormData; params: Partial<IEditUserPayload> }): Response;
 }

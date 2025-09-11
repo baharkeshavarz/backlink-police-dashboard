@@ -10,10 +10,12 @@ import UserOperation from "../UserOperations";
 import UserListLastVisit from "./UserListLastVisit";
 import { UsersColumns } from "./UsersColumns";
 import UsersSkeleton from "../UsersSkeleton";
-import useGetUsers from "../../hooks/useGetUsers";
+import useGetUsers, { GET_USERS_LIST } from "../../hooks/useGetUsers";
 import useBaseFilters from "../../../hooks/useBaseFilters";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UsersTable = () => {
+  const queryClient = useQueryClient();
   const filters = useBaseFilters();
   const { data, isLoading } = useGetUsers({
     filters,
@@ -29,6 +31,11 @@ const UsersTable = () => {
 
   const handleEditUserDialog = () => {
     setOpenDialog((prev) => !prev);
+  };
+
+  const onSuccessOperation = () => {
+    queryClient.invalidateQueries({ queryKey: [GET_USERS_LIST] });
+    handleEditUserDialog();
   };
 
   const columns = UsersColumns(handleEditClick);
@@ -66,7 +73,7 @@ const UsersTable = () => {
         open={openDialog}
         userId={selectedUser}
         onClose={handleEditUserDialog}
-        onSuccess={handleEditUserDialog}
+        onSuccess={onSuccessOperation}
       />
     </>
   );

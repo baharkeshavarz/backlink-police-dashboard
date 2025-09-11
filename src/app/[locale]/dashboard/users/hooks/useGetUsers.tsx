@@ -6,9 +6,11 @@ type GetUsersProps = {
   filters?: Partial<BaseFiltersList>;
 };
 
+export const GET_USERS_LIST = "GET_USERS_LIST";
+
 const useGetUsers = ({ filters }: GetUsersProps) => {
   const query = useQuery({
-    queryKey: ["GET_USERS_LIST", filters],
+    queryKey: [GET_USERS_LIST, filters],
     queryFn: async () => {
       const { data } = await getUsers({
         params: {

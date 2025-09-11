@@ -3,7 +3,8 @@ import {
   AddInviteUserService,
   DeActivateUserService,
   DeleteUserService,
-  GetUsertService,
+  GetUserService,
+  UpdateUserAvatarService,
   UpdateUserService,
   UsersListService,
 } from "./types";
@@ -20,7 +21,7 @@ export const addUserInvite: AddInviteUserService = ({ payload }) => {
   return axiosInstance.post(`${BASE_URL}/invite`, payload);
 };
 
-export const getUser: GetUsertService = ({ id }) => {
+export const getUser: GetUserService = ({ id }) => {
   return axiosInstance.get(`${BASE_URL}/${id}`);
 };
 
@@ -36,4 +37,14 @@ export const deActivateUser: DeActivateUserService = ({ params }) => {
 
 export const deleteUser: DeleteUserService = ({ params }) => {
   return axiosInstance.delete(`${BASE_URL}`, { params });
+};
+
+export const updateUserAvatar: UpdateUserAvatarService = ({
+  payload,
+  params,
+}) => {
+  return axiosInstance.put(`${BASE_URL}`, payload, {
+    params,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
