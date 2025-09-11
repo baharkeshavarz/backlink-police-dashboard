@@ -1,8 +1,8 @@
 import React from "react";
-import PageContainer from "../../../page";
 import ProjectsTable from "../../../projects/components/table/ProjectsTable";
 import { Grid } from "@mui/material";
 import ProfileCard from "../components/ProfileCard";
+import PageContainer from "../../../PageContainer";
 
 const page = () => {
   return (

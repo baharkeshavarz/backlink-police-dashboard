@@ -13,7 +13,8 @@ import {
 } from "@/services/projects/types";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import EditLinkFormSkeleton from "./EditLinkFormSkeleton";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { HttpStatusCode } from "axios";
 import { Trash2 } from "lucide-react";
@@ -151,40 +152,44 @@ const EditLinkForm: FC<EditLinkFormProps> = ({
   return (
     <FormProvider {...form}>
       <Box component="form" onSubmit={handleSubmit(onSubmit, onInvalidSubmit)}>
-        <Grid container spacing={1.5}>
-          <FormBuilder fields={fields} />
-          <Grid size={{ xs: 12 }}>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              gap={2}
-            >
-              <ButtonWithLoading
-                isLoading={isFetching || isPending}
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="medium"
-                sx={{ width: "73px", height: "41px" }}
+        {isFetching ? (
+          <EditLinkFormSkeleton />
+        ) : (
+          <Grid container spacing={1.5}>
+            <FormBuilder fields={fields} />
+            <Grid size={{ xs: 12 }}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                gap={2}
               >
-                <Typography variant="subtitle2">Save</Typography>
-              </ButtonWithLoading>
-              <ButtonWithLoadingText
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="error"
-                startIcon={<Trash2 />}
-                sx={{ width: "112px", height: "41px" }}
-              >
-                <Typography variant="subtitle2" fontWeight={500}>
-                  Delete
-                </Typography>
-              </ButtonWithLoadingText>
-            </Box>
+                <ButtonWithLoading
+                  isLoading={isFetching || isPending}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  sx={{ width: "73px", height: "41px" }}
+                >
+                  <Typography variant="subtitle2">Save</Typography>
+                </ButtonWithLoading>
+                <ButtonWithLoadingText
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="error"
+                  startIcon={<Trash2 />}
+                  sx={{ width: "112px", height: "41px" }}
+                >
+                  <Typography variant="subtitle2" fontWeight={500}>
+                    Delete
+                  </Typography>
+                </ButtonWithLoadingText>
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Box>
     </FormProvider>
   );

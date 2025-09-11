@@ -33,7 +33,7 @@ import type { ExtendedColumnSort } from "@/types/data-table";
 
 const PAGE_KEY = "page";
 const PER_PAGE_KEY = "perPage";
-const SORT_KEY = "sort";
+// const SORT_KEY = "sort";
 const ARRAY_SEPARATOR = ",";
 const DEBOUNCE_MS = 300;
 const THROTTLE_MS = 50;
@@ -139,11 +139,11 @@ export function useDataTable<TData>(props: UseDataTableProps<TData>) {
     [pagination, setPage, setPerPage]
   );
 
-  const columnIds = React.useMemo(() => {
-    return new Set(
-      columns.map((column) => column.id).filter(Boolean) as string[]
-    );
-  }, [columns]);
+  // const columnIds = React.useMemo(() => {
+  //   return new Set(
+  //     columns.map((column) => column.id).filter(Boolean) as string[]
+  //   );
+  // }, [columns]);
 
   // const [sorting, setSorting] = useQueryState(
   //   "desc",

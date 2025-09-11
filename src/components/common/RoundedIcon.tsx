@@ -1,11 +1,11 @@
-import { Box, SxProps } from '@mui/material';
-import React, { FC } from 'react';
+import { Box, SxProps } from "@mui/material";
+import React, { FC } from "react";
 
 type RoundedIconProps = {
   width: number;
   height: number;
   sxProp?: SxProps;
-  icon?: any;
+  icon?: React.ReactNode;
   onClickFunc?: VoidFunction;
 };
 
@@ -24,7 +24,7 @@ const RoundedIcon: FC<RoundedIconProps> = ({
       borderRadius="100%"
       width={width}
       height={height}
-      sx={{ cursor: 'pointer', ...sxProp }}
+      sx={{ cursor: "pointer", ...sxProp }}
       onClick={onClickFunc}
     >
       {icon}

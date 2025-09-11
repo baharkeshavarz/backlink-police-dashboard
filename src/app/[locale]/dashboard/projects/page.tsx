@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PageContainer from "../page";
+import PageContainer from "../PageContainer";
 import ProjectsTable from "./components/table/ProjectsTable";
 
 const UsersPage = () => {

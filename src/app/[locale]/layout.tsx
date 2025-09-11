@@ -8,14 +8,14 @@ import { userAgent } from "next/server";
 import { PropsWithChildren, ReactNode } from "react";
 import "../../../global.css";
 import ClientProviders from "@/providers/ClientProviders";
+import { getServerSession } from "next-auth";
 
 import { Inter } from "next/font/google";
-import { Session } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 type LocaleLayoutParams = {
   children: ReactNode;
-  params: Promise<{ locale: Locale; session: Session | null }>;
+  params: Promise<{ locale: string }>;
 };
 
 export const metadata: Metadata = {
@@ -34,15 +34,17 @@ export default async function LocaleLayout({
     en: defaultTheme,
     ar: persianTheme,
   };
-  const { locale, session } = await params;
+  const { locale } = await params;
+  const typedLocale = locale as Locale;
+  const session = await getServerSession();
 
   return (
-    <html lang={locale} dir={languages?.[locale]?.direction}>
+    <html lang={locale} dir={languages[typedLocale]?.direction}>
       <body className={inter.className}>
-        <I18nProvider locale={locale}>
+        <I18nProvider locale={typedLocale}>
           <ClientProviders
-            theme={themes[locale] ?? defaultTheme}
-            locale={locale}
+            theme={themes[typedLocale] ?? defaultTheme}
+            locale={typedLocale}
             userAgent={reqUserAgent}
             session={session}
             globalStyles={globalStyles}

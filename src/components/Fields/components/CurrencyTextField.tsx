@@ -1,27 +1,27 @@
-import { InputAdornment, TextField } from '@mui/material';
-import { FC } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import CustomSkeleton from '../../common/CustomSkeleton';
-import useLocalFormContext from '../hooks/useLocalFormContext';
-import { CurrencyTextFieldProps } from '../types';
-import ClearButtonAdornment from './ClearButtonAdornment';
+import { InputAdornment, TextField } from "@mui/material";
+import { FC } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import CustomSkeleton from "../../common/CustomSkeleton";
+import useLocalFormContext from "../hooks/useLocalFormContext";
+import { CurrencyTextFieldProps } from "../types";
+import ClearButtonAdornment from "./ClearButtonAdornment";
 
-const toLocaleString = (value: any) => {
-  if ([undefined, null].includes(value)) {
-    return '';
+const toLocaleString = (value: number | string | null | undefined): string => {
+  if (value === undefined || value === null) {
+    return "";
   }
 
   return (
-    typeof value === 'number' ? value : +value.replace(/\D/g, '')
+    typeof value === "number" ? value : +value.replace(/\D/g, "")
   ).toLocaleString();
 };
 
 export const extractNumbers = (value: number | string): number | null => {
-  if (typeof value === 'string' && !value) {
+  if (typeof value === "string" && !value) {
     return null;
   }
 
-  const _value = +value?.toString()?.replace(/\D/g, '');
+  const _value = +value?.toString()?.replace(/\D/g, "");
 
   if (isNaN(_value)) {
     return 0;
@@ -32,7 +32,7 @@ export const extractNumbers = (value: number | string): number | null => {
 
 const CurrencyTextField: FC<CurrencyTextFieldProps> = ({
   limitations,
-  size = 'small',
+  size = "small",
   fullWidth = true,
   currencyLabel,
   ...props
@@ -43,7 +43,7 @@ const CurrencyTextField: FC<CurrencyTextFieldProps> = ({
   return (
     <Controller
       control={control}
-      name={props?.name || ''}
+      name={props?.name || ""}
       render={({ field: { onChange, value }, formState: { errors } }) => {
         const _value = toLocaleString(value);
         return (
@@ -68,8 +68,8 @@ const CurrencyTextField: FC<CurrencyTextFieldProps> = ({
                   }
                 }
               }}
-              error={!!errors[props?.name || '']}
-              helperText={errors[props?.name || '']?.['message']?.toString()}
+              error={!!errors[props?.name || ""]}
+              helperText={errors[props?.name || ""]?.["message"]?.toString()}
               InputProps={{
                 endAdornment: (
                   <>

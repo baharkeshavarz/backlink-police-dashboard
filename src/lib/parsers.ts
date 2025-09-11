@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createParser } from "nuqs/server";
 import * as yup from "yup";
 
@@ -29,15 +30,20 @@ export const getSortingStateParser = <TData>(
     parse: (value) => {
       try {
         const parsed = JSON.parse(value);
-        const result = yup.array(sortingItemSchema).safeParse(parsed);
+        const result = yup
+          .array(sortingItemSchema)
+          .validateSync(parsed, { strict: true, abortEarly: false });
 
-        if (!result.success) return null;
+        if (!Array.isArray(result)) return null;
 
-        if (validKeys && result.data.some((item) => !validKeys.has(item.id))) {
+        if (
+          validKeys &&
+          result.some((item: { id: string }) => !validKeys.has(item.id))
+        ) {
           return null;
         }
 
-        return result.data as ExtendedColumnSort<TData>[];
+        return result as ExtendedColumnSort<TData>[];
       } catch {
         return null;
       }
@@ -80,15 +86,20 @@ export const getFiltersStateParser = <TData>(
     parse: (value) => {
       try {
         const parsed = JSON.parse(value);
-        const result = yup.array(filterItemSchema).safeParse(parsed);
+        const result = yup
+          .array(filterItemSchema)
+          .validateSync(parsed, { strict: true, abortEarly: false });
 
-        if (!result.success) return null;
+        if (!Array.isArray(result)) return null;
 
-        if (validKeys && result.data.some((item) => !validKeys.has(item.id))) {
+        if (
+          validKeys &&
+          result.some((item: { id: string }) => !validKeys.has(item.id))
+        ) {
           return null;
         }
 
-        return result.data as ExtendedColumnFilter<TData>[];
+        return result as ExtendedColumnFilter<TData>[];
       } catch {
         return null;
       }
@@ -100,12 +111,18 @@ export const getFiltersStateParser = <TData>(
         const other = b[index];
         if (!other) return false;
 
-        // Deep equality for array or string values
-        const valueEqual =
-          Array.isArray(filter.value) && Array.isArray(other.value)
-            ? filter.value.length === other.value.length &&
-              filter.value.every((v, i) => v === other.value[i])
-            : filter.value === other.value;
+        // Deep equality for array or string values with undefined-safe checks
+        const aVal = filter.value;
+        const bVal = other.value;
+        let valueEqual: boolean;
+        if (Array.isArray(aVal) && Array.isArray(bVal)) {
+          valueEqual =
+            aVal.length === bVal.length && aVal.every((v, i) => v === bVal[i]);
+        } else if (typeof aVal === "string" && typeof bVal === "string") {
+          valueEqual = aVal === bVal;
+        } else {
+          valueEqual = aVal === undefined && bVal === undefined;
+        }
 
         return (
           filter.id === other.id &&

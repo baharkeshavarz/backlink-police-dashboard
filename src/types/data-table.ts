@@ -3,7 +3,6 @@ import type { DataTableConfig } from "@/config/data-table";
 import { FilterItemSchema } from "@/lib/parsers";
 
 declare module "@tanstack/react-table" {
-  // biome-ignore lint/correctness/noUnusedVariables: TValue is used in the ColumnMeta interface
   interface ColumnMeta<TData extends RowData, TValue> {
     label?: string;
     placeholder?: string;
@@ -12,6 +11,9 @@ declare module "@tanstack/react-table" {
     range?: [number, number];
     unit?: string;
     icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+    // Phantom property to mark generics as used for linters
+    /** @internal */
+    __phantom?: (TData | TValue) | undefined;
   }
 }
 

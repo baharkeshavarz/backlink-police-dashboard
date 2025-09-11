@@ -1,15 +1,14 @@
-import { FIXED_BUTTON_HEIGHT } from '@/constants/general';
-import { Button } from '@mui/material';
-import { fancyButtonStyle } from '../ButtonWithLoading';
+import { FIXED_BUTTON_HEIGHT } from "@/constants/general";
+import { Button } from "@mui/material";
+// Removed invalid import of fancyButtonStyle; rely on component props/styles
 
 const SizedButton = ({ ...props }) => {
   return (
     <Button
       {...props}
       sx={{
-        fontSize: '1rem',
+        fontSize: "1rem",
         height: FIXED_BUTTON_HEIGHT,
-        ...fancyButtonStyle,
         ...props.sx,
       }}
     >

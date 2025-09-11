@@ -2,7 +2,7 @@
 
 import { Box } from "@mui/material";
 import UsersSearch from "../components/UsersSearch";
-import PageContainer from "../page";
+import PageContainer from "../PageContainer";
 import useAdminStatistics from "./hooks/useAdminStatistics";
 import StatCardList from "./components/StatCardList";
 import StatCardSkeleton from "./components/StatCardSkeleton";

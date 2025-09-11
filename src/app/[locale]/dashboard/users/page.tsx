@@ -2,7 +2,7 @@
 
 import React from "react";
 import UsersTable from "./components/table/UsersTable";
-import PageContainer from "../page";
+import PageContainer from "../PageContainer";
 
 const UsersPage = () => {
   return (

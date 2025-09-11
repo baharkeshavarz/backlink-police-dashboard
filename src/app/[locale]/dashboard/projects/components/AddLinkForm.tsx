@@ -6,6 +6,7 @@ import { FormBuilderProps } from "@/components/Fields/components/FormBuilder";
 import { onInvalidSubmit } from "@/utils/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Grid, Typography } from "@mui/material";
+import AddLinkFormSkeleton from "./AddLinkFormSkeleton";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
@@ -161,21 +162,25 @@ const AddLinkForm: FC<AddLinkFormProps> = ({ onSuccess }) => {
   return (
     <FormProvider {...methods}>
       <Box component="form" onSubmit={handleSubmit(onSubmit, onInvalidSubmit)}>
-        <Grid container spacing={2}>
-          <FormBuilder fields={fields} />
-          <Grid size={{ xs: 12 }}>
-            <ButtonWithLoading
-              isLoading={isPending}
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              sx={{ width: "117px", height: "41px" }}
-            >
-              <Typography variant="subtitle2">Save</Typography>
-            </ButtonWithLoading>
+        {isPending ? (
+          <AddLinkFormSkeleton />
+        ) : (
+          <Grid container spacing={2}>
+            <FormBuilder fields={fields} />
+            <Grid size={{ xs: 12 }}>
+              <ButtonWithLoading
+                isLoading={isPending}
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                sx={{ width: "117px", height: "41px" }}
+              >
+                <Typography variant="subtitle2">Save</Typography>
+              </ButtonWithLoading>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Box>
     </FormProvider>
   );

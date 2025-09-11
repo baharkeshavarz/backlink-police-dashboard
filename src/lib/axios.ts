@@ -45,7 +45,7 @@ axiosInstance.interceptors.response.use(
     } else if (status === 401) {
       try {
         throw Error("Not supported refresh token at now!");
-      } catch (err) {
+      } catch {
         const message = "Authentication Failed. Please login again";
         toast.error(message, {
           id: message,

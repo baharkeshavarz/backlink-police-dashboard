@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
 import { digitsFaToEn } from "@persian-tools/persian-tools";
-import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -54,26 +53,24 @@ const VerifyEmail = () => {
 
   const { control, handleSubmit, watch } = methods;
 
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (payload: FieldNames) => {
-      //   const { data } = await loginByOtp({
-      //     payload: { ...payload, userName },
-      //   });
-      //   if (data?.succeed) {
-      //         auth.login(data?.value);
-      //         auth.loadUser();
-      //     if (entryPoint) {
-      //         router.push(DEFAULT_LANDING_PAGE);
-      //     } else {
-      //       router.push(DEFAULT_DASHBOARD_PATH);
-      //     }
-      //   }
-    },
-  });
+  // const { mutateAsync, isPending } = useMutation({
+  //   mutationFn: async (payload: FieldNames) => {
+  //     //   const { data } = await loginByOtp({
+  //     //     payload: { ...payload, userName },
+  //     //   });
+  //     //   if (data?.succeed) {
+  //     //         auth.login(data?.value);
+  //     //         auth.loadUser();
+  //     //     if (entryPoint) {
+  //     //         router.push(DEFAULT_LANDING_PAGE);
+  //     //     } else {
+  //     //       router.push(DEFAULT_DASHBOARD_PATH);
+  //     //     }
+  //     //   }
+  //   },
+  // });
 
-  const onSubmit: SubmitHandler<FieldNames> = async (payload) => {
-    // await mutateAsync(payload);
-  };
+  const onSubmit: SubmitHandler<FieldNames> = async (payload) => {};
 
   const [password] = watch(["password"]);
 

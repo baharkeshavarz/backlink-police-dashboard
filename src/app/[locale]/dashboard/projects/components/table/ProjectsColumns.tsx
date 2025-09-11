@@ -22,7 +22,7 @@ export const ProjectsColumns = (
     id: "id",
     accessorKey: "id",
     header: () => <Checkbox size="small" />,
-    cell: ({ cell }) => {
+    cell: () => {
       return (
         <Box alignItems="flex-start">
           <Checkbox />

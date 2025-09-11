@@ -1,22 +1,21 @@
 import { DEFAULT_SIGNIN_PATH } from "@/constants/routes";
 import { languages, Locale } from "@/navigation";
-import { getServerSession, Session } from "next-auth";
+import { getServerSession } from "next-auth";
 import { Inter } from "next/font/google";
 import { redirect } from "next/navigation";
-import { PropsWithChildren, ReactNode } from "react";
+import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type LocaleLayoutParams = {
-  children: ReactNode;
-  params: Promise<{ locale: Locale; session: Session | null }>;
-};
-
-export default async function LocaleLayout({
+export default async function DashboardLayout({
   children,
   params,
-}: PropsWithChildren<LocaleLayoutParams>) {
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
+  const typedLocale = locale as Locale;
 
   const session = await getServerSession();
   if (!session) {
@@ -24,7 +23,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} dir={languages?.[locale]?.direction}>
+    <html lang={locale} dir={languages[typedLocale].direction}>
       <body className={inter.className}>{children}</body>
     </html>
   );

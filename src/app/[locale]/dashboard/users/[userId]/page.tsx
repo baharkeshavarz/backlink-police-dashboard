@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import PageContainer from "../../page";
+import PageContainer from "../../PageContainer";
 import { Box, Grid } from "@mui/material";
 import ProfileCard from "./components/ProfileCard";
 import UserDashboard from "./components/UserDashboard";

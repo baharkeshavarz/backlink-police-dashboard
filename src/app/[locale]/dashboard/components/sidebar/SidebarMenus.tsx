@@ -71,7 +71,7 @@ const SidebarMenus = () => {
   return (
     <>
       <List>
-        {menus?.map(({ text, icon, callFunc, linkUrl, badgeCount }, _) => {
+        {menus?.map(({ text, icon, callFunc, linkUrl, badgeCount }) => {
           const buttonContent = (
             <ListItemButton
               onClick={callFunc}

@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { AdminSignOut, GetMeWithToken, LoginIn } from "@/services/iam";
 import { redirect } from "next/navigation";
 
-export const handler = NextAuth({
+const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
