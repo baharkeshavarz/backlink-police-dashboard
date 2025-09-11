@@ -12,7 +12,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useState } from "react";
 import ProfilePictureDialog from "../../components/dialogs/ProfilePictureDialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { GET_LOCATION_DETAILS } from "../../../locations/hooks/useGetLocationDetails";
+import { GET_USER_DETAILS } from "../../hooks/useGetUserDetails";
 
 type ProfileCardProps = {
   name: string;
@@ -40,7 +40,7 @@ const ProfileCard = ({
   };
 
   const onSuccessOperation = () => {
-    queryClient.invalidateQueries({ queryKey: [GET_LOCATION_DETAILS] });
+    queryClient.invalidateQueries({ queryKey: [GET_USER_DETAILS] });
   };
   return (
     <>

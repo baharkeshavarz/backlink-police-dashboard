@@ -1,6 +1,9 @@
 import { ButtonWithLoading } from "@/components/ButtonWithLoading";
 import { ImageUploader } from "@/components/ImageUploader/ImageUploader";
-import { updateProfileAvatar } from "@/services/profile";
+import {
+  deleteUserProfileAvatar,
+  updateUserProfileAvatar,
+} from "@/services/profile";
 import { Box, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { HttpStatusCode } from "axios";
@@ -22,7 +25,11 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
   const [tempFile, setTempFile] = useState<File | null>(null);
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: updateProfileAvatar,
+    mutationFn: updateUserProfileAvatar,
+  });
+
+  const { mutateAsync: deleteMutation, isPending: isDeleting } = useMutation({
+    mutationFn: deleteUserProfileAvatar,
   });
 
   const handleDialogSave = async () => {
@@ -42,6 +49,18 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
       } else {
         toast.error(t("messages.somethingWentWrong"));
       }
+    }
+  };
+
+  const deleteAvatarHandler = async () => {
+    const { data, status } = await deleteMutation();
+    if (status === HttpStatusCode.Ok) {
+      setFile(null);
+      toast.success(data as string);
+      onSuccess?.();
+      onClose?.();
+    } else {
+      toast.error(t("messages.somethingWentWrong"));
     }
   };
 
@@ -65,7 +84,8 @@ const ProfilePictureForm: React.FC<ProfilePictureFormProps> = ({
             variant="outlined"
             color="error"
             type="submit"
-            disabled={!tempFile}
+            disabled={isDeleting}
+            onClick={deleteAvatarHandler}
           >
             <Typography variant="subtitle2">Delete Image</Typography>
           </ButtonWithLoading>

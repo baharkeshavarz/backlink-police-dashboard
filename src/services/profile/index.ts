@@ -3,7 +3,7 @@ import { UpdateProfileAvatarService } from "./types";
 
 const BASE_URL = "/me/profile";
 
-export const updateProfileAvatar: UpdateProfileAvatarService = ({
+export const updateUserProfileAvatar: UpdateProfileAvatarService = ({
   payload,
 }) => {
   return axiosInstance.put(`${BASE_URL}/UpdateAvatar`, payload, {
@@ -13,6 +13,6 @@ export const updateProfileAvatar: UpdateProfileAvatarService = ({
   });
 };
 
-export const deleteProfileAvatar = ({ params }) => {
-  return axiosInstance.delete(`${BASE_URL}/DeleteAvatar`, { params });
+export const deleteUserProfileAvatar = () => {
+  return axiosInstance.delete(`${BASE_URL}/DeleteAvatar`);
 };
