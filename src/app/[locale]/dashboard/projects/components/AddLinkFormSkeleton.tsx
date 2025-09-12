@@ -30,3 +30,4 @@ const AddLinkFormSkeleton = () => {
 };
 
 export default AddLinkFormSkeleton;
+
